@@ -35,6 +35,9 @@ void Menu::render() {
     int h = window.GetHeight() / 4;
     for (auto& texture: textures) {
 			renderer.Copy(texture, SDL2pp::NullOpt, SDL2pp::Rect(window.GetWidth() / 3, h, texture.GetWidth(), texture.GetHeight()));
+            renderer.SetDrawColor(SDL2pp::Color(255,255,255));
+            renderer.DrawRect(SDL2pp::Rect(window.GetWidth() / 3, h, texture.GetWidth(), texture.GetHeight()));
+    renderer.SetDrawColor(SDL2pp::Color(0,0,0));
 			h += texture.GetHeight() + 30;
 	}
     int w = 0;
@@ -133,8 +136,8 @@ int Menu::show_menu() {
                     break;
                 case SDL_MOUSEBUTTONDOWN: 
                     if (event.button.button == SDL_BUTTON_LEFT) {
-                        if (event.motion.x > window.GetWidth() / 3 and event.motion.x < ((window.GetWidth() / 3) + 100)) {
-                            if (event.motion.y > window.GetHeight() / 3 and event.motion.y < (window.GetHeight() / 3 + 50)) {
+                        if (event.motion.x > window.GetWidth() / 3 and event.motion.x < ((window.GetWidth() / 3) + 300)) {
+                            if (event.motion.y > window.GetHeight() / 3 and event.motion.y < (window.GetHeight() / 3 + 100)) {
                                 // tocó play game
                                 return 0;
                             }
