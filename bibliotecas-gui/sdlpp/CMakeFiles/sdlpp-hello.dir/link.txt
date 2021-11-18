@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++11  -rdynamic CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o CMakeFiles/sdlpp-hello.dir/src/board.cpp.o CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o  -o sdlpp-hello -Wl,-Bstatic -lSDL2main libs/libSDL2pp/libSDL2pp.a -Wl,-Bdynamic -lSDL2 -lSDL2_image -lSDL2_ttf 

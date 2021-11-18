@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++11  -rdynamic CMakeFiles/sdlpp-events.dir/src/mainSdlEvents.cpp.o CMakeFiles/sdlpp-events.dir/src/Player.cpp.o CMakeFiles/sdlpp-events.dir/src/Animation.cpp.o  -o sdlpp-events -Wl,-Bstatic -lSDL2main libs/libSDL2pp/libSDL2pp.a -Wl,-Bdynamic -lSDL2 -lSDL2_image -lSDL2_ttf 

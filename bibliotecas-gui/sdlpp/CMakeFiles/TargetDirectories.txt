@@ -1,0 +1,6 @@
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/rebuild_cache.dir
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/sdlpp-hello.dir
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/edit_cache.dir
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/libs/libSDL2pp/CMakeFiles/rebuild_cache.dir
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/libs/libSDL2pp/CMakeFiles/SDL2pp.dir
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/libs/libSDL2pp/CMakeFiles/edit_cache.dir

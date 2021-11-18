@@ -1,0 +1,27 @@
+Performing C++ SOURCE FILE Test SDL2PP_WITH_EXPERIMENTAL_OPTIONAL failed with the following output:
+Change Dir: /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_92e38/fast"
+/usr/bin/make -f CMakeFiles/cmTC_92e38.dir/build.make CMakeFiles/cmTC_92e38.dir/build
+make[1]: Entering directory '/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_92e38.dir/src.cxx.o
+/usr/bin/c++    -std=c++11 -std=c++11 -DSDL2PP_WITH_EXPERIMENTAL_OPTIONAL   -o CMakeFiles/cmTC_92e38.dir/src.cxx.o -c /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/CMakeTmp/src.cxx
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/CMakeTmp/src.cxx: In function ‘int main()’:
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/CMakeTmp/src.cxx:2:19: error: ‘std::experimental’ has not been declared
+ int main() { std::experimental::optional<int> o; return !o; }
+                   ^~~~~~~~~~~~
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/CMakeTmp/src.cxx:2:42: error: expected primary-expression before ‘int’
+ int main() { std::experimental::optional<int> o; return !o; }
+                                          ^~~
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/CMakeTmp/src.cxx:2:58: error: ‘o’ was not declared in this scope
+ int main() { std::experimental::optional<int> o; return !o; }
+                                                          ^
+CMakeFiles/cmTC_92e38.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_92e38.dir/src.cxx.o' failed
+make[1]: *** [CMakeFiles/cmTC_92e38.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_92e38/fast' failed
+make: *** [cmTC_92e38/fast] Error 2
+
+Source file was:
+#include <experimental/optional>
+int main() { std::experimental::optional<int> o; return !o; }
