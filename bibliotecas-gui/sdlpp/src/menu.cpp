@@ -10,11 +10,6 @@
 #include <vector>
 
 
-
-
-
-
-
 #include "menu.h"
 
 
@@ -31,15 +26,21 @@ Menu::Menu(SDL2pp::Renderer& renderer, SDL2pp::Window& window) : renderer(render
     textures.emplace_back(renderer,
                      font.RenderText_Solid("SEE GAME", SDL_Color{255, 255, 255, 255})
                      );
-    renderer.Copy(textures[0], SDL2pp::NullOpt, SDL2pp::Rect(0, 0, 100, 100));
+
 
 }
 
 void Menu::render() {
+    renderer.SetDrawColor(SDL2pp::Color(0,0,0));
     int h = window.GetHeight() / 4;
     for (auto& texture: textures) {
 			renderer.Copy(texture, SDL2pp::NullOpt, SDL2pp::Rect(window.GetWidth() / 3, h, texture.GetWidth(), texture.GetHeight()));
 			h += texture.GetHeight() + 30;
+	}
+    int w = 0;
+    for (auto& letter: text_box) {
+			renderer.Copy(letter, SDL2pp::NullOpt, SDL2pp::Rect(window.GetWidth() / 3 + w, (window.GetHeight()) * 5 / 6, letter.GetWidth(), letter.GetHeight()));
+			w += letter.GetWidth();
 	}
 }
 
@@ -69,6 +70,11 @@ void Menu::play_background_music() {
     dev.Pause(false);
 }
 
+void Menu::render_text_box() {
+    renderer.SetDrawColor(SDL2pp::Color(100,80,37));
+    renderer.FillRect(SDL2pp::Rect(window.GetWidth() / 3 , (window.GetHeight()) * 5 / 6, 230, 30));
+}
+
 int Menu::show_menu() {
 
     bool running = true;
@@ -82,7 +88,7 @@ int Menu::show_menu() {
         TIrar un make clean para vaciar el buffer
     
     */
-   //////////////////7
+   //////////////////
     SDL2pp::Wav wav("assets/menu_song.wav");
         uint8_t* wav_pos = wav.GetBuffer();
         SDL2pp::AudioDevice dev(SDL2pp::NullOpt, 0, wav.GetSpec(), [&wav, &wav_pos](Uint8* stream, int len) {
@@ -110,7 +116,6 @@ int Menu::show_menu() {
 
 
     /////////////////////
-
     SDL2pp::Wav w("assets/play_game_sound.wav");
     /////////////////////
 
@@ -130,18 +135,32 @@ int Menu::show_menu() {
                     if (event.button.button == SDL_BUTTON_LEFT) {
                         if (event.motion.x > window.GetWidth() / 3 and event.motion.x < ((window.GetWidth() / 3) + 100)) {
                             if (event.motion.y > window.GetHeight() / 3 and event.motion.y < (window.GetHeight() / 3 + 50)) {
-
-
-
+                                // tocó play game
                                 return 0;
                             }
                         }
                     }
-
+                    break;
+                case SDL_KEYDOWN:
+                    if (event.key.keysym.sym == SDLK_LEFT and text_box.size() > 0) {
+                            text_box.pop_back();
+                            code.pop_back();
+                        }
+                    break;
+                case SDL_TEXTINPUT: 
+                    SDL2pp::SDLTTF ttf;
+                    SDL2pp::Font font("assets/SIXTY.TTF", 20);
+                    text_box.emplace_back(renderer,
+                        font.RenderText_Solid(event.text.text, SDL_Color{255, 255, 255, 255})
+                    );
+                    code.append(event.text.text);
+                    break;
             }
         }
         try {
+
             renderer.Clear();
+            this->render_text_box();
             this->render();
             renderer.Present();
             SDL_Delay(100);

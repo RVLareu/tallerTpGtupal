@@ -27,21 +27,18 @@ int main(int argc, char** argv){
     // Creo renderer
     SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-
+    // Initialize Menu
     Menu menu(std::ref(renderer), std::ref(window));
+    // Menu loop
     menu.show_menu();
 
     // Initialize a board
     Board board(std::ref(renderer));
+
     board.create_spots();
     board.create_pieces();
 
     SDL2pp::Point mousePos;
-    
-        
-
-
-    
     SDL_Event event;
     bool running = true;
 
@@ -67,6 +64,7 @@ int main(int argc, char** argv){
                     break;
             }
         }
+        
         try {
             renderer.Clear();
             board.render();
