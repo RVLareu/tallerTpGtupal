@@ -4,11 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/board.cpp" "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/sdlpp-hello.dir/src/board.cpp.o"
-  "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/mainSdlHello.cpp" "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o"
-  "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/menu.cpp" "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o"
-  "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/piece.cpp" "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o"
-  "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/spot.cpp" "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o"
+  "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/board.cpp" "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o"
+  "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/mainSdlHello.cpp" "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o"
+  "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/menu.cpp" "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o"
+  "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/piece.cpp" "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o"
+  "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/spot.cpp" "/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

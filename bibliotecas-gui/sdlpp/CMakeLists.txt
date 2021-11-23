@@ -21,13 +21,25 @@ include_directories(${SDL2PP_INCLUDE_DIRS})
 
 
 add_executable (sdlpp-hello
-  src/mainSdlHello.cpp
-  src/piece.cpp
-  src/spot.cpp
-  src/board.cpp
-  src/menu.cpp  
+  src/client/mainSdlHello.cpp
+  src/client/piece.cpp
+  src/client/spot.cpp
+  src/client/board.cpp
+  src/client/menu.cpp  
 )
 
+add_executable (server
+  src/server/main.cpp
+  src/server/rook.cpp
+  src/server/bishop.cpp
+  src/server/pawn.cpp
+  src/server/king.cpp
+  src/server/queen.cpp
+  src/server/piece.cpp
+  src/server/board.cpp
+  src/server/square.cpp
+  src/server/knight.cpp
+)
 
 target_link_libraries(sdlpp-hello ${SDL2PP_LIBRARIES})
 

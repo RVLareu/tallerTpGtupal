@@ -15,7 +15,6 @@
 
 
 
-
 int main(int argc, char** argv){
     // Inicializo biblioteca de SDL
     SDL2pp::SDL sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
@@ -36,12 +35,50 @@ int main(int argc, char** argv){
     Board board(std::ref(renderer));
 
     board.create_spots();
-    board.create_pieces();
 
     SDL2pp::Point mousePos;
     SDL_Event event;
     bool running = true;
+    
+    /*
+        ejemplo para renderizar desde un vector de char
 
+        PIEZA - PROBA - COL - FIL - ILUMINADO
+    */
+    std::vector<char> pieces;
+    
+    // reina blanca en [2,3], violeta
+    pieces.push_back('Q');
+    pieces.push_back(7);
+    pieces.push_back(2);
+    pieces.push_back(3);
+    pieces.push_back(1);
+    // Caballo blanco en [6,5], violeta
+    pieces.push_back('K');
+    pieces.push_back(7);
+    pieces.push_back(5);
+    pieces.push_back(6);
+    pieces.push_back(1);
+    // caballo negro en [1,1], original
+    pieces.push_back('k');
+    pieces.push_back(7);
+    pieces.push_back(1);
+    pieces.push_back(1);
+    pieces.push_back(0);
+    // peon blanco en [7,7], violeta
+    pieces.push_back('P');
+    pieces.push_back(7);
+    pieces.push_back(7);
+    pieces.push_back(7);
+    pieces.push_back(1);
+    
+    // peon negro en [8,8], original
+    pieces.push_back('p');
+    pieces.push_back(8);
+    pieces.push_back(8);
+    pieces.push_back(8);
+    pieces.push_back(0);
+    //////////////////////////////
 
     while (running) {
         
@@ -57,26 +94,20 @@ int main(int argc, char** argv){
                     break;
                 case SDL_MOUSEBUTTONDOWN: 
                     if (event.button.button == SDL_BUTTON_LEFT) {
-                        if (!board.move_piece_if_selected(mousePos.GetX(), mousePos.GetY())) { 
-                            board.select_piece(mousePos);        
-                        }
-                    }
+                        std::cout << board.position_to_spot(mousePos); // mando al servidor, recibo la actualizacion
                     break;
+                    }
             }
         }
-        
         try {
             renderer.Clear();
-            board.render();
-
+            board.render_from_vector(pieces);
             renderer.Present();
             SDL_Delay(100);
-
         } catch (std::exception& e) {
             std::cout << e.what() << std::endl;
             return 1;
         }
     }
-
     return 0;
 }

@@ -6,25 +6,33 @@
 
 #IncludeRegexTransform: 
 
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/board.cpp
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/board.cpp
 board.h
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/board.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/board.h
 piece.h
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/piece.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/piece.h
 spot.h
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/spot.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/spot.h
+stdexcept
+-
 
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/board.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/board.h
 list
 -
+vector
+-
+map
+-
+string
+-
 piece.h
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/piece.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/piece.h
 spot.h
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/spot.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/spot.h
 SDL2pp/SDL2pp.hh
 -
 
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/mainSdlHello.cpp
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/mainSdlHello.cpp
 iostream
 -
 exception
@@ -38,15 +46,15 @@ SDL.h
 iostream
 -
 spot.h
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/spot.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/spot.h
 piece.h
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/piece.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/piece.h
 board.h
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/board.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/board.h
 menu.h
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/menu.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/menu.h
 
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/menu.cpp
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/menu.cpp
 SDL_stdinc.h
 -
 SDL2pp/SDL.hh
@@ -66,29 +74,29 @@ SDL2pp/Wav.hh
 vector
 -
 menu.h
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/menu.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/menu.h
 
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/menu.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/menu.h
 SDL2pp/SDL2pp.hh
 -
 vector
 -
 
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/piece.cpp
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/piece.cpp
 SDL2pp/SDL2pp.hh
 -
 piece.h
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/piece.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/piece.h
 
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/piece.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/piece.h
 SDL2pp/SDL2pp.hh
 -
 
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/spot.cpp
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/spot.cpp
 spot.h
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/spot.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/spot.h
 
-/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/spot.h
+/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/spot.h
 SDL2pp/SDL2pp.hh
 -
 

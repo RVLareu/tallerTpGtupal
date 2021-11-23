@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -124,6 +124,19 @@ sdlpp-hello/fast:
 .PHONY : sdlpp-hello/fast
 
 #=============================================================================
+# Target rules for targets named server
+
+# Build rule for target.
+server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 server
+.PHONY : server
+
+# fast build rule for target.
+server/fast:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/build
+.PHONY : server/fast
+
+#=============================================================================
 # Target rules for targets named SDL2pp
 
 # Build rule for target.
@@ -136,140 +149,410 @@ SDL2pp/fast:
 	$(MAKE) -f libs/libSDL2pp/CMakeFiles/SDL2pp.dir/build.make libs/libSDL2pp/CMakeFiles/SDL2pp.dir/build
 .PHONY : SDL2pp/fast
 
-src/board.o: src/board.cpp.o
+src/client/board.o: src/client/board.cpp.o
 
-.PHONY : src/board.o
-
-# target to build an object file
-src/board.cpp.o:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/board.cpp.o
-.PHONY : src/board.cpp.o
-
-src/board.i: src/board.cpp.i
-
-.PHONY : src/board.i
-
-# target to preprocess a source file
-src/board.cpp.i:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/board.cpp.i
-.PHONY : src/board.cpp.i
-
-src/board.s: src/board.cpp.s
-
-.PHONY : src/board.s
-
-# target to generate assembly for a file
-src/board.cpp.s:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/board.cpp.s
-.PHONY : src/board.cpp.s
-
-src/mainSdlHello.o: src/mainSdlHello.cpp.o
-
-.PHONY : src/mainSdlHello.o
+.PHONY : src/client/board.o
 
 # target to build an object file
-src/mainSdlHello.cpp.o:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o
-.PHONY : src/mainSdlHello.cpp.o
+src/client/board.cpp.o:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o
+.PHONY : src/client/board.cpp.o
 
-src/mainSdlHello.i: src/mainSdlHello.cpp.i
+src/client/board.i: src/client/board.cpp.i
 
-.PHONY : src/mainSdlHello.i
+.PHONY : src/client/board.i
 
 # target to preprocess a source file
-src/mainSdlHello.cpp.i:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.i
-.PHONY : src/mainSdlHello.cpp.i
+src/client/board.cpp.i:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.i
+.PHONY : src/client/board.cpp.i
 
-src/mainSdlHello.s: src/mainSdlHello.cpp.s
+src/client/board.s: src/client/board.cpp.s
 
-.PHONY : src/mainSdlHello.s
+.PHONY : src/client/board.s
 
 # target to generate assembly for a file
-src/mainSdlHello.cpp.s:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.s
-.PHONY : src/mainSdlHello.cpp.s
+src/client/board.cpp.s:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.s
+.PHONY : src/client/board.cpp.s
 
-src/menu.o: src/menu.cpp.o
+src/client/mainSdlHello.o: src/client/mainSdlHello.cpp.o
 
-.PHONY : src/menu.o
+.PHONY : src/client/mainSdlHello.o
 
 # target to build an object file
-src/menu.cpp.o:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o
-.PHONY : src/menu.cpp.o
+src/client/mainSdlHello.cpp.o:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o
+.PHONY : src/client/mainSdlHello.cpp.o
 
-src/menu.i: src/menu.cpp.i
+src/client/mainSdlHello.i: src/client/mainSdlHello.cpp.i
 
-.PHONY : src/menu.i
+.PHONY : src/client/mainSdlHello.i
 
 # target to preprocess a source file
-src/menu.cpp.i:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/menu.cpp.i
-.PHONY : src/menu.cpp.i
+src/client/mainSdlHello.cpp.i:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.i
+.PHONY : src/client/mainSdlHello.cpp.i
 
-src/menu.s: src/menu.cpp.s
+src/client/mainSdlHello.s: src/client/mainSdlHello.cpp.s
 
-.PHONY : src/menu.s
+.PHONY : src/client/mainSdlHello.s
 
 # target to generate assembly for a file
-src/menu.cpp.s:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/menu.cpp.s
-.PHONY : src/menu.cpp.s
+src/client/mainSdlHello.cpp.s:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.s
+.PHONY : src/client/mainSdlHello.cpp.s
 
-src/piece.o: src/piece.cpp.o
+src/client/menu.o: src/client/menu.cpp.o
 
-.PHONY : src/piece.o
+.PHONY : src/client/menu.o
 
 # target to build an object file
-src/piece.cpp.o:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o
-.PHONY : src/piece.cpp.o
+src/client/menu.cpp.o:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o
+.PHONY : src/client/menu.cpp.o
 
-src/piece.i: src/piece.cpp.i
+src/client/menu.i: src/client/menu.cpp.i
 
-.PHONY : src/piece.i
+.PHONY : src/client/menu.i
 
 # target to preprocess a source file
-src/piece.cpp.i:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/piece.cpp.i
-.PHONY : src/piece.cpp.i
+src/client/menu.cpp.i:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.i
+.PHONY : src/client/menu.cpp.i
 
-src/piece.s: src/piece.cpp.s
+src/client/menu.s: src/client/menu.cpp.s
 
-.PHONY : src/piece.s
+.PHONY : src/client/menu.s
 
 # target to generate assembly for a file
-src/piece.cpp.s:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/piece.cpp.s
-.PHONY : src/piece.cpp.s
+src/client/menu.cpp.s:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.s
+.PHONY : src/client/menu.cpp.s
 
-src/spot.o: src/spot.cpp.o
+src/client/piece.o: src/client/piece.cpp.o
 
-.PHONY : src/spot.o
+.PHONY : src/client/piece.o
 
 # target to build an object file
-src/spot.cpp.o:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o
-.PHONY : src/spot.cpp.o
+src/client/piece.cpp.o:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o
+.PHONY : src/client/piece.cpp.o
 
-src/spot.i: src/spot.cpp.i
+src/client/piece.i: src/client/piece.cpp.i
 
-.PHONY : src/spot.i
+.PHONY : src/client/piece.i
 
 # target to preprocess a source file
-src/spot.cpp.i:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/spot.cpp.i
-.PHONY : src/spot.cpp.i
+src/client/piece.cpp.i:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.i
+.PHONY : src/client/piece.cpp.i
 
-src/spot.s: src/spot.cpp.s
+src/client/piece.s: src/client/piece.cpp.s
 
-.PHONY : src/spot.s
+.PHONY : src/client/piece.s
 
 # target to generate assembly for a file
-src/spot.cpp.s:
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/spot.cpp.s
-.PHONY : src/spot.cpp.s
+src/client/piece.cpp.s:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.s
+.PHONY : src/client/piece.cpp.s
+
+src/client/spot.o: src/client/spot.cpp.o
+
+.PHONY : src/client/spot.o
+
+# target to build an object file
+src/client/spot.cpp.o:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o
+.PHONY : src/client/spot.cpp.o
+
+src/client/spot.i: src/client/spot.cpp.i
+
+.PHONY : src/client/spot.i
+
+# target to preprocess a source file
+src/client/spot.cpp.i:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.i
+.PHONY : src/client/spot.cpp.i
+
+src/client/spot.s: src/client/spot.cpp.s
+
+.PHONY : src/client/spot.s
+
+# target to generate assembly for a file
+src/client/spot.cpp.s:
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.s
+.PHONY : src/client/spot.cpp.s
+
+src/server/bishop.o: src/server/bishop.cpp.o
+
+.PHONY : src/server/bishop.o
+
+# target to build an object file
+src/server/bishop.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/bishop.cpp.o
+.PHONY : src/server/bishop.cpp.o
+
+src/server/bishop.i: src/server/bishop.cpp.i
+
+.PHONY : src/server/bishop.i
+
+# target to preprocess a source file
+src/server/bishop.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/bishop.cpp.i
+.PHONY : src/server/bishop.cpp.i
+
+src/server/bishop.s: src/server/bishop.cpp.s
+
+.PHONY : src/server/bishop.s
+
+# target to generate assembly for a file
+src/server/bishop.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/bishop.cpp.s
+.PHONY : src/server/bishop.cpp.s
+
+src/server/board.o: src/server/board.cpp.o
+
+.PHONY : src/server/board.o
+
+# target to build an object file
+src/server/board.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/board.cpp.o
+.PHONY : src/server/board.cpp.o
+
+src/server/board.i: src/server/board.cpp.i
+
+.PHONY : src/server/board.i
+
+# target to preprocess a source file
+src/server/board.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/board.cpp.i
+.PHONY : src/server/board.cpp.i
+
+src/server/board.s: src/server/board.cpp.s
+
+.PHONY : src/server/board.s
+
+# target to generate assembly for a file
+src/server/board.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/board.cpp.s
+.PHONY : src/server/board.cpp.s
+
+src/server/king.o: src/server/king.cpp.o
+
+.PHONY : src/server/king.o
+
+# target to build an object file
+src/server/king.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/king.cpp.o
+.PHONY : src/server/king.cpp.o
+
+src/server/king.i: src/server/king.cpp.i
+
+.PHONY : src/server/king.i
+
+# target to preprocess a source file
+src/server/king.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/king.cpp.i
+.PHONY : src/server/king.cpp.i
+
+src/server/king.s: src/server/king.cpp.s
+
+.PHONY : src/server/king.s
+
+# target to generate assembly for a file
+src/server/king.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/king.cpp.s
+.PHONY : src/server/king.cpp.s
+
+src/server/knight.o: src/server/knight.cpp.o
+
+.PHONY : src/server/knight.o
+
+# target to build an object file
+src/server/knight.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/knight.cpp.o
+.PHONY : src/server/knight.cpp.o
+
+src/server/knight.i: src/server/knight.cpp.i
+
+.PHONY : src/server/knight.i
+
+# target to preprocess a source file
+src/server/knight.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/knight.cpp.i
+.PHONY : src/server/knight.cpp.i
+
+src/server/knight.s: src/server/knight.cpp.s
+
+.PHONY : src/server/knight.s
+
+# target to generate assembly for a file
+src/server/knight.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/knight.cpp.s
+.PHONY : src/server/knight.cpp.s
+
+src/server/main.o: src/server/main.cpp.o
+
+.PHONY : src/server/main.o
+
+# target to build an object file
+src/server/main.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/main.cpp.o
+.PHONY : src/server/main.cpp.o
+
+src/server/main.i: src/server/main.cpp.i
+
+.PHONY : src/server/main.i
+
+# target to preprocess a source file
+src/server/main.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/main.cpp.i
+.PHONY : src/server/main.cpp.i
+
+src/server/main.s: src/server/main.cpp.s
+
+.PHONY : src/server/main.s
+
+# target to generate assembly for a file
+src/server/main.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/main.cpp.s
+.PHONY : src/server/main.cpp.s
+
+src/server/pawn.o: src/server/pawn.cpp.o
+
+.PHONY : src/server/pawn.o
+
+# target to build an object file
+src/server/pawn.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/pawn.cpp.o
+.PHONY : src/server/pawn.cpp.o
+
+src/server/pawn.i: src/server/pawn.cpp.i
+
+.PHONY : src/server/pawn.i
+
+# target to preprocess a source file
+src/server/pawn.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/pawn.cpp.i
+.PHONY : src/server/pawn.cpp.i
+
+src/server/pawn.s: src/server/pawn.cpp.s
+
+.PHONY : src/server/pawn.s
+
+# target to generate assembly for a file
+src/server/pawn.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/pawn.cpp.s
+.PHONY : src/server/pawn.cpp.s
+
+src/server/piece.o: src/server/piece.cpp.o
+
+.PHONY : src/server/piece.o
+
+# target to build an object file
+src/server/piece.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/piece.cpp.o
+.PHONY : src/server/piece.cpp.o
+
+src/server/piece.i: src/server/piece.cpp.i
+
+.PHONY : src/server/piece.i
+
+# target to preprocess a source file
+src/server/piece.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/piece.cpp.i
+.PHONY : src/server/piece.cpp.i
+
+src/server/piece.s: src/server/piece.cpp.s
+
+.PHONY : src/server/piece.s
+
+# target to generate assembly for a file
+src/server/piece.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/piece.cpp.s
+.PHONY : src/server/piece.cpp.s
+
+src/server/queen.o: src/server/queen.cpp.o
+
+.PHONY : src/server/queen.o
+
+# target to build an object file
+src/server/queen.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/queen.cpp.o
+.PHONY : src/server/queen.cpp.o
+
+src/server/queen.i: src/server/queen.cpp.i
+
+.PHONY : src/server/queen.i
+
+# target to preprocess a source file
+src/server/queen.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/queen.cpp.i
+.PHONY : src/server/queen.cpp.i
+
+src/server/queen.s: src/server/queen.cpp.s
+
+.PHONY : src/server/queen.s
+
+# target to generate assembly for a file
+src/server/queen.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/queen.cpp.s
+.PHONY : src/server/queen.cpp.s
+
+src/server/rook.o: src/server/rook.cpp.o
+
+.PHONY : src/server/rook.o
+
+# target to build an object file
+src/server/rook.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/rook.cpp.o
+.PHONY : src/server/rook.cpp.o
+
+src/server/rook.i: src/server/rook.cpp.i
+
+.PHONY : src/server/rook.i
+
+# target to preprocess a source file
+src/server/rook.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/rook.cpp.i
+.PHONY : src/server/rook.cpp.i
+
+src/server/rook.s: src/server/rook.cpp.s
+
+.PHONY : src/server/rook.s
+
+# target to generate assembly for a file
+src/server/rook.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/rook.cpp.s
+.PHONY : src/server/rook.cpp.s
+
+src/server/square.o: src/server/square.cpp.o
+
+.PHONY : src/server/square.o
+
+# target to build an object file
+src/server/square.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/square.cpp.o
+.PHONY : src/server/square.cpp.o
+
+src/server/square.i: src/server/square.cpp.i
+
+.PHONY : src/server/square.i
+
+# target to preprocess a source file
+src/server/square.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/square.cpp.i
+.PHONY : src/server/square.cpp.i
+
+src/server/square.s: src/server/square.cpp.s
+
+.PHONY : src/server/square.s
+
+# target to generate assembly for a file
+src/server/square.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/square.cpp.s
+.PHONY : src/server/square.cpp.s
 
 # Help Target
 help:
@@ -277,25 +560,56 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
-	@echo "... sdlpp-hello"
 	@echo "... edit_cache"
+	@echo "... sdlpp-hello"
+	@echo "... rebuild_cache"
+	@echo "... server"
 	@echo "... SDL2pp"
-	@echo "... src/board.o"
-	@echo "... src/board.i"
-	@echo "... src/board.s"
-	@echo "... src/mainSdlHello.o"
-	@echo "... src/mainSdlHello.i"
-	@echo "... src/mainSdlHello.s"
-	@echo "... src/menu.o"
-	@echo "... src/menu.i"
-	@echo "... src/menu.s"
-	@echo "... src/piece.o"
-	@echo "... src/piece.i"
-	@echo "... src/piece.s"
-	@echo "... src/spot.o"
-	@echo "... src/spot.i"
-	@echo "... src/spot.s"
+	@echo "... src/client/board.o"
+	@echo "... src/client/board.i"
+	@echo "... src/client/board.s"
+	@echo "... src/client/mainSdlHello.o"
+	@echo "... src/client/mainSdlHello.i"
+	@echo "... src/client/mainSdlHello.s"
+	@echo "... src/client/menu.o"
+	@echo "... src/client/menu.i"
+	@echo "... src/client/menu.s"
+	@echo "... src/client/piece.o"
+	@echo "... src/client/piece.i"
+	@echo "... src/client/piece.s"
+	@echo "... src/client/spot.o"
+	@echo "... src/client/spot.i"
+	@echo "... src/client/spot.s"
+	@echo "... src/server/bishop.o"
+	@echo "... src/server/bishop.i"
+	@echo "... src/server/bishop.s"
+	@echo "... src/server/board.o"
+	@echo "... src/server/board.i"
+	@echo "... src/server/board.s"
+	@echo "... src/server/king.o"
+	@echo "... src/server/king.i"
+	@echo "... src/server/king.s"
+	@echo "... src/server/knight.o"
+	@echo "... src/server/knight.i"
+	@echo "... src/server/knight.s"
+	@echo "... src/server/main.o"
+	@echo "... src/server/main.i"
+	@echo "... src/server/main.s"
+	@echo "... src/server/pawn.o"
+	@echo "... src/server/pawn.i"
+	@echo "... src/server/pawn.s"
+	@echo "... src/server/piece.o"
+	@echo "... src/server/piece.i"
+	@echo "... src/server/piece.s"
+	@echo "... src/server/queen.o"
+	@echo "... src/server/queen.i"
+	@echo "... src/server/queen.s"
+	@echo "... src/server/rook.o"
+	@echo "... src/server/rook.i"
+	@echo "... src/server/rook.s"
+	@echo "... src/server/square.o"
+	@echo "... src/server/square.i"
+	@echo "... src/server/square.s"
 .PHONY : help
 
 

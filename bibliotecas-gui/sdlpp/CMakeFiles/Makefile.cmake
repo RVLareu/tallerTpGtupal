@@ -57,5 +57,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/sdlpp-hello.dir/DependInfo.cmake"
+  "CMakeFiles/server.dir/DependInfo.cmake"
   "libs/libSDL2pp/CMakeFiles/SDL2pp.dir/DependInfo.cmake"
   )

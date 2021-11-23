@@ -1,9 +1,9 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o"
-  "CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o"
-  "CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o"
-  "CMakeFiles/sdlpp-hello.dir/src/board.cpp.o"
-  "CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o"
+  "CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o"
+  "CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o"
+  "CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o"
+  "CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o"
+  "CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o"
   "sdlpp-hello.pdb"
   "sdlpp-hello"
 )

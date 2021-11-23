@@ -57,142 +57,142 @@ include CMakeFiles/sdlpp-hello.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/sdlpp-hello.dir/flags.make
 
-CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o: CMakeFiles/sdlpp-hello.dir/flags.make
-CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o: src/mainSdlHello.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o -c /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/mainSdlHello.cpp
+CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o: CMakeFiles/sdlpp-hello.dir/flags.make
+CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o: src/client/mainSdlHello.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o -c /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/mainSdlHello.cpp
 
-CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/mainSdlHello.cpp > CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.i
+CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/mainSdlHello.cpp > CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.i
 
-CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/mainSdlHello.cpp -o CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.s
+CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/mainSdlHello.cpp -o CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.s
 
-CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o.requires:
+CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o.requires:
 
-.PHONY : CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o.requires
+.PHONY : CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o.requires
 
-CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o.provides: CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o.requires
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o.provides.build
-.PHONY : CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o.provides
+CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o.provides: CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o.requires
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o.provides.build
+.PHONY : CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o.provides
 
-CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o.provides.build: CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o
-
-
-CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o: CMakeFiles/sdlpp-hello.dir/flags.make
-CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o: src/piece.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o -c /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/piece.cpp
-
-CMakeFiles/sdlpp-hello.dir/src/piece.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sdlpp-hello.dir/src/piece.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/piece.cpp > CMakeFiles/sdlpp-hello.dir/src/piece.cpp.i
-
-CMakeFiles/sdlpp-hello.dir/src/piece.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sdlpp-hello.dir/src/piece.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/piece.cpp -o CMakeFiles/sdlpp-hello.dir/src/piece.cpp.s
-
-CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o.requires:
-
-.PHONY : CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o.requires
-
-CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o.provides: CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o.requires
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o.provides.build
-.PHONY : CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o.provides
-
-CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o.provides.build: CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o
+CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o.provides.build: CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o
 
 
-CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o: CMakeFiles/sdlpp-hello.dir/flags.make
-CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o: src/spot.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o -c /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/spot.cpp
+CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o: CMakeFiles/sdlpp-hello.dir/flags.make
+CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o: src/client/piece.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o -c /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/piece.cpp
 
-CMakeFiles/sdlpp-hello.dir/src/spot.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sdlpp-hello.dir/src/spot.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/spot.cpp > CMakeFiles/sdlpp-hello.dir/src/spot.cpp.i
+CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/piece.cpp > CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.i
 
-CMakeFiles/sdlpp-hello.dir/src/spot.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sdlpp-hello.dir/src/spot.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/spot.cpp -o CMakeFiles/sdlpp-hello.dir/src/spot.cpp.s
+CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/piece.cpp -o CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.s
 
-CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o.requires:
+CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o.requires:
 
-.PHONY : CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o.requires
+.PHONY : CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o.requires
 
-CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o.provides: CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o.requires
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o.provides.build
-.PHONY : CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o.provides
+CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o.provides: CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o.requires
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o.provides.build
+.PHONY : CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o.provides
 
-CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o.provides.build: CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o
-
-
-CMakeFiles/sdlpp-hello.dir/src/board.cpp.o: CMakeFiles/sdlpp-hello.dir/flags.make
-CMakeFiles/sdlpp-hello.dir/src/board.cpp.o: src/board.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sdlpp-hello.dir/src/board.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sdlpp-hello.dir/src/board.cpp.o -c /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/board.cpp
-
-CMakeFiles/sdlpp-hello.dir/src/board.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sdlpp-hello.dir/src/board.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/board.cpp > CMakeFiles/sdlpp-hello.dir/src/board.cpp.i
-
-CMakeFiles/sdlpp-hello.dir/src/board.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sdlpp-hello.dir/src/board.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/board.cpp -o CMakeFiles/sdlpp-hello.dir/src/board.cpp.s
-
-CMakeFiles/sdlpp-hello.dir/src/board.cpp.o.requires:
-
-.PHONY : CMakeFiles/sdlpp-hello.dir/src/board.cpp.o.requires
-
-CMakeFiles/sdlpp-hello.dir/src/board.cpp.o.provides: CMakeFiles/sdlpp-hello.dir/src/board.cpp.o.requires
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/board.cpp.o.provides.build
-.PHONY : CMakeFiles/sdlpp-hello.dir/src/board.cpp.o.provides
-
-CMakeFiles/sdlpp-hello.dir/src/board.cpp.o.provides.build: CMakeFiles/sdlpp-hello.dir/src/board.cpp.o
+CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o.provides.build: CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o
 
 
-CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o: CMakeFiles/sdlpp-hello.dir/flags.make
-CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o: src/menu.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o -c /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/menu.cpp
+CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o: CMakeFiles/sdlpp-hello.dir/flags.make
+CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o: src/client/spot.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o -c /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/spot.cpp
 
-CMakeFiles/sdlpp-hello.dir/src/menu.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sdlpp-hello.dir/src/menu.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/menu.cpp > CMakeFiles/sdlpp-hello.dir/src/menu.cpp.i
+CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/spot.cpp > CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.i
 
-CMakeFiles/sdlpp-hello.dir/src/menu.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sdlpp-hello.dir/src/menu.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/menu.cpp -o CMakeFiles/sdlpp-hello.dir/src/menu.cpp.s
+CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/spot.cpp -o CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.s
 
-CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o.requires:
+CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o.requires:
 
-.PHONY : CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o.requires
+.PHONY : CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o.requires
 
-CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o.provides: CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o.requires
-	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o.provides.build
-.PHONY : CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o.provides
+CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o.provides: CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o.requires
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o.provides.build
+.PHONY : CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o.provides
 
-CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o.provides.build: CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o
+CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o.provides.build: CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o
+
+
+CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o: CMakeFiles/sdlpp-hello.dir/flags.make
+CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o: src/client/board.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o -c /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/board.cpp
+
+CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/board.cpp > CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.i
+
+CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/board.cpp -o CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.s
+
+CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o.requires:
+
+.PHONY : CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o.requires
+
+CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o.provides: CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o.requires
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o.provides.build
+.PHONY : CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o.provides
+
+CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o.provides.build: CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o
+
+
+CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o: CMakeFiles/sdlpp-hello.dir/flags.make
+CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o: src/client/menu.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o -c /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/menu.cpp
+
+CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/menu.cpp > CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.i
+
+CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/romanvl97/Desktop/tallerTpGtupal/bibliotecas-gui/sdlpp/src/client/menu.cpp -o CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.s
+
+CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o.requires:
+
+.PHONY : CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o.requires
+
+CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o.provides: CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o.requires
+	$(MAKE) -f CMakeFiles/sdlpp-hello.dir/build.make CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o.provides.build
+.PHONY : CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o.provides
+
+CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o.provides.build: CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o
 
 
 # Object files for target sdlpp-hello
 sdlpp__hello_OBJECTS = \
-"CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o" \
-"CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o" \
-"CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o" \
-"CMakeFiles/sdlpp-hello.dir/src/board.cpp.o" \
-"CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o"
+"CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o" \
+"CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o" \
+"CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o" \
+"CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o" \
+"CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o"
 
 # External object files for target sdlpp-hello
 sdlpp__hello_EXTERNAL_OBJECTS =
 
-sdlpp-hello: CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o
-sdlpp-hello: CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o
-sdlpp-hello: CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o
-sdlpp-hello: CMakeFiles/sdlpp-hello.dir/src/board.cpp.o
-sdlpp-hello: CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o
+sdlpp-hello: CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o
+sdlpp-hello: CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o
+sdlpp-hello: CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o
+sdlpp-hello: CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o
+sdlpp-hello: CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o
 sdlpp-hello: CMakeFiles/sdlpp-hello.dir/build.make
 sdlpp-hello: /usr/lib/x86_64-linux-gnu/libSDL2main.a
 sdlpp-hello: libs/libSDL2pp/libSDL2pp.a
@@ -208,11 +208,11 @@ CMakeFiles/sdlpp-hello.dir/build: sdlpp-hello
 
 .PHONY : CMakeFiles/sdlpp-hello.dir/build
 
-CMakeFiles/sdlpp-hello.dir/requires: CMakeFiles/sdlpp-hello.dir/src/mainSdlHello.cpp.o.requires
-CMakeFiles/sdlpp-hello.dir/requires: CMakeFiles/sdlpp-hello.dir/src/piece.cpp.o.requires
-CMakeFiles/sdlpp-hello.dir/requires: CMakeFiles/sdlpp-hello.dir/src/spot.cpp.o.requires
-CMakeFiles/sdlpp-hello.dir/requires: CMakeFiles/sdlpp-hello.dir/src/board.cpp.o.requires
-CMakeFiles/sdlpp-hello.dir/requires: CMakeFiles/sdlpp-hello.dir/src/menu.cpp.o.requires
+CMakeFiles/sdlpp-hello.dir/requires: CMakeFiles/sdlpp-hello.dir/src/client/mainSdlHello.cpp.o.requires
+CMakeFiles/sdlpp-hello.dir/requires: CMakeFiles/sdlpp-hello.dir/src/client/piece.cpp.o.requires
+CMakeFiles/sdlpp-hello.dir/requires: CMakeFiles/sdlpp-hello.dir/src/client/spot.cpp.o.requires
+CMakeFiles/sdlpp-hello.dir/requires: CMakeFiles/sdlpp-hello.dir/src/client/board.cpp.o.requires
+CMakeFiles/sdlpp-hello.dir/requires: CMakeFiles/sdlpp-hello.dir/src/client/menu.cpp.o.requires
 
 .PHONY : CMakeFiles/sdlpp-hello.dir/requires
 
