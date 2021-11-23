@@ -8,10 +8,16 @@
 #include "queen.h"
 
 #include <iostream>
+#include <functional>
 
 Board::Board() {
 
 }
+
+std::vector<std::tuple<int, int>> Board::piece_can_move(int col, int row) {
+     std::vector<std::tuple<int, int>> positions_available;
+}
+
 
 void Board::create_board() {
 
@@ -72,7 +78,39 @@ void Board::create_board() {
 
     board.at(7).at(3).set_piece(std::move(King(3, 7, 0, float(1))));
 
+
+
+    set_movement_rules();
 }
+
+bool Board::in_bounds(int col, int row) {
+    if (row > 7 || col > 7 || row < 0 || col < 0) return false;
+    return true;
+}
+
+vector<tuple<int, int>> Board::king_possible_moves(int col, int row) {
+    vector<tuple<int, int>> possible_moves;
+    for (int r = -1; r < 2; r++) {
+        for (int c = -1; c < 2; c ++) {
+            if (r != 0 and c != 0) {
+                if (in_bounds(col + c, row + r)) {
+                    if (board.at(row + c).at(col + c).is_empty()) {
+                        possible_moves.emplace_back(row + r, col + c);
+                    }
+                }
+            }
+        }
+
+    }
+
+}
+
+
+void Board::set_movement_rules() {
+    board_piece_map["k"] = king_possible_moves;
+}
+
+
 
 void Board::print_board() {
     for (int i = 0; i < 8; i++) {

@@ -6,6 +6,7 @@ Square::Square(int col, int row) : col(col), row(row) {
 
 }
 
+
 void Square::set_piece(Piece piece) {
     this->piece = std::move(piece);
     this->empty = false;

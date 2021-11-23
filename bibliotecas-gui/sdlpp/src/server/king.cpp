@@ -1,7 +1,7 @@
 #include "king.h"
 
 
-King::King(int col, int row, int color, float p) : Piece(col, row, color, p) {
+King::King(int col, int row, int color, float p) : Piece(col, row, color, p, "k") {
     
 }
 

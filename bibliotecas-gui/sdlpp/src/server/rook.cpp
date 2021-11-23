@@ -3,7 +3,7 @@
 #include <vector>
 
 
-Rook::Rook(int col, int row, int color, float p) : Piece(col, row, color, p) {
+Rook::Rook(int col, int row, int color, float p) : Piece(col, row, color, p, "r") {
     
 }
 

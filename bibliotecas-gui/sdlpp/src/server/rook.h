@@ -5,5 +5,7 @@ class Rook : public Piece {
 
     public:
         Rook(int col, int row, int color, float p);
+
+
         bool can_move(int col, int row);
 };

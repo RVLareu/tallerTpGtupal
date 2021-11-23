@@ -4,11 +4,13 @@ Piece::Piece() {
     
 }
 
-Piece::Piece(int col, int row, int color, float p) : 
+
+
+Piece::Piece(int col, int row, int color, float p, std::string name) : 
                                                 col(col),
                                                     row(row),
                                                         color(color),
-                                                            p(p){
+                                                            p(p), name(name){
 
 }
 std::tuple<int, int> Piece::get_position() {
@@ -33,3 +35,4 @@ void Piece::set_prob(float p) {
 bool Piece::can_move(int col, int row) {
 
 }
+
