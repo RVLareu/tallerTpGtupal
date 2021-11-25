@@ -1,5 +1,5 @@
 #include "piece.h"
-
+#include <iostream>
 Piece::Piece() {
     
 }
@@ -32,7 +32,9 @@ void Piece::set_prob(float p) {
     this->p = p;
 }
 
-bool Piece::can_move(int col, int row) {
-
+std::vector<std::tuple<int, int>> Piece::can_move(int col, int row) {
+    std::vector<std::tuple<int, int>> moves;
+    std::cout << "ASDASDSAAAAAAAAAAAAa";
+    return moves;
 }
 

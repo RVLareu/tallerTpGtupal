@@ -10,9 +10,17 @@ int main(int argc, char* argv[]) {
 
  
     Board board;
-    board.create_board();
+    board.piece_can_move(0,0);
+    board.piece_can_move(1,0);
+    board.piece_can_move(2,0);
+    board.piece_can_move(3,0);
+    board.piece_can_move(4,0);
+    board.move_piece(4,0,4,5);
+    board.piece_can_move(4,5);
+    board.piece_can_move(5,0);
+    board.piece_can_move(5,1);
+    
     board.print_board();
 
-    board.piece_can_move(0,0);
     return 0;
 }

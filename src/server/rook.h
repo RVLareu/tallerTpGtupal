@@ -7,5 +7,5 @@ class Rook : public Piece {
         Rook(int col, int row, int color, float p);
 
 
-        bool can_move(int col, int row);
+    std::vector<std::tuple<int, int>> can_move(int col, int row) override;
 };

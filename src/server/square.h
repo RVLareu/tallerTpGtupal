@@ -7,13 +7,15 @@ class Square {
         
         int row;
         
-        Piece piece;
+        Piece* piece;
         
         bool empty;
     public:
+        Square();
+
         Square(int col, int row);
         
-        void set_piece(Piece piece);
+        void set_piece(Piece* piece);
         
         void set_col(int col);
         
@@ -22,4 +24,10 @@ class Square {
         bool is_empty();
 
         void empty_square();
+
+        Piece* get_piece();
+
+        std::vector<std::tuple<int, int>> piece_can_move(int col, int row);
+
+        ~Square();
 };

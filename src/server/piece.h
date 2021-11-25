@@ -32,7 +32,9 @@ class Piece {
         
         void set_prob(float p);
         
-        virtual bool can_move(int col, int row);
+        virtual std::vector<std::tuple<int, int>> can_move(int col, int row) = 0;
+
+        // virtual ~Piece() = 0;
 };
 
 #endif

@@ -17,10 +17,6 @@ class Board {
 
         board_piece_map pieces_movement;
 
-        void set_movement_rules();
-
-        vector<tuple<int, int>> king_possible_moves(int col, int row);
-
         bool in_bounds(int col, int row);
 
     public:
@@ -29,11 +25,13 @@ class Board {
 
         void create_board();
 
+        vector<tuple<int, int>> piece_can_move(int col, int row);
+        
+        void move_piece(int start_col, int start_row, int end_col, int end_row);
+
         void print_board();
 
-        vector<tuple<int, int>> piece_can_move(int col, int row);
-
-        
+        ~Board();
 
 
 };
