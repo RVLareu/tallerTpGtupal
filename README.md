@@ -1,5 +1,8 @@
-# tallerTpGrupal
+# Trabajo Práctico Grupal: Ajedrez Cuántico
 
-te paras en bibliotecas-gui/sdlpp/ y tiras un `make`. </br>
+### 2021 - 2C - Curso Veiga
 
-tirar un `make clean` entre ejecuciones, sino tira un error por el buffer para la musica, falta resolver que se vacie al terminar la ejecucion
+</br>
+
+* Reberendo, Manuel 
+* Vázquez Lareu, Román - 100815
