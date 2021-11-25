@@ -1,0 +1,7 @@
+/home/manu/Desktop/tallerTpGtupal/CMakeFiles/rebuild_cache.dir
+/home/manu/Desktop/tallerTpGtupal/CMakeFiles/edit_cache.dir
+/home/manu/Desktop/tallerTpGtupal/CMakeFiles/server.dir
+/home/manu/Desktop/tallerTpGtupal/CMakeFiles/sdlpp-hello.dir
+/home/manu/Desktop/tallerTpGtupal/libs/libSDL2pp/CMakeFiles/rebuild_cache.dir
+/home/manu/Desktop/tallerTpGtupal/libs/libSDL2pp/CMakeFiles/edit_cache.dir
+/home/manu/Desktop/tallerTpGtupal/libs/libSDL2pp/CMakeFiles/SDL2pp.dir
