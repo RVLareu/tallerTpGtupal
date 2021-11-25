@@ -31,6 +31,8 @@ class Board {
 
         void print_board();
 
+        vector<tuple<int, int>> piece_path(std::vector<std::tuple<int, int>> positions_available, int col, int row, std::string piece);
+
         ~Board();
 
 

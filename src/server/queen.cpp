@@ -10,9 +10,9 @@ std::vector<std::tuple<int, int>> Queen::can_move(int col, int row) {
     int b_col = this->col;
     int b_row = this->row;
     // diagonals
-    for (int aux_col = 0; aux_col< 8; aux_col++) {
-        for (int aux_row = 0; aux_row < 8; aux_row++) {
-            if ((aux_col - col == aux_row - row) || (aux_col - col == -(aux_row - row))) {
+    for (int aux_row = 0; aux_row< 8; aux_row++) {
+        for (int aux_col = 0; aux_col < 8; aux_col++) {
+            if (!(aux_col - col == aux_row - row) != !(aux_col - col == -(aux_row - row))) {
                 possible_moves.emplace_back(aux_row, aux_col);
             }
         }
@@ -20,7 +20,7 @@ std::vector<std::tuple<int, int>> Queen::can_move(int col, int row) {
     // same row / col
     for (int aux_col = 0; aux_col< 8; aux_col++) {
         for (int aux_row = 0; aux_row < 8; aux_row++) {
-            if ((aux_col == col) || (aux_row == row)) {
+            if (!(aux_col == col) != !(aux_row == row)) {
                 possible_moves.emplace_back(aux_row, aux_col);
             }
         }
@@ -29,13 +29,12 @@ std::vector<std::tuple<int, int>> Queen::can_move(int col, int row) {
 
 //print 
     std::cout << "Queen\n";
-    std::vector<std::tuple<int, int>>::iterator it;
-    for (int i = 0; i < 8; i ++) {
-        for (int j = 0; j < 8; j++) {
+    for (int row = 0; row < 8; row ++) {
+        for (int col = 0; col < 8; col++) {
             int found = 0;
             for (auto t: possible_moves) {
                 
-                if (std::get<0>(t) == i and std::get<1>(t) == j) {
+                if (std::get<0>(t) == row and std::get<1>(t) == col) {
                     std::cout << " x ";
                     found = 1;
                     break;
