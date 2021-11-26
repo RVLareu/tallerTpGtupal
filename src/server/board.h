@@ -1,4 +1,4 @@
-#include "square.h"
+#include "piece.h"
 
 #include <vector>
 #include <map>
@@ -6,34 +6,30 @@ using namespace std;
 
 class Board;
 
-typedef vector<tuple<int, int>> (Board::*board_method_t)(int,int);
-typedef map<string, board_method_t> board_piece_map;
-
-
+typedef std::map<int, map<int,Piece*>> board_map;
 
 class Board {
-    private:
-        std::vector<std::vector<Square>> board;
-
-        board_piece_map pieces_movement;
+    private:        
+        board_map board;        
 
         bool in_bounds(int col, int row);
 
+        int sign(int n);
     public:
 
         Board();
 
         void create_board();
-
-        vector<tuple<int, int>> piece_can_move(int col, int row);
         
-        void move_piece(int start_col, int start_row, int end_col, int end_row);
+        // Check if square has piece or not
+        bool square_is_empty(int row, int col);
+
+        vector<tuple<int, int>> piece_can_move(int row, int col);
+        
+        void move_piece(int start_row, int start_col, int end_row, int end_col);
 
         void print_board();
 
-        vector<tuple<int, int>> piece_path(std::vector<std::tuple<int, int>> positions_available, int col, int row, std::string piece);
-
-        ~Board();
-
+        vector<tuple<int, int>> filter_possible_movements(std::vector<std::tuple<int, int>> positions_available, int row, int col, Piece * piece);
 
 };

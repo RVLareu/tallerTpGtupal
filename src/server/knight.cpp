@@ -1,19 +1,17 @@
 #include "knight.h"
 #include <iostream>
-Knight::Knight(int col, int row, int color, float p) : Piece(col, row, color, p, "n") {
+Knight::Knight(int color, float p) : Piece(color, p, color == 1 ? "n" : "N") {
 
 }
 
-std::vector<std::tuple<int, int>> Knight::can_move(int col, int row) {
+std::vector<std::tuple<int, int>> Knight::can_move(int origin_row, int origin_col) {
     std::vector<std::tuple<int, int>> possible_moves;
-    std::vector<int> col_offset = {-2, -1, 1, 2, 2, 1, -1, -2};
-    std::vector<int> row_offset = {1, 2, 2, 1, -1, -2, -2, -1};
-
-    int n_col = this->col;
-    int n_row = this->row;
+    const std::vector<int> col_offset = {-2, -1, 1, 2, 2, 1, -1, -2};
+    const std::vector<int> row_offset = {1, 2, 2, 1, -1, -2, -2, -1};
+    
     for (int off = 0; off < 8; off++) {
-        int dst_row = n_row + row_offset[off];
-        int dst_col = n_col + col_offset[off];
+        int dst_row = origin_row + row_offset[off];
+        int dst_col = origin_col + col_offset[off];
 
         if (dst_row >= 0 and dst_row < 8 and dst_col >= 0 and dst_col < 8) {
             possible_moves.emplace_back(dst_row, dst_col);

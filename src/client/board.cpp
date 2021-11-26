@@ -12,7 +12,7 @@ Board::Board(SDL2pp::Renderer& renderer) : renderer(renderer) {
     map_pieces['b'] = "assets/BishopB.png";
     map_pieces['k'] = "assets/KingB.png";
     map_pieces['q'] = "assets/QueenB.png";
-    map_pieces['k'] = "assets/KingB.png";
+    map_pieces['n'] = "assets/KnightB.png";
 
     // white pieces
     map_pieces['P'] = "assets/PawnW.png";
@@ -20,7 +20,7 @@ Board::Board(SDL2pp::Renderer& renderer) : renderer(renderer) {
     map_pieces['B'] = "assets/BishopW.png";
     map_pieces['K'] = "assets/KingW.png";
     map_pieces['Q'] = "assets/QueenW.png";
-    map_pieces['K'] = "assets/KingW.png";
+    map_pieces['N'] = "assets/KnightW.png";
 
 
 }
@@ -81,10 +81,10 @@ void Board::render_from_vector(std::vector<char> board) {
     int size_spot = 100;
     for (int i = 0; i < board.size(); i += 5) {
         if (board[i] != 0) {
-            pieces.emplace_back(renderer, (board[i+2]-1) * size_spot, (board[i+3]-1) * size_spot, map_pieces.at(board[i]));
+            pieces.emplace_back(renderer, (board[i+2]) * size_spot, (board[i+3]) * size_spot, map_pieces.at(board[i]));
         }
         if (board[i+4] == 1) {
-            spots_painted.emplace_back(renderer,SDL2pp::Rect((board[i+2]-1) * size_spot,  (board[i+3]-1) * size_spot, size_spot , size_spot), SDL2pp::Color(30,80,100));
+            spots_painted.emplace_back(renderer,SDL2pp::Rect((board[i+2]) * size_spot,  (board[i+3]) * size_spot, size_spot , size_spot), SDL2pp::Color(30,80,100));
         }
         
     }

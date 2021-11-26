@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/manu/Desktop/tallerTpGtupal
+CMAKE_SOURCE_DIR = /home/manu/Desktop/Tp_final/tallerTpGtupal
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/manu/Desktop/tallerTpGtupal
+CMAKE_BINARY_DIR = /home/manu/Desktop/Tp_final/tallerTpGtupal
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/manu/Desktop/tallerTpGtupal/CMakeFiles /home/manu/Desktop/tallerTpGtupal/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/manu/Desktop/Tp_final/tallerTpGtupal/CMakeFiles /home/manu/Desktop/Tp_final/tallerTpGtupal/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/manu/Desktop/tallerTpGtupal/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/manu/Desktop/Tp_final/tallerTpGtupal/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -527,33 +527,6 @@ src/server/rook.cpp.s:
 	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/rook.cpp.s
 .PHONY : src/server/rook.cpp.s
 
-src/server/square.o: src/server/square.cpp.o
-
-.PHONY : src/server/square.o
-
-# target to build an object file
-src/server/square.cpp.o:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/square.cpp.o
-.PHONY : src/server/square.cpp.o
-
-src/server/square.i: src/server/square.cpp.i
-
-.PHONY : src/server/square.i
-
-# target to preprocess a source file
-src/server/square.cpp.i:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/square.cpp.i
-.PHONY : src/server/square.cpp.i
-
-src/server/square.s: src/server/square.cpp.s
-
-.PHONY : src/server/square.s
-
-# target to generate assembly for a file
-src/server/square.cpp.s:
-	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server/square.cpp.s
-.PHONY : src/server/square.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -607,9 +580,6 @@ help:
 	@echo "... src/server/rook.o"
 	@echo "... src/server/rook.i"
 	@echo "... src/server/rook.s"
-	@echo "... src/server/square.o"
-	@echo "... src/server/square.i"
-	@echo "... src/server/square.s"
 .PHONY : help
 
 

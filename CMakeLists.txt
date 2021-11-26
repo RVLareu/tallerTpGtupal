@@ -36,8 +36,7 @@ add_executable (server
   src/server/king.cpp
   src/server/queen.cpp
   src/server/piece.cpp
-  src/server/board.cpp
-  src/server/square.cpp
+  src/server/board.cpp  
   src/server/knight.cpp
 )
 

@@ -1,18 +1,16 @@
 #include "queen.h"
 #include <iostream>
 
-Queen::Queen(int col, int row, int color, float p) : Piece(col, row, color, p, "q") {
+Queen::Queen(int color, float p) : Piece(color, p, color == 1 ? "q" : "Q") {
     
 }
 
-std::vector<std::tuple<int, int>> Queen::can_move(int col, int row) {
-    std::vector<std::tuple<int, int>> possible_moves;
-    int b_col = this->col;
-    int b_row = this->row;
+std::vector<std::tuple<int, int>> Queen::can_move(int origin_row, int origin_col) {
+    std::vector<std::tuple<int, int>> possible_moves;    
     // diagonals
     for (int aux_row = 0; aux_row< 8; aux_row++) {
         for (int aux_col = 0; aux_col < 8; aux_col++) {
-            if (!(aux_col - col == aux_row - row) != !(aux_col - col == -(aux_row - row))) {
+            if (!(aux_col - origin_col == aux_row - origin_row) != !(aux_col - origin_col == -(aux_row - origin_row))) {
                 possible_moves.emplace_back(aux_row, aux_col);
             }
         }
@@ -20,7 +18,7 @@ std::vector<std::tuple<int, int>> Queen::can_move(int col, int row) {
     // same row / col
     for (int aux_col = 0; aux_col< 8; aux_col++) {
         for (int aux_row = 0; aux_row < 8; aux_row++) {
-            if (!(aux_col == col) != !(aux_row == row)) {
+            if (!(aux_col == origin_col) != !(aux_row == origin_row)) {
                 possible_moves.emplace_back(aux_row, aux_col);
             }
         }

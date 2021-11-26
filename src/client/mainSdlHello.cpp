@@ -45,41 +45,42 @@ int main(int argc, char** argv){
 
         PIEZA - PROBA - COL - FIL - ILUMINADO
     */
-    std::vector<char> pieces;
+    // std::vector<char> pieces;
     
-    // reina blanca en [2,3], violeta
-    pieces.push_back('Q');
-    pieces.push_back(7);
-    pieces.push_back(2);
-    pieces.push_back(3);
-    pieces.push_back(1);
-    // Caballo blanco en [6,5], violeta
-    pieces.push_back('K');
-    pieces.push_back(7);
-    pieces.push_back(5);
-    pieces.push_back(6);
-    pieces.push_back(1);
-    // caballo negro en [1,1], original
-    pieces.push_back('k');
-    pieces.push_back(7);
-    pieces.push_back(1);
-    pieces.push_back(1);
-    pieces.push_back(0);
-    // peon blanco en [7,7], violeta
-    pieces.push_back('P');
-    pieces.push_back(7);
-    pieces.push_back(7);
-    pieces.push_back(7);
-    pieces.push_back(1);
+    // // reina blanca en [2,3], violeta
+    // pieces.push_back('Q');
+    // pieces.push_back(7);
+    // pieces.push_back(2);
+    // pieces.push_back(3);
+    // pieces.push_back(1);
+    // // Caballo blanco en [6,5], violeta
+    // pieces.push_back('K');
+    // pieces.push_back(7);
+    // pieces.push_back(5);
+    // pieces.push_back(6);
+    // pieces.push_back(1);
+    // // caballo negro en [1,1], original
+    // pieces.push_back('k');
+    // pieces.push_back(7);
+    // pieces.push_back(1);
+    // pieces.push_back(1);
+    // pieces.push_back(0);
+    // // peon blanco en [7,7], violeta
+    // pieces.push_back('P');
+    // pieces.push_back(7);
+    // pieces.push_back(7);
+    // pieces.push_back(7);
+    // pieces.push_back(1);
     
-    // peon negro en [8,8], original
-    pieces.push_back('p');
-    pieces.push_back(8);
-    pieces.push_back(8);
-    pieces.push_back(8);
-    pieces.push_back(0);
-    //////////////////////////////
+    // // peon negro en [8,8], original
+    // pieces.push_back('p');
+    // pieces.push_back(8);
+    // pieces.push_back(8);
+    // pieces.push_back(8);
+    // pieces.push_back(0);
+    // //////////////////////////////
 
+    std::vector<char> pieces = {'r',1,0,0,1,'n',1,1,0,1,'b',1,2,0,1,'k',1,3,0,1,'b',1,5,0,1,'n',1,6,0,1,'r',1,7,0,1,'p',1,0,1,1,'p',1,1,1,1,'p',1,2,1,1,'p',1,3,1,1,'p',1,4,1,1,'p',1,5,1,1,'p',1,6,1,1,'p',1,7,1,1,'q',1,4,4,1,'P',1,0,6,1,'P',1,1,6,1,'P',1,2,6,1,'P',1,3,6,1,'P',1,4,6,1,'P',1,5,6,1,'P',1,6,6,1,'P',1,7,6,1,'R',1,0,7,1,'N',1,1,7,1,'B',1,2,7,1,'K',1,3,7,1,'Q',1,4,7,1,'B',1,5,7,1,'N',1,6,7,1,'R',1,7,7,1};
     while (running) {
         
         while(SDL_PollEvent(&event)) {

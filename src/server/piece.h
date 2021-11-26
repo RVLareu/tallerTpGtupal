@@ -13,28 +13,17 @@ class Piece {
         bool superposicion;
 
         float p;
-        
-        int col;
-        
-        int row; 
 
-        std::string name;
+        std::string name;        
 
-        Piece();
-
-        Piece(int col, int row, int color, float p, std::string name);
-        
-        std::tuple<int, int> get_position();
-        
-        bool is_white();
-        
-        void set_position(int col, int row);
+        Piece(int color, float p, std::string name);
+                
+        bool is_white();                
         
         void set_prob(float p);
         
-        virtual std::vector<std::tuple<int, int>> can_move(int col, int row) = 0;
-
-        // virtual ~Piece() = 0;
+        virtual std::vector<std::tuple<int, int>> can_move(int origin_row, int origin_col) = 0;
+     
 };
 
 #endif

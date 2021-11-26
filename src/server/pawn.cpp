@@ -1,6 +1,6 @@
 #include "pawn.h"
 #include <iostream>
-Pawn::Pawn(int col, int row, int color, float p) : Piece(col, row, color, p, "p"), first_move_done(false) {
+Pawn::Pawn(int color, float p) : Piece(color, p, color == 1 ? "p" : "P"), first_move_done(false) {
 
 }
 
@@ -8,18 +8,18 @@ Pawn::Pawn(int col, int row, int color, float p) : Piece(col, row, color, p, "p"
     No devuelve posiciones en diagonal (captura) -> TODO ?
 */
 
-std::vector<std::tuple<int, int>> Pawn::can_move(int col, int row) {
+std::vector<std::tuple<int, int>> Pawn::can_move(int origin_row, int origin_col) {
     std::vector<std::tuple<int, int>> possible_moves;
     // 1 BLACK (top of chessboard), 0 WHITE (bottom of chessboard)
     if (this->color == 1) {
-        possible_moves.emplace_back(this->row + 1, this->col);
+        possible_moves.emplace_back(origin_row + 1, origin_col);
         if (!first_move_done) {
-            possible_moves.emplace_back(this->row + 2, this->col);
+            possible_moves.emplace_back(origin_row + 2, origin_col);
         }
     } else {
-        possible_moves.emplace_back(this->row - 1, this->col);
+        possible_moves.emplace_back(origin_row - 1, origin_col);
         if (!first_move_done) {
-            possible_moves.emplace_back(this->row - 2, this->col);
+            possible_moves.emplace_back(origin_row - 2, origin_col);
         }
     }
     std::cout << "Pawn\n";
