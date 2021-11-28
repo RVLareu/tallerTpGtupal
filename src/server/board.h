@@ -15,9 +15,17 @@ class Board {
         bool in_bounds(int col, int row);
 
         int sign(int n);
+
+        
     public:
 
+        std::vector<std::tuple<int, int>> piece_moves;
+
+        void erase_possible_squares();
+
         Board();
+
+        void update_piece_possible_moves(int row, int col);
 
         void create_board();
         

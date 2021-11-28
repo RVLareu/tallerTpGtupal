@@ -90,8 +90,9 @@ bool Board::is_piece_white(int row, int col) {
 }
 
 int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {    
-    std::vector<std::tuple<int, int>> piece_moves = get_piece_possible_movements(start_row, start_col);   
-    for (auto move : get_piece_possible_movements(start_row, start_col)) {        
+    std::vector<std::tuple<int, int>> piece_poss_moves = get_piece_possible_movements(start_row, start_col);
+       
+    for (auto move : piece_poss_moves) {        
         if (std::get<0>(move) == end_row and std::get<1>(move) == end_col) {
             Piece * piece = board.at(start_row).at(start_col);
             board[start_row].erase(start_col);
@@ -101,15 +102,13 @@ int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {
     }
     return 0;
 
-
-    
 }
 
 vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<int, int>> positions_available, int row, int col, Piece * piece) {
     std::vector<std::tuple<int, int>> final_pos;
     
     //Si no es caballo, se verifica que no haya piezas entre el origen y el destino
-    if (piece->name != "n") {
+    if (piece->name != "n" and piece->name != "N") {
         for (auto square_dest : positions_available) {
             
             // Vectores con la dirección del movimiento de la pieza
@@ -175,6 +174,10 @@ std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, i
     }
     
     return std::move(final_pos);
+}
+
+void Board::update_piece_possible_moves(int row, int col) {
+    this->piece_moves = get_piece_possible_movements(row, col);
 }
 
 
@@ -252,6 +255,9 @@ void Board::print_board() {
     
 }
 
+void Board::erase_possible_squares() {
+    piece_moves.clear();
+}
 
 
 std::vector<char> Board::get_vector_board() {    
@@ -264,7 +270,33 @@ std::vector<char> Board::get_vector_board() {
                 vector_board.push_back(1);
                 vector_board.push_back(row); 
                 vector_board.push_back(col);
-                vector_board.push_back(1);
+                bool selected_square = false;
+                for (std::tuple<int, int> square : piece_moves) {
+                    if (std::get<0>(square) == row and std::get<1>(square) == col) {
+                        selected_square = true;
+                        vector_board.push_back(1);
+                    }
+                }
+                if (!selected_square) {
+                    vector_board.push_back(0);
+                }                
+                
+                
+            } else {
+                vector_board.push_back('e');
+                vector_board.push_back(0);
+                vector_board.push_back(row); 
+                vector_board.push_back(col);
+                bool selected_square = false;
+                for (std::tuple<int, int> square : piece_moves) {
+                    if (std::get<0>(square) == row and std::get<1>(square) == col) {
+                        selected_square = true;
+                        vector_board.push_back(1);
+                    }
+                }
+                if (!selected_square) {
+                    vector_board.push_back(0);
+                }
             }
         }        
     }
