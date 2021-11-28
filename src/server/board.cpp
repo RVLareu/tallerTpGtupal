@@ -99,49 +99,71 @@ int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {
             return 1;
         }    
     }
-    return 0;
-
-
-    
+    return 0;  
 }
 
 vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<int, int>> positions_available, int row, int col, Piece * piece) {
     std::vector<std::tuple<int, int>> final_pos;
     
-    //Si no es caballo, se verifica que no haya piezas entre el origen y el destino
-    if (piece->name != "n" && piece->name != "N") {
+    //Si es caballo, no verifica que no haya piezas entre el origen y el destino
+    if (piece->name == "n" || piece->name == "N") {
         for (auto square_dest : positions_available) {
+            bool valid_square = false;
+            int dest_row =  std::get<0>(square_dest);
+            int dest_col =  std::get<1>(square_dest);
+            //El casillero esta vacio
+            if (this->square_is_empty(dest_row, dest_col)) {
+                valid_square = true;
+            }
+            //El casillero contiene una pieza enemiga
+            else if (this->board[dest_row][dest_col]->is_white() != piece->is_white()){
+                valid_square = true;
+            }
+            if (valid_square){
+                final_pos.push_back(square_dest);
+            }
+        } 
+    } else { //En el resto de las piezas, verifica que no haya obstaculos entre el origen y el destino
+        for (auto square_dest : positions_available) {
+            int dest_row =  std::get<0>(square_dest);
+            int dest_col =  std::get<1>(square_dest);
             
-            // Vectores con la dirección del movimiento de la pieza
-            int row_dir = sign(std::get<0>(square_dest) - row);
-            int col_dir = sign(std::get<1>(square_dest) - col);
-            std::tuple<int, int> current(row + row_dir, col + col_dir);            
+            // Vector con la dirección del movimiento de la pieza
+            int row_dir = sign(dest_row - row);
+            int col_dir = sign(dest_col - col);
+            int current_row = row + row_dir;
+            int current_col = col + col_dir;             
 
             int erased = false;
-            while(1) {
-                if (!this->square_is_empty(std::get<0>(current),std::get<1>(current))) {                    
-                    erased = true;
+            //Se va revisando cada casillero desde la posicion de origen
+            // hasta la posicion destino, hasta que se tope con un obstaculo.
+            while(true) {
+                // Hay una pieza en la posicion actual
+                if (!this->square_is_empty(current_row, current_col)) {                    
+                    //Es del mismo color
+                    if(this->board[current_row][current_col]->is_white() == piece->is_white()){
+                        erased = true;
+                        break;
+                    } else{
+                        // Si es enemiga, se permite solo si se encuentra en la posicion destino.
+                        if (dest_row != current_row and dest_col != current_col){
+                            erased = true;
+                            break;
+                        }
+                    }
+                }
+                if (dest_row == current_row and dest_col == current_col){
                     break;
                 }
-                if (std::get<0>(square_dest) ==  std::get<0>(current) and std::get<1>(square_dest) == std::get<1>(current)) {
-                    break;
-                }
-                std::get<0>(current) += row_dir;
-                std::get<1>(current) += col_dir;
+                current_row += row_dir;
+                current_col += col_dir;
             }
             if (!erased) {
                 final_pos.push_back(square_dest);
             }
     
         }
-    } else {
-        for (auto square_dest : positions_available) {
-            if (this->square_is_empty(std::get<0>(square_dest), std::get<1>(square_dest))) {
-                final_pos.push_back(square_dest);
-            }
-        }           
-    }
-    
+    }     
     return std::move(final_pos);
 }
 
@@ -251,8 +273,6 @@ void Board::print_board() {
     }*/
     
 }
-
-
 
 std::vector<char> Board::get_vector_board() {    
     std::vector<char> vector_board;
