@@ -89,19 +89,16 @@ bool Board::is_piece_white(int row, int col) {
     return board[row][col]->is_white();
 }
 
-int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {
-    // por alguna razon vine vacio este vector, la funcion calcula bien
-    //std::vector<std::tuple<int, int>> piece_moves = get_piece_possible_movements(start_row, start_col);
-    //for (auto move : piece_moves) {
-    //    std::cout << std::get<0>(move) << std::get<1>(move);
-    
-       // if (std::get<0>(move) == end_row and std::get<1>(move) == end_col) {
+int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {    
+    std::vector<std::tuple<int, int>> piece_moves = get_piece_possible_movements(start_row, start_col);   
+    for (auto move : get_piece_possible_movements(start_row, start_col)) {        
+        if (std::get<0>(move) == end_row and std::get<1>(move) == end_col) {
             Piece * piece = board.at(start_row).at(start_col);
             board[start_row].erase(start_col);
             board[end_row][end_col] = piece;
             return 1;
-        //}
-    //}
+        }    
+    }
     return 0;
 
 
@@ -150,10 +147,10 @@ vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<
 
 
 std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, int col) {
-    std::vector<std::tuple<int, int>> positions_available;
-    if (!this->square_is_empty(row, col)) {
-        positions_available = board[row][col]->can_move(row, col);
-        vector<tuple<int, int>> final_pos = filter_possible_movements(std::move(positions_available), row, col, board[row][col]);
+    std::vector<std::tuple<int, int>> final_pos;
+    if (!this->square_is_empty(row, col)) {         
+        std::vector<std::tuple<int, int>> positions_available = board[row][col]->can_move(row, col);
+        final_pos = filter_possible_movements(std::move(positions_available), row, col, board[row][col]);
         
         //print 
         std::cout << "BOARD\n";      
@@ -176,10 +173,8 @@ std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, i
             std::cout << "\n";
         }
     }
-
- 
-
-    return std::move(positions_available);
+    
+    return std::move(final_pos);
 }
 
 
