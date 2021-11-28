@@ -82,7 +82,7 @@ void ChessBoard::render_from_vector(std::vector<char> board) {
         if (board[i] != 0) {
             int x = (board[i+2]) * size_spot;
             int y = (board[i+3]) * size_spot;
-            pieces.emplace_back(renderer, x, y, map_pieces.at(board[i]));
+            pieces.emplace_back(renderer, x, y, map_pieces.at(board[i]), board[i+1]);
         }
         if (board[i+4] == 1) {
             spots_painted.emplace_back(renderer,SDL2pp::Rect((board[i+3]) * size_spot, board[i+2] * size_spot, size_spot , size_spot), SDL2pp::Color(30,80,100));

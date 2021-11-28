@@ -3,7 +3,7 @@
 #include "renderpiece.h"
 
 
-RenderPiece::RenderPiece(SDL2pp::Renderer& renderer, int y, int x, std::string path) : renderer(renderer), sprite(renderer, path), x_top(x), y_top(y), selected(false) {
+RenderPiece::RenderPiece(SDL2pp::Renderer& renderer, int y, int x, std::string path, float prob) : renderer(renderer), sprite(renderer, path), x_top(x), y_top(y), selected(false), prob(prob) {
 
 }
 
