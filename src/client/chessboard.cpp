@@ -6,6 +6,8 @@
 
 
 ChessBoard::ChessBoard(SDL2pp::Renderer& renderer) : renderer(renderer) {
+    map_pieces['e'] = "assets/Empty.png";
+
     // Black pieces
     map_pieces['p'] = "assets/PawnB.png";
     map_pieces['r'] = "assets/RookB.png";
@@ -82,10 +84,11 @@ void ChessBoard::render_from_vector(std::vector<char> board) {
         if (board[i] != 0) {
             int x = (board[i+2]) * size_spot;
             int y = (board[i+3]) * size_spot;
-            pieces.emplace_back(renderer, x, y, map_pieces.at(board[i]), board[i+1]);
+            float prob = board[i+1];
+            pieces.emplace_back(renderer, x, y, map_pieces.at(board[i]), prob);
         }
         if (board[i+4] == 1) {
-            spots_painted.emplace_back(renderer,SDL2pp::Rect((board[i+3]) * size_spot, board[i+2] * size_spot, size_spot , size_spot), SDL2pp::Color(30,80,100));
+            spots_painted.emplace_back(renderer,SDL2pp::Rect(((board[i+3]) * size_spot) + size_spot / 4, (board[i+2] * size_spot) + size_spot / 4, size_spot/2 , size_spot/2), SDL2pp::Color(30,80,100));
         }
         
     }
