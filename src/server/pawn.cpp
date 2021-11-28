@@ -12,16 +12,25 @@ std::vector<std::tuple<int, int>> Pawn::can_move(int origin_row, int origin_col)
     std::vector<std::tuple<int, int>> possible_moves;
     // 1 BLACK (top of chessboard), 0 WHITE (bottom of chessboard)
     if (this->color == 1) {
-        possible_moves.emplace_back(origin_row + 1, origin_col);
-        if (!first_move_done) {
-            possible_moves.emplace_back(origin_row + 2, origin_col);
-        }
+        //Hacia adelante
+        possible_moves.emplace_back(origin_row + 1, origin_col);   
+        if (origin_row == 1){ //Es su primer movimiento
+            possible_moves.emplace_back(origin_row + 2, origin_col);            
+        }            
+        //En diagonal (para comer)
+        possible_moves.emplace_back(origin_row + 1, origin_col + 1);
+        possible_moves.emplace_back(origin_row + 1, origin_col - 1);        
     } else {
-        possible_moves.emplace_back(origin_row - 1, origin_col);
-        if (!first_move_done) {
+        //Hacia adelante
+        possible_moves.emplace_back(origin_row - 1, origin_col);                
+        if (origin_row == 6){ //Es su primer movimiento            
             possible_moves.emplace_back(origin_row - 2, origin_col);
-        }
+        }            
+        //En diagonal (para comer)
+        possible_moves.emplace_back(origin_row - 1, origin_col + 1);
+        possible_moves.emplace_back(origin_row - 1, origin_col - 1);        
     }
+
     std::cout << "Pawn\n";
         std::vector<std::tuple<int, int>>::iterator it;
         for (int i = 0; i < 8; i ++) {
