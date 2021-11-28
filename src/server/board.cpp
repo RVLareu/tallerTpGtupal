@@ -147,7 +147,7 @@ vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<
                         break;
                     } else{
                         // Si es enemiga, se permite solo si se encuentra en la posicion destino.
-                        if (dest_row != current_row and dest_col != current_col){
+                        if (!(dest_row == current_row and dest_col == current_col)){
                             erased = true;
                             break;
                         }
