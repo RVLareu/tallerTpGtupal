@@ -108,7 +108,8 @@ vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<
     std::vector<std::tuple<int, int>> final_pos;
     
     //Si no es caballo, se verifica que no haya piezas entre el origen y el destino
-    if (piece->name != "n" and piece->name != "N") {
+
+    if (piece->name != "n" && piece->name != "N") {
         for (auto square_dest : positions_available) {
             
             // Vectores con la dirección del movimiento de la pieza
