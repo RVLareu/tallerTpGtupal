@@ -89,12 +89,23 @@ bool Board::is_piece_white(int row, int col) {
     return board[row][col]->is_white();
 }
 
-void Board::move_piece(int start_row, int start_col, int end_row, int end_col) {
-    if (!this->square_is_empty(start_row,start_col)){
-        Piece * piece = board.at(start_row).at(start_col);
-        board[start_row].erase(start_col);
-        board[end_row][end_col] = piece;
-    }    
+int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {
+    // por alguna razon vine vacio este vector, la funcion calcula bien
+    //std::vector<std::tuple<int, int>> piece_moves = get_piece_possible_movements(start_row, start_col);
+    //for (auto move : piece_moves) {
+    //    std::cout << std::get<0>(move) << std::get<1>(move);
+    
+       // if (std::get<0>(move) == end_row and std::get<1>(move) == end_col) {
+            Piece * piece = board.at(start_row).at(start_col);
+            board[start_row].erase(start_col);
+            board[end_row][end_col] = piece;
+            return 1;
+        //}
+    //}
+    return 0;
+
+
+    
 }
 
 vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<int, int>> positions_available, int row, int col, Piece * piece) {
@@ -137,7 +148,8 @@ vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<
     return std::move(final_pos);
 }
 
-std::vector<std::tuple<int, int>> Board::piece_can_move(int row, int col) {
+
+std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, int col) {
     std::vector<std::tuple<int, int>> positions_available;
     if (!this->square_is_empty(row, col)) {
         positions_available = board[row][col]->can_move(row, col);
@@ -163,7 +175,10 @@ std::vector<std::tuple<int, int>> Board::piece_can_move(int row, int col) {
             }
             std::cout << "\n";
         }
-    }    
+    }
+
+ 
+
     return std::move(positions_available);
 }
 
@@ -225,17 +240,39 @@ void Board::print_board() {
          }
          std::cout << "\n";
      }
-    /*
-    for (int row = 0; row < 8; row++) {
+    
+    /*for (int row = 0; row < 8; row++) {
         for (int col = 0; col < 8; col ++) {
             if (!this->square_is_empty(row, col)){
                 Piece * piece = board[row][col];                
                 std::cout << "*";
                 std::cout << piece->name;
-                std::cout << "*," << 1 << "," << col << ","<< row << ","<< 1 << ",";                 
+                std::cout << "*," << 1 << "," << col << ","<< row << ","<< 1;   
+                if (row != 7 || col !=7) {
+                    std::cout << ",";
+                }              
+            }
+        }        
+    }*/
+    
+}
+
+
+
+std::vector<char> Board::get_vector_board() {    
+    std::vector<char> vector_board;
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col ++) {
+            if (!this->square_is_empty(row, col)){
+                Piece * piece = board[row][col];
+                vector_board.push_back((char)piece->name[0]);
+                vector_board.push_back(1);
+                vector_board.push_back(row); 
+                vector_board.push_back(col);
+                vector_board.push_back(1);
             }
         }        
     }
-    */
+    return std::move(vector_board);
 }
 

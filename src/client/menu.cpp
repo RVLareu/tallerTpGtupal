@@ -26,8 +26,6 @@ Menu::Menu(SDL2pp::Renderer& renderer, SDL2pp::Window& window) : renderer(render
     textures.emplace_back(renderer,
                      font.RenderText_Solid("SEE GAME", SDL_Color{255, 255, 255, 255})
                      );
-
-
 }
 
 void Menu::render() {

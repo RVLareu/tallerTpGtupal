@@ -2,18 +2,18 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "piece.h"
+#include "renderpiece.h"
 #include "spot.h"
 #include <SDL2pp/SDL2pp.hh>
 
-#ifndef BOARD_H
-#define BOARD_H
+#ifndef CHESSBOARD_H
+#define CHESSBOARD_H
 
-class Board {
+class ChessBoard {
     private:
         std::map<char, std::string> map_pieces;
         
-        std::list<Piece> pieces;
+        std::list<RenderPiece> pieces;
         
         std::list<Spot> spots;
         
@@ -26,7 +26,7 @@ class Board {
         void drawCircle(SDL2pp::Renderer& renderer, int radius, int centreX, int centreY);
         
     public:
-        Board(SDL2pp::Renderer& renderer);
+        ChessBoard(SDL2pp::Renderer& renderer);
         
         void create_spots();
         
@@ -38,7 +38,7 @@ class Board {
         
         void render_from_vector(std::vector<char> board);
         
-        int position_to_spot(SDL2pp::Point mousePos);
+        std::tuple<int, int> mouse_position_to_square(SDL2pp::Point mousePos);
 };
 
 #endif

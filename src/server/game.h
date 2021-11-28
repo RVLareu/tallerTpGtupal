@@ -19,5 +19,7 @@ class Game {
 
         void print_game();
 
+        std::vector<char> get_board();
+
 
 };

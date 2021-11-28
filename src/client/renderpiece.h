@@ -1,10 +1,10 @@
 
 #include <SDL2pp/SDL2pp.hh>
 
-#ifndef PIECE_H
-#define PIECE_H
+#ifndef RENDERPIECE_H
+#define RENDERPIECE_H
 
-class Piece {
+class RenderPiece {
     private:
         SDL2pp::Renderer& renderer;
         SDL2pp::Texture sprite;
@@ -12,8 +12,9 @@ class Piece {
     public:
         int x_top;
         int y_top;
+        float prob;
         bool selected;
-        Piece(SDL2pp::Renderer& renderer, int x, int y, std::string path);
+        RenderPiece(SDL2pp::Renderer& renderer, int y, int x, std::string path);
         void copy();
         bool clicked(SDL2pp::Point mousePos);
         void set_position(int x, int y);

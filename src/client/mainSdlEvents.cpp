@@ -84,8 +84,8 @@ static bool handleEvents(Player &player) {
             case SDL_QUIT:
                 std::cout << "Quit :(" << std::endl;
                 return false;
-        } // fin switch(event)
-    } // fin while(SDL_PollEvents)
+        } 
+    }
     return true;
 }
 

@@ -24,9 +24,9 @@ class Board {
         // Check if square has piece or not
         bool square_is_empty(int row, int col);
 
-        vector<tuple<int, int>> piece_can_move(int row, int col);
+        vector<tuple<int, int>> get_piece_possible_movements(int row, int col);
         
-        void move_piece(int start_row, int start_col, int end_row, int end_col);
+        int move_piece(int start_row, int start_col, int end_row, int end_col);
 
         void print_board();
 
@@ -41,4 +41,6 @@ class Board {
         bool is_piece_white(int row, int col);
         
         bool is_any_piece_selected();
+
+        std::vector<char> get_vector_board();
 };

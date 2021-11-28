@@ -5,10 +5,11 @@
 #include <SDL.h>
 #include <iostream>
 
+#include "../server/game.h"
 
 #include "spot.h"
-#include "piece.h"
-#include "board.h"
+#include "renderpiece.h"
+#include "chessboard.h"
 #include "menu.h"
 
 
@@ -27,12 +28,12 @@ int main(int argc, char** argv){
     SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     // Initialize Menu
-    Menu menu(std::ref(renderer), std::ref(window));
+    //Menu menu(std::ref(renderer), std::ref(window));
     // Menu loop
-    menu.show_menu();
+    //menu.show_menu();
 
     // Initialize a board
-    Board board(std::ref(renderer));
+    ChessBoard board(std::ref(renderer));
 
     board.create_spots();
 
@@ -47,7 +48,8 @@ int main(int argc, char** argv){
     */
     // std::vector<char> pieces;
     
-    // // reina blanca en [2,3], violeta
+    std::vector<char> pieces;
+    //reina blanca en [2,3], violeta
     // pieces.push_back('Q');
     // pieces.push_back(7);
     // pieces.push_back(2);
@@ -80,7 +82,9 @@ int main(int argc, char** argv){
     // pieces.push_back(0);
     // //////////////////////////////
 
-    std::vector<char> pieces = {'r',1,0,0,1,'n',1,1,0,1,'b',1,2,0,1,'k',1,3,0,1,'b',1,5,0,1,'n',1,6,0,1,'r',1,7,0,1,'p',1,0,1,1,'p',1,1,1,1,'p',1,2,1,1,'p',1,3,1,1,'p',1,4,1,1,'p',1,5,1,1,'p',1,6,1,1,'p',1,7,1,1,'q',1,4,4,1,'P',1,0,6,1,'P',1,1,6,1,'P',1,2,6,1,'P',1,3,6,1,'P',1,4,6,1,'P',1,5,6,1,'P',1,6,6,1,'P',1,7,6,1,'R',1,0,7,1,'N',1,1,7,1,'B',1,2,7,1,'K',1,3,7,1,'Q',1,4,7,1,'B',1,5,7,1,'N',1,6,7,1,'R',1,7,7,1};
+    
+    Board chBoard;
+    Game game(std::ref(chBoard));
     while (running) {
         
         while(SDL_PollEvent(&event)) {
@@ -95,16 +99,18 @@ int main(int argc, char** argv){
                     break;
                 case SDL_MOUSEBUTTONDOWN: 
                     if (event.button.button == SDL_BUTTON_LEFT) {
-                        std::cout << board.position_to_spot(mousePos); // mando al servidor, recibo la actualizacion
+                        game.process_position(std::get<0>(board.mouse_position_to_square(mousePos)), std::get<1>(board.mouse_position_to_square(mousePos)));
                     break;
                     }
             }
         }
         try {
             renderer.Clear();
+            pieces = game.get_board();
+            //std::cout << pieces.data();
             board.render_from_vector(pieces);
             renderer.Present();
-            SDL_Delay(100);
+            SDL_Delay(1000);
         } catch (std::exception& e) {
             std::cout << e.what() << std::endl;
             return 1;
