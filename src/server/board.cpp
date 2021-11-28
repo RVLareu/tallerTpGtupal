@@ -85,6 +85,10 @@ void Board::create_board() {
 //     return true;
 // }
 
+bool Board::is_piece_white(int row, int col) {
+    return board[row][col]->is_white();
+}
+
 void Board::move_piece(int start_row, int start_col, int end_row, int end_col) {
     if (!this->square_is_empty(start_row,start_col)){
         Piece * piece = board.at(start_row).at(start_col);
@@ -173,18 +177,55 @@ bool Board::square_is_empty(int row, int col) {
     return true;
 }
 
+std::tuple<int, int> Board::get_selected_piece_position() {
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col++) {
+            if (!square_is_empty(row, col)) {
+                if (board.at(row).at(col)->is_selected()) {
+                    return std::tuple<int, int>{row, col};
+                }
+            }
+        }
+    }
+    return std::tuple<int, int>{NULL, NULL};
+}
+
+bool Board::is_any_piece_selected() {
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col++) {
+            if (!square_is_empty(row, col)) {
+                if (board.at(row).at(col)->is_selected()) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
+void Board::select_piece(int row, int col) {
+    board.at(row).at(col)->select_piece();
+}
+
+void Board::unselect_piece(int row, int col) {
+    board.at(row).at(col)->unselect_piece();
+}
+
+
 void Board::print_board() {    
     std::cout << "\n";    
-    // for (int row = 0; row < 8; row++) {
-    //     for (int col = 0; col < 8; col ++) {
-    //         if (!this->square_is_empty(row, col)){
-    //             std::cout << " " << board[row][col]->name << " ";                
-    //         } else {
-    //             std::cout << " - ";
-    //         }
-    //     }
-    //     std::cout << "\n";
-    // }
+     for (int row = 0; row < 8; row++) {
+         for (int col = 0; col < 8; col ++) {
+             if (!this->square_is_empty(row, col)){
+                 std::cout << " " << board[row][col]->name << " ";                
+             } else {
+                 std::cout << " - ";
+             }
+         }
+         std::cout << "\n";
+     }
+    /*
     for (int row = 0; row < 8; row++) {
         for (int col = 0; col < 8; col ++) {
             if (!this->square_is_empty(row, col)){
@@ -195,5 +236,6 @@ void Board::print_board() {
             }
         }        
     }
+    */
 }
 

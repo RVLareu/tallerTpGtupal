@@ -8,13 +8,16 @@ class Piece {
     private:
 
     public:
+        // 1 black, 0 white
         int color;
 
         bool superposicion;
 
         float p;
 
-        std::string name;        
+        std::string name;
+
+        bool selected;        
 
         Piece(int color, float p, std::string name);
                 
@@ -22,6 +25,12 @@ class Piece {
         
         void set_prob(float p);
         
+        bool is_selected();
+
+        void select_piece();
+
+        void unselect_piece();
+
         virtual std::vector<std::tuple<int, int>> can_move(int origin_row, int origin_col) = 0;
      
 };
