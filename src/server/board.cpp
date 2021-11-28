@@ -150,7 +150,21 @@ vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<
                         if (!(dest_row == current_row and dest_col == current_col)){
                             erased = true;
                             break;
+                        } 
+                        // Pero si es peon, se permite si además es en diagonal
+                        else if (piece->name == "p" || piece->name == "P") {
+                            if (col == current_col){
+                                erased = true;
+                                break;                      
+                            }
                         }
+                    }
+                }
+                // Si es peon, solo mueve hacia adelante en casilleros vacios
+                else if (piece->name == "p" || piece->name == "P") {
+                    if (col != current_col){
+                        erased = true;
+                        break;                      
                     }
                 }
                 if (dest_row == current_row and dest_col == current_col){
