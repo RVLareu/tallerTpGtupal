@@ -1,7 +1,7 @@
 #include "queen.h"
 #include <iostream>
 
-Queen::Queen(int color, float p) : Piece(color, p, color == 1 ? "q" : "Q") {
+Queen::Queen(int color, int probability_fraction) : Piece(color, probability_fraction, color == 1 ? "q" : "Q") {
     
 }
 

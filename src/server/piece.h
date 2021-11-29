@@ -11,19 +11,21 @@ class Piece {
         // 1 black, 0 white
         int color;
 
+
         bool alive;
 
-        float p;
+
+        int probability_fraction;
 
         std::string name;
 
         bool selected;        
 
-        Piece(int color, float p, std::string name);
+        Piece(int color, int probability_fraction, std::string name);
                 
         bool is_white();                
         
-        void set_prob(float p);
+        void set_prob(int probability_fraction);
         
         bool is_selected();
 

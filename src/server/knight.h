@@ -2,7 +2,7 @@
 
 class Knight : public Piece {
     public:
-        Knight(int color, float p);
+        Knight(int color, int probability_fraction);
 
     std::vector<std::tuple<int, int>> can_move(int origin_row, int origin_col) override;
 };

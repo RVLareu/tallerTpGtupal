@@ -80,18 +80,45 @@ void ChessBoard::render_from_vector(std::vector<char> board) {
     pieces.clear();
     spots_painted.clear();
     int size_spot = 100;
-    for (int i = 0; i < board.size(); i += 5) {
-        if (board[i] != 0) {
-            int x = (board[i+2]) * size_spot;
-            int y = (board[i+3]) * size_spot;
-            float prob = board[i+1];
-            pieces.emplace_back(renderer, x, y, map_pieces.at(board[i]), prob);
+    int ptr = 0;
+    while (ptr < board.size())
+    {        
+        char type = board[ptr];
+        // Piezas
+        if (type == 'p'){
+            int x = (board[ptr+1]) * size_spot;
+            int y = (board[ptr+2]) * size_spot;
+            char name = board[ptr+3];
+            int probability_fraction = board[ptr+4];
+            int is_entangled = board[ptr+5];
+            int is_same_as_selected = board[ptr+6];
+            pieces.emplace_back(renderer, x, y, map_pieces.at(name), probability_fraction);            
+            ptr += 7;        
         }
-        if (board[i+4] == 1) {
-            spots_painted.emplace_back(renderer,SDL2pp::Rect(((board[i+3]) * size_spot) + size_spot / 4, (board[i+2] * size_spot) + size_spot / 4, size_spot/2 , size_spot/2), SDL2pp::Color(30,80,100));
+        // Resaltados
+        else if (type == 'h'){
+            int x = (board[ptr+1]) * size_spot;
+            int y = (board[ptr+2]) * size_spot;
+            char highlight_type = board[ptr+3] * size_spot;
+            spots_painted.emplace_back(renderer,
+                                        SDL2pp::Rect(y + size_spot / 4, x + size_spot / 4, size_spot/2 , size_spot/2), 
+                                        SDL2pp::Color(30,80,100));
+            ptr += 4;
         }
-        
     }
+    
+    // for (int i = 0; i < board.size(); i += 5) {
+    //     if (board[i] != 0) {
+    //         int x = (board[i+2]) * size_spot;
+    //         int y = (board[i+3]) * size_spot;
+    //         int probability_fraction = board[i+1];
+    //         pieces.emplace_back(renderer, x, y, map_pieces.at(board[i]), probability_fraction);
+    //     }
+    //     if (board[i+4] == 1) {
+    //         spots_painted.emplace_back(renderer,SDL2pp::Rect(((board[i+3]) * size_spot) + size_spot / 4, (board[i+2] * size_spot) + size_spot / 4, size_spot/2 , size_spot/2), SDL2pp::Color(30,80,100));
+    //     }
+        
+    // }
     render();
 }
 

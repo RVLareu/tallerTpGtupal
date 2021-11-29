@@ -1,6 +1,6 @@
 #include "pawn.h"
 #include <iostream>
-Pawn::Pawn(int color, float p) : Piece(color, p, color == 1 ? "p" : "P"), first_move_done(false) {
+Pawn::Pawn(int color, int probability_fraction) : Piece(color, probability_fraction, color == 1 ? "p" : "P"), first_move_done(false) {
 
 }
 

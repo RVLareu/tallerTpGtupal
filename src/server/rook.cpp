@@ -3,7 +3,7 @@
 #include <vector>
 #include <iostream>
 
-Rook::Rook(int color, float p) : Piece(color, p, color == 1 ? "r" : "R") {
+Rook::Rook(int color, int probability_fraction) : Piece(color, probability_fraction, color == 1 ? "r" : "R") {
     
 }
 

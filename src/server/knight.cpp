@@ -1,6 +1,6 @@
 #include "knight.h"
 #include <iostream>
-Knight::Knight(int color, float p) : Piece(color, p, color == 1 ? "n" : "N") {
+Knight::Knight(int color, int probability_fraction) : Piece(color, probability_fraction, color == 1 ? "n" : "N") {
 
 }
 
