@@ -74,10 +74,9 @@ void Board::create_board() {
     // /*
     //     KINGS
     // */
-    board[0][3] =new King(1, float(1));
+    board[0][3] = new King(1, float(1));
 
-    board[7][3] =new King(0, float(1));
-
+    board[7][3] = new King(0, float(1));
 }
 
 // bool Board::in_bounds(int col, int row) {
@@ -290,7 +289,6 @@ void Board::print_board() {
             }
         }        
     }*/
-    
 }
 
 void Board::erase_possible_squares() {

@@ -15,7 +15,6 @@ class Board {
         bool in_bounds(int col, int row);
 
         int sign(int n);
-
         
     public:
 

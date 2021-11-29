@@ -1,11 +1,13 @@
 #include "piece.h"
 #include <iostream>
 
-Piece::Piece(int color, int probability_fraction, std::string name) :                                                 
-                                                color(color),
-                                                probability_fraction(probability_fraction), 
-                                                name(name),
-                                                selected(false){
+Piece::Piece(int color, int probability_fraction, std::string name) :
+                                        alive(true),                                                 
+                                        color(color),
+                                        probability_fraction(probability_fraction), 
+                                        name(name),
+                                        selected(false){
+
 }
 
 bool Piece::is_white() {

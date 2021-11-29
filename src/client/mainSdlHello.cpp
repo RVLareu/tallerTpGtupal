@@ -11,6 +11,7 @@
 #include "renderpiece.h"
 #include "chessboard.h"
 #include "menu.h"
+#include "endScreen.h"
 
 
 
@@ -27,10 +28,11 @@ int main(int argc, char** argv){
     // Creo renderer
     SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
+
     // Initialize Menu
-    //Menu menu(std::ref(renderer), std::ref(window));
-    // Menu loop
-    //menu.show_menu();
+    Menu menu(std::ref(renderer), std::ref(window));
+    // Menu loop;
+    menu.show_menu();
 
     // Initialize a board
     ChessBoard board(std::ref(renderer));
@@ -41,48 +43,33 @@ int main(int argc, char** argv){
     SDL_Event event;
     bool running = true;
     
-    /*
-        ejemplo para renderizar desde un vector de char
-
-        PIEZA - PROBA - COL - FIL - ILUMINADO
-    */
-    // std::vector<char> pieces;
-    
     std::vector<char> pieces;
-    //reina blanca en [2,3], violeta
-    // pieces.push_back('Q');
-    // pieces.push_back(7);
-    // pieces.push_back(2);
-    // pieces.push_back(3);
-    // pieces.push_back(1);
-    // // Caballo blanco en [6,5], violeta
-    // pieces.push_back('K');
-    // pieces.push_back(7);
-    // pieces.push_back(5);
-    // pieces.push_back(6);
-    // pieces.push_back(1);
-    // // caballo negro en [1,1], original
-    // pieces.push_back('k');
-    // pieces.push_back(7);
-    // pieces.push_back(1);
-    // pieces.push_back(1);
-    // pieces.push_back(0);
-    // // peon blanco en [7,7], violeta
-    // pieces.push_back('P');
-    // pieces.push_back(7);
-    // pieces.push_back(7);
-    // pieces.push_back(7);
-    // pieces.push_back(1);
-    
-    // // peon negro en [8,8], original
-    // pieces.push_back('p');
-    // pieces.push_back(8);
-    // pieces.push_back(8);
-    // pieces.push_back(8);
-    // pieces.push_back(0);
-    // //////////////////////////////
 
+
+    SDL2pp::Wav wav("assets/in_game_music.wav");
+        uint8_t* wav_pos = wav.GetBuffer();
+        SDL2pp::AudioDevice dev(SDL2pp::NullOpt, 0, wav.GetSpec(), [&wav, &wav_pos](Uint8* stream, int len) {
+                    // Fill provided buffer with wave contents
+                    Uint8* stream_pos = stream;
+                    Uint8* stream_end = stream + len;
+
+                    while (stream_pos < stream_end) {
+                        Uint8* wav_end = wav.GetBuffer() + wav.GetLength();
+
+                        size_t copylen = std::min(wav_end - wav_pos, stream_end - stream_pos);
+
+                        std::copy(wav_pos, wav_pos + copylen, stream_pos);
+                        stream_pos += copylen;
+                        wav_pos += copylen;
+                        if (wav_pos >= wav_end)
+                            wav_pos = wav.GetBuffer();
+                    }
+                }
+            );
+        
+    dev.Pause(false);
     
+
     Board chBoard;
     Game game(std::ref(chBoard));
     while (running) {
@@ -116,5 +103,10 @@ int main(int argc, char** argv){
             return 1;
         }
     }
+
+    dev.Pause(true);
+        //End Screen
+    EndScreen endScreen(std::ref(renderer), std::ref(window), 'b');
+    endScreen.show_end_screen();
     return 0;
 }

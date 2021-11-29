@@ -86,7 +86,7 @@ int Menu::show_menu() {
     /*
     
         HAY ALGO CON EL TEMA DEL THREADING QUE SI LA LLAMO NO SUENA; PREGUNTAR
-        TIrar un make clean para vaciar el buffer
+        Tirar un make clean para vaciar el buffer
     
     */
    //////////////////

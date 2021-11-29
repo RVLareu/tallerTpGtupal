@@ -11,7 +11,9 @@ class Piece {
         // 1 black, 0 white
         int color;
 
-        bool superposition;
+
+        bool alive;
+
 
         int probability_fraction;
 
