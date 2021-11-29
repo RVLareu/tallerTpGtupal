@@ -10,7 +10,6 @@ std::vector<char> Game::get_board() {
 }
 
 void Game::process_position(int row, int col) {
-
     /*
         Hay una pieza seleccionada
     */
@@ -62,7 +61,6 @@ void Game::process_position(int row, int col) {
             if ((this->board.is_piece_white(row, col) and is_whites_turn()) || (!this->board.is_piece_white(row, col) and !is_whites_turn())) {
                 this->board.select_piece(row, col);
                 this->board.update_piece_possible_moves(row, col);
-                
             }            
         }
     }

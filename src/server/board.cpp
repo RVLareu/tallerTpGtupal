@@ -74,10 +74,9 @@ void Board::create_board() {
     // /*
     //     KINGS
     // */
-    board[0][3] =new King(1, float(1));
+    board[0][3] = new King(1, float(1));
 
-    board[7][3] =new King(0, float(1));
-
+    board[7][3] = new King(0, float(1));
 }
 
 // bool Board::in_bounds(int col, int row) {
@@ -276,7 +275,6 @@ void Board::print_board() {
             }
         }        
     }*/
-    
 }
 
 void Board::erase_possible_squares() {
@@ -286,10 +284,26 @@ void Board::erase_possible_squares() {
 
 std::vector<char> Board::get_vector_board() {    
     std::vector<char> vector_board;
+    
+
+    bool found_white_king = false;
+    bool found_black_king = false;
+
     for (int row = 0; row < 8; row++) {
         for (int col = 0; col < 8; col ++) {
+            
+
             if (!this->square_is_empty(row, col)){
+
                 Piece * piece = board[row][col];
+
+               /* if (piece->name == 'k') {
+                    found_black_king = true;
+                }
+                if (piece->name == 'K') {
+                    found_white_king = true;
+                }*/
+
                 vector_board.push_back((char)piece->name[0]);
                 vector_board.push_back(1);
                 vector_board.push_back(row); 
@@ -304,8 +318,6 @@ std::vector<char> Board::get_vector_board() {
                 if (!selected_square) {
                     vector_board.push_back(0);
                 }                
-                
-                
             } else {
                 vector_board.push_back('e');
                 vector_board.push_back(0);
@@ -324,6 +336,12 @@ std::vector<char> Board::get_vector_board() {
             }
         }        
     }
+
+    /*if (!found_black_king) {
+
+    } else if (!found_white_king) {
+
+    }*/
     return std::move(vector_board);
 }
 

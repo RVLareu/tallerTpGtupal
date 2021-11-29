@@ -96,6 +96,8 @@ void ChessBoard::render_from_vector(std::vector<char> board) {
 }
 
 
+
+
 bool ChessBoard::move_piece_if_selected(int pos_x, int pos_y) {
     int x = pos_x - this->clickOffset.GetX();
     int y = pos_y - this->clickOffset.GetY();

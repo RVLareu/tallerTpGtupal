@@ -26,6 +26,7 @@ add_executable (sdlpp-hello
   src/client/spot.cpp
   src/client/chessboard.cpp
   src/client/menu.cpp
+  src/client/endScreen.cpp
 
   src/server/rook.cpp
   src/server/bishop.cpp
@@ -35,7 +36,8 @@ add_executable (sdlpp-hello
   src/server/piece.cpp
   src/server/board.cpp  
   src/server/knight.cpp
-  src/server/game.cpp  
+  src/server/game.cpp
+    
 )
 
 add_executable (server

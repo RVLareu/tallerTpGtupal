@@ -1,7 +1,8 @@
 #include "piece.h"
 #include <iostream>
 
-Piece::Piece(int color, float p, std::string name) :                                                 
+Piece::Piece(int color, float p, std::string name) :
+                                        alive(true),                                                 
                                         color(color),
                                         p(p), 
                                         name(name),

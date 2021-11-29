@@ -11,7 +11,7 @@ class Piece {
         // 1 black, 0 white
         int color;
 
-        bool superposicion;
+        bool alive;
 
         float p;
 
