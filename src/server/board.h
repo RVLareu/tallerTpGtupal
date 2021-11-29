@@ -16,6 +16,8 @@ class Board {
 
         int sign(int n);
         
+        tuple<int, int> selected_piece_position;
+
     public:
 
         std::vector<std::tuple<int, int>> piece_moves;

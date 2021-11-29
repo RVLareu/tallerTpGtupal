@@ -24,7 +24,7 @@ int Board::sign(int n) {
     }
 }
 
-Board::Board() {
+Board::Board(): selected_piece_position(-1,-1){
     create_board();
 }
 
@@ -228,38 +228,24 @@ bool Board::square_is_empty(int row, int col) {
 }
 
 std::tuple<int, int> Board::get_selected_piece_position() {
-    for (int row = 0; row < 8; row++) {
-        for (int col = 0; col < 8; col++) {
-            if (!square_is_empty(row, col)) {
-                if (board.at(row).at(col)->is_selected()) {
-                    return std::tuple<int, int>{row, col};
-                }
-            }
-        }
-    }
-    return std::tuple<int, int>{NULL, NULL};
+    return this->selected_piece_position;
 }
 
 bool Board::is_any_piece_selected() {
-    for (int row = 0; row < 8; row++) {
-        for (int col = 0; col < 8; col++) {
-            if (!square_is_empty(row, col)) {
-                if (board.at(row).at(col)->is_selected()) {
-                    return true;
-                }
-            }
-        }
+    if (std::get<0>(this->selected_piece_position)!= -1 && std::get<1>(this->selected_piece_position) != -1){
+        return true;
     }
     return false;
 }
 
-
 void Board::select_piece(int row, int col) {
-    board.at(row).at(col)->select_piece();
+    if(!this->square_is_empty(row,col)){
+        this->selected_piece_position = std::make_tuple(row, col);
+    }    
 }
 
 void Board::unselect_piece(int row, int col) {
-    board.at(row).at(col)->unselect_piece();
+    this->selected_piece_position = std::make_tuple(-1, -1);
 }
 
 

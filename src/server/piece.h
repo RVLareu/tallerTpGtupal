@@ -11,27 +11,17 @@ class Piece {
         // 1 black, 0 white
         int color;
 
-
         bool alive;
-
 
         int probability_fraction;
 
-        std::string name;
-
-        bool selected;        
+        std::string name;           
 
         Piece(int color, int probability_fraction, std::string name);
                 
         bool is_white();                
         
-        void set_prob(int probability_fraction);
-        
-        bool is_selected();
-
-        void select_piece();
-
-        void unselect_piece();
+        void set_prob(int probability_fraction);        
 
         virtual std::vector<std::tuple<int, int>> can_move(int origin_row, int origin_col) = 0;
      
