@@ -314,7 +314,12 @@ std::vector<char> Board::get_vector_board() {
             vector_board.push_back('h');
             vector_board.push_back(std::get<0>(position));
             vector_board.push_back(std::get<1>(position));
-            vector_board.push_back('m');
+            // Si en el casillero hay una pieza, es un enemigo para comer
+            if(!square_is_empty(std::get<0>(position),std::get<1>(position))){
+                vector_board.push_back('e'); //(e)nemigo a comer
+            }else{
+                vector_board.push_back('m'); //(m)ovimiento posible
+            }
         }
     }
     

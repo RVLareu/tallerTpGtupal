@@ -102,10 +102,12 @@ void ChessBoard::render_from_vector(std::vector<char> board) {
             char highlight_type = board[ptr+3];
             SDL2pp::Color color;
             std::cout << "type: " << type << std::endl;
-            if (highlight_type == 'm'){ // Highlight por (m)ovimientos posibles
+            if (highlight_type == 'm'){ // Highlight por (m)ovimiento posible
                 color = SDL2pp::Color(30,80,100);                
+            } else if (highlight_type == 'e'){ // Highlight por (e)nemigo para comer
+                color = SDL2pp::Color(150,0,0);            
             } else if (highlight_type == 's'){ // Highlight por ser la pieza (s)eleccionada
-                color = SDL2pp::Color(0,80,0);
+                color = SDL2pp::Color(0,150,0);
             }
             
             spots_painted.emplace_back(renderer,
