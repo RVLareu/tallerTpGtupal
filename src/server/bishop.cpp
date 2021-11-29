@@ -1,6 +1,6 @@
 #include "bishop.h"
 #include <iostream>
-Bishop::Bishop(int color, float p) : Piece(color, p, color == 1 ? "b" : "B") {
+Bishop::Bishop(int color, int probability_fraction) : Piece(color, probability_fraction, color == 1 ? "b" : "B") {
 
 }
 

@@ -1,7 +1,7 @@
 #include "king.h"
 #include <cmath>
 #include <iostream>
-King::King(int color, float p) : Piece(color, p, color == 1 ? "k" : "K") {
+King::King(int color, int probability_fraction) : Piece(color, probability_fraction, color == 1 ? "k" : "K") {
     
 }
 

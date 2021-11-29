@@ -300,44 +300,36 @@ void Board::erase_possible_squares() {
 
 std::vector<char> Board::get_vector_board() {    
     std::vector<char> vector_board;
-    for (int row = 0; row < 8; row++) {
-        for (int col = 0; col < 8; col ++) {
-            if (!this->square_is_empty(row, col)){
-                Piece * piece = board[row][col];
-                vector_board.push_back((char)piece->name[0]);
-                vector_board.push_back(1);
-                vector_board.push_back(row); 
-                vector_board.push_back(col);
-                bool selected_square = false;
-                for (std::tuple<int, int> square : piece_moves) {
-                    if (std::get<0>(square) == row and std::get<1>(square) == col) {
-                        selected_square = true;
-                        vector_board.push_back(1);
-                    }
-                }
-                if (!selected_square) {
-                    vector_board.push_back(0);
-                }                
-                
-                
-            } else {
-                vector_board.push_back('e');
-                vector_board.push_back(0);
-                vector_board.push_back(row); 
-                vector_board.push_back(col);
-                bool selected_square = false;
-                for (std::tuple<int, int> square : piece_moves) {
-                    if (std::get<0>(square) == row and std::get<1>(square) == col) {
-                        selected_square = true;
-                        vector_board.push_back(1);
-                    }
-                }
-                if (!selected_square) {
-                    vector_board.push_back(0);
-                }
-            }
-        }        
+    
+    // Se obtienen los posibles movimientos de la pieza seleccionada actualmente (de existir)
+    vector<tuple<int, int>> selected_piece_possible_movements;
+    if (this->is_any_piece_selected()){
+        std::tuple<int, int> selected_pos = this->get_selected_piece_position();
+        selected_piece_possible_movements = 
+            get_piece_possible_movements(std::get<0>(selected_pos),std::get<1>(selected_pos));       
+        for (const auto& position: selected_piece_possible_movements) {
+            vector_board.push_back('h');
+            vector_board.push_back(std::get<0>(position));
+            vector_board.push_back(std::get<1>(position));
+            vector_board.push_back('m');
+        }
     }
+    
+    // Se recorren todas las piezas del tablero
+    for (const auto& key_value_board: this->board) {
+        for (const auto& key_value_row: key_value_board.second) {
+            vector_board.push_back('p');      
+            vector_board.push_back(key_value_board.first);
+            vector_board.push_back(key_value_row.first);
+            Piece * piece = key_value_row.second;
+            vector_board.push_back((char)piece->name[0]);
+            vector_board.push_back(piece->probability_fraction);
+            //esta_pieza_esta_entrelazada_con_la_seleccionada
+            vector_board.push_back(0);
+            //esta_pieza_es_la_misma_que_seleccionada (split)
+            vector_board.push_back(0);            
+        }   
+    }    
     return std::move(vector_board);
 }
 
