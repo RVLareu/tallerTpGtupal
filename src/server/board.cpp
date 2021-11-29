@@ -305,6 +305,11 @@ std::vector<char> Board::get_vector_board() {
     vector<tuple<int, int>> selected_piece_possible_movements;
     if (this->is_any_piece_selected()){
         std::tuple<int, int> selected_pos = this->get_selected_piece_position();
+        // Se resalta la pieza seleccionada
+        vector_board.push_back('h');
+        vector_board.push_back(std::get<0>(selected_pos));
+        vector_board.push_back(std::get<1>(selected_pos));
+        vector_board.push_back('s');
         selected_piece_possible_movements = 
             get_piece_possible_movements(std::get<0>(selected_pos),std::get<1>(selected_pos));       
         for (const auto& position: selected_piece_possible_movements) {

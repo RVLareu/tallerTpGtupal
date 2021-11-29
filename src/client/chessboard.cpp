@@ -99,10 +99,18 @@ void ChessBoard::render_from_vector(std::vector<char> board) {
         else if (type == 'h'){
             int x = (board[ptr+1]) * size_spot;
             int y = (board[ptr+2]) * size_spot;
-            char highlight_type = board[ptr+3] * size_spot;
+            char highlight_type = board[ptr+3];
+            SDL2pp::Color color;
+            std::cout << "type: " << type << std::endl;
+            if (highlight_type == 'm'){ // Highlight por (m)ovimientos posibles
+                color = SDL2pp::Color(30,80,100);                
+            } else if (highlight_type == 's'){ // Highlight por ser la pieza (s)eleccionada
+                color = SDL2pp::Color(0,80,0);
+            }
+            
             spots_painted.emplace_back(renderer,
                                         SDL2pp::Rect(y + size_spot / 4, x + size_spot / 4, size_spot/2 , size_spot/2), 
-                                        SDL2pp::Color(30,80,100));
+                                        color);
             ptr += 4;
         }
     }
@@ -179,10 +187,5 @@ void ChessBoard::render() {
     for(piece = pieces.begin(); piece != pieces.end(); ++piece) {
         piece->copy();
     }
-    
-    
-
-
-
 }
 
