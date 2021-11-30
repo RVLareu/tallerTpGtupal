@@ -4,17 +4,58 @@
 #include <list>
 #include <SDL.h>
 #include <iostream>
+#include <thread>
 
-#include "../server/game.h"
+
 
 #include "spot.h"
 #include "renderpiece.h"
 #include "chessboard.h"
 #include "menu.h"
 #include "endScreen.h"
+#include "../common/common_socket.h"
+#include "../common/common_protocol.h"
 
 
+int receive_board_state_and_render(SDL2pp::Renderer& renderer, ChessBoard& board, bool& running, Socket& client_socket,std::vector<char>& pieces, Protocol& protocol) {
+                
+        while (running) {
+            try {
+                renderer.Clear();
+                pieces = protocol.recv_board_status(client_socket);
+                board.render_from_vector(pieces);
+                renderer.Present();
+                SDL_Delay(1000);
+            } catch (std::exception& e) {
+                std::cout << e.what() << std::endl;
+                return 1;
+            }
+        }
+}
 
+
+int receive_client_input_and_send(SDL_Event event, SDL2pp::Point mousePos, bool& running, Socket& socket, ChessBoard& board, Protocol& protocol) {
+    while(running) {
+        while(SDL_PollEvent(&event)) {
+            switch (event.type) {
+                case SDL_QUIT:
+                    running = false;
+                    return 0;
+                    break;
+                case SDL_MOUSEMOTION:
+                    mousePos.SetX(event.motion.x);
+                    mousePos.SetY(event.motion.y);
+                    break;
+                case SDL_MOUSEBUTTONDOWN: 
+                    if (event.button.button == SDL_BUTTON_LEFT) {
+                        protocol.send_selection(socket, std::get<0>(board.mouse_position_to_square(mousePos)), std::get<1>(board.mouse_position_to_square(mousePos)));
+                        //game.process_position(std::get<0>(board.mouse_position_to_square(mousePos)), std::get<1>(board.mouse_position_to_square(mousePos)));
+                    break;
+                    }
+            }
+        }
+    }
+}
 
 
 int main(int argc, char** argv){
@@ -32,7 +73,7 @@ int main(int argc, char** argv){
     // Initialize Menu
     Menu menu(std::ref(renderer), std::ref(window));
     // Menu loop;
-    menu.show_menu();
+    std::string nickname = menu.show_menu();
 
     // Initialize a board
     ChessBoard board(std::ref(renderer));
@@ -45,6 +86,9 @@ int main(int argc, char** argv){
     
     std::vector<char> pieces;
 
+    Socket client_socket;
+    client_socket.connect("localhost", "7777");
+    Protocol protocol;
 
     SDL2pp::Wav wav("assets/in_game_music.wav");
         uint8_t* wav_pos = wav.GetBuffer();
@@ -70,43 +114,21 @@ int main(int argc, char** argv){
     dev.Pause(false);
     
 
-    Board chBoard;
-    Game game(std::ref(chBoard));
-    while (running) {
-        
-        while(SDL_PollEvent(&event)) {
-        
-            switch (event.type) {
-                case SDL_QUIT:
-                    running = false;
-                    break;
-                case SDL_MOUSEMOTION:
-                    mousePos.SetX(event.motion.x);
-                    mousePos.SetY(event.motion.y);
-                    break;
-                case SDL_MOUSEBUTTONDOWN: 
-                    if (event.button.button == SDL_BUTTON_LEFT) {
-                        game.process_position(std::get<0>(board.mouse_position_to_square(mousePos)), std::get<1>(board.mouse_position_to_square(mousePos)));
-                    break;
-                    }
-            }
-        }
-        try {
-            renderer.Clear();
-            pieces = game.get_board();
-            //std::cout << pieces.data();
-            board.render_from_vector(pieces);
-            renderer.Present();
-            SDL_Delay(1000);
-        } catch (std::exception& e) {
-            std::cout << e.what() << std::endl;
-            return 1;
-        }
-    }
+    
+
+    std::thread client_input (receive_client_input_and_send, event, mousePos, std::ref(running), std::ref(client_socket), std::ref(board), std::ref(protocol));
+
+
+
+    std::thread render_board (receive_board_state_and_render, std::ref(renderer), std::ref(board), std::ref(running), std::ref(client_socket), std::ref(pieces), std::ref(protocol));
+
+    client_input.join();
+    render_board.join();
+
 
     dev.Pause(true);
         //End Screen
-    EndScreen endScreen(std::ref(renderer), std::ref(window), 'b');
+    EndScreen endScreen(std::ref(renderer), std::ref(window), 'b', nickname);
     endScreen.show_end_screen();
     return 0;
 }

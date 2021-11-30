@@ -29,6 +29,18 @@ class Protocol{
         
         void recv_client_events(Socket& socket);
 
+        // Envía un comando al servidor
+        void request(Socket& socket,
+                    const std::string& command, 
+                    const std::string& queue_name);
+        // Envía un comando con mensaje al servidor
+        void request(Socket& socket,
+                    const std::string& command, 
+                    const std::string& queue_name, 
+                    const std::string& message);
+        void send_selection(Socket& socket,
+                            int row,
+                            int col); 
 };
 
 #endif

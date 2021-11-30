@@ -12,8 +12,9 @@ class EndScreen {
         SDL2pp::Window& window;
         void render();
         void play_background_music();
+        std::string nickname;
     public:
-        EndScreen(SDL2pp::Renderer& renderer, SDL2pp::Window& window, char winner);
+        EndScreen(SDL2pp::Renderer& renderer, SDL2pp::Window& window, char winner, std::string nickname);
         int show_end_screen();
 };
 

@@ -13,7 +13,7 @@
 #include "endScreen.h"
 
 
-EndScreen::EndScreen(SDL2pp::Renderer& renderer, SDL2pp::Window& window, char winner) : renderer(renderer), window(window) {
+EndScreen::EndScreen(SDL2pp::Renderer& renderer, SDL2pp::Window& window, char winner, std::string nickname) : renderer(renderer), window(window), nickname(nickname) {
     SDL2pp::SDLTTF ttf;
     SDL2pp::Font font("assets/SIXTY.TTF", 50);
 
@@ -32,6 +32,9 @@ EndScreen::EndScreen(SDL2pp::Renderer& renderer, SDL2pp::Window& window, char wi
                     font.RenderText_Solid("WHITE", SDL_Color{255, 255, 255, 255})
                     );    
     }
+        textures.emplace_back(renderer,
+                     font.RenderText_Solid("WELL PLAYED   " + nickname + " !!", SDL_Color{255, 255, 255, 255})
+                     );
 
 }
 

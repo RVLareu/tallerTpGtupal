@@ -55,7 +55,7 @@ void Protocol::send_board_status(Socket& socket,
             vector_board.push_back(key_value_row.first);
             Piece * piece = key_value_row.second;
             vector_board.push_back((char)piece->name[0]);
-            vector_board.push_back(piece->probability_fraction);
+            vector_board.push_back(piece->probability_fraction_den);
             //esta_pieza_esta_entrelazada_con_la_seleccionada
             vector_board.push_back(0);
             //esta_pieza_es_la_misma_que_seleccionada (split)
@@ -85,3 +85,22 @@ void Protocol::recv_client_events(Socket& socket){
         std::cout << "CLICK: ROW: "<< row << " COL: "<< col << std::endl;        
     }    
 }
+
+void Protocol::send_selection(Socket& socket,
+                            int row,
+                            int col) {
+        const char* selection = "c";
+        socket.send(selection, sizeof(selection));
+
+
+        uint16_t row_net = static_cast<uint16_t> (row);
+        uint16_t col_net = static_cast<uint16_t> (col);
+        
+        row_net = htons(row_net);
+        col_net = htons(col_net);
+        socket.send((char*)&row_net, sizeof(row_net));
+        socket.send((char*)&col_net, sizeof(col_net));   
+}
+
+
+
