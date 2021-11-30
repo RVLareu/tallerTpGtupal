@@ -17,14 +17,16 @@ AcceptThread::AcceptThread(Socket& socket,
                         is_running(true),
                         thread(&AcceptThread::run,this){}
 
-void AcceptThread::run(){          
+void AcceptThread::run(){
+    int clients_accepted = 0;          
     while (this->is_running){
         try{
-            Socket client_socket = this->socket.accept();                             
+            Socket client_socket = this->socket.accept();
+            clients_accepted += 1;         
             this->clients.push_back(new Client(std::move(client_socket),
                                                 this->protocol,
                                                 // Solo los primeros 2 clientes son jugadores
-                                                (this->clients.size() > 2) ? false : true,
+                                                (clients_accepted > 2) ? false : true,
                                                 this->game
                                                 ));
             std::cout << "NEW CLIENT!" << std::endl;

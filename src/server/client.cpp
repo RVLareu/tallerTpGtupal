@@ -7,7 +7,7 @@
 
 #include <thread>
 #include <unistd.h>
-
+#include <iostream>
 
 Client::Client(Socket socket, Protocol& protocol, bool is_player, Game& game): 
                                 socket(std::move(socket)),
@@ -19,11 +19,13 @@ Client::Client(Socket socket, Protocol& protocol, bool is_player, Game& game):
                                 {};
 
 void Client::recv_events(){
-    while (true){
-        if (is_player) {            
+    std::cout << "is_player: "<< is_player;
+    if (is_player) { 
+        while (true){                
             this->protocol.recv_client_events(this->socket, this->game);            
         }
     }
+    
 };
 
 void Client::send_board_status(){              
