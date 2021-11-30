@@ -54,7 +54,7 @@ void Protocol::send_board_status(Socket& socket,
             vector_board.push_back(key_value_row.first);
             Piece * piece = key_value_row.second;
             vector_board.push_back((char)piece->name[0]);
-            vector_board.push_back(piece->probability_fraction);
+            vector_board.push_back(piece->probability_fraction_den);
             //esta_pieza_esta_entrelazada_con_la_seleccionada
             vector_board.push_back(0);
             //esta_pieza_es_la_misma_que_seleccionada (split)
@@ -71,24 +71,20 @@ void Protocol::send_board_status(Socket& socket,
     std::cout << vector_board.data() << std::endl; 
 }
 
-void Protocol::request(Socket& socket,
-                        const std::string& command, 
-                        const std::string& queue_name){
-    char command_id = this->command_id_map[command];
-    uint16_t queue_name_length = htons(queue_name.length());    
-    socket.send(&command_id, sizeof(command_id));
-    socket.send((char *) &queue_name_length , sizeof(queue_name_length));
-    socket.send(queue_name.c_str(), queue_name.length());
-}
+void Protocol::send_selection(Socket& socket,
+                            int row,
+                            int col) {
+        const char* selection = "c";
+        socket.send(selection, sizeof(selection));
 
-void Protocol::request(Socket& socket,
-                        const std::string& command, 
-                        const std::string& queue_name, 
-                        const std::string& message){
-    this->request(socket,command,queue_name);
-    // if (!message.empty()){
-    //     this->send_message(socket, message);
-    // }
+
+        uint16_t row_net = static_cast<uint16_t> (row);
+        uint16_t col_net = static_cast<uint16_t> (col);
+        
+        row_net = htons(row_net);
+        col_net = htons(col_net);
+        socket.send((char*)&row_net, sizeof(row_net));
+        socket.send((char*)&col_net, sizeof(col_net));   
 }
 
 

@@ -34,7 +34,10 @@ class Protocol{
         void request(Socket& socket,
                     const std::string& command, 
                     const std::string& queue_name, 
-                    const std::string& message); 
+                    const std::string& message);
+        void send_selection(Socket& socket,
+                            int row,
+                            int col); 
 };
 
 #endif
