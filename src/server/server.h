@@ -2,6 +2,7 @@
 #define __SERVER_H__
 
 #include "./client.h"
+#include "./game.h"
 #include "../common/common_socket.h"
 #include "../common/common_protocol.h"
 
@@ -15,6 +16,7 @@ class Server {
         Socket socket;
         Protocol protocol;        
         std::vector<Client*> clients;
+        Game game;
 
     public:
         Server();

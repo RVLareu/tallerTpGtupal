@@ -17,31 +17,31 @@
 #include "../common/common_protocol.h"
 
 
-int receive_board_state_and_render(SDL2pp::Renderer& renderer, ChessBoard& board, bool& running, Socket& client_socket,std::vector<char>& pieces, Protocol& protocol) {
+void receive_board_state_and_render(SDL2pp::Renderer& renderer, ChessBoard& board, bool& running, Socket& client_socket, Protocol& protocol) {
                 
         while (running) {
-            try {
-                renderer.Clear();
-                pieces = protocol.recv_board_status(client_socket);
+            renderer.Clear();
+            std::vector<char> pieces = protocol.recv_board_status(client_socket);
+            std::cout << pieces.size() << std::endl;
+            if (pieces.size() > 0){
                 board.render_from_vector(pieces);
                 renderer.Present();
-                
-            } catch (std::exception& e) {
-                std::cout << e.what() << std::endl;
-                return 1;
             }
+            // try {
+            // } catch (std::exception& e) {
+            //     std::cout << e.what() << std::endl;                
+            // }
         }
         
 }
 
 
-int receive_client_input_and_send(SDL_Event event, SDL2pp::Point mousePos, bool& running, Socket& socket, ChessBoard& board, Protocol& protocol) {
+void receive_client_input_and_send(SDL_Event event, SDL2pp::Point mousePos, bool& running, Socket& socket, ChessBoard& board, Protocol& protocol) {
     while(running) {
         while(SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
-                    running = false;
-                    return 0;
+                    running = false;                    
                     break;
                 case SDL_MOUSEMOTION:
                     mousePos.SetX(event.motion.x);
@@ -53,6 +53,7 @@ int receive_client_input_and_send(SDL_Event event, SDL2pp::Point mousePos, bool&
                         //game.process_position(std::get<0>(board.mouse_position_to_square(mousePos)), std::get<1>(board.mouse_position_to_square(mousePos)));
                     break;
                     }
+            SDL_Delay(1000);
             }
         }
     }
@@ -121,10 +122,10 @@ int main(int argc, char** argv){
 
 
 
-    std::thread render_board (receive_board_state_and_render, std::ref(renderer), std::ref(board), std::ref(running), std::ref(client_socket), std::ref(pieces), std::ref(protocol));
+    std::thread render_board (receive_board_state_and_render, std::ref(renderer), std::ref(board), std::ref(running), std::ref(client_socket), std::ref(protocol));
 
     client_input.join();
-    render_board.join();
+    // render_board.join();
 
 
     dev.Pause(true);

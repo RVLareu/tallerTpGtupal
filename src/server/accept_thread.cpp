@@ -1,5 +1,6 @@
 #include "./accept_thread.h"
 #include "./client.h"
+#include "./game.h"
 #include "../common/common_protocol.h"
 #include "../common/common_socket.h"
 #include <vector>
@@ -7,10 +8,12 @@
 
 AcceptThread::AcceptThread(Socket& socket,
                         std::vector<Client*>& clients,
-                        Protocol& protocol):
+                        Protocol& protocol,
+                        Game& game):
                         socket(socket),
                         clients(clients),
                         protocol(protocol),
+                        game(game),
                         is_running(true),
                         thread(&AcceptThread::run,this){}
 
@@ -21,7 +24,8 @@ void AcceptThread::run(){
             this->clients.push_back(new Client(std::move(client_socket),
                                                 this->protocol,
                                                 // Solo los primeros 2 clientes son jugadores
-                                                (this->clients.size() > 2) ? false : true 
+                                                (this->clients.size() > 2) ? false : true,
+                                                this->game
                                                 ));
             std::cout << "NEW CLIENT!" << std::endl;
         }
