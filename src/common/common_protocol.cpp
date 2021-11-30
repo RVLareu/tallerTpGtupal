@@ -8,6 +8,7 @@
 #include "common_socket.h"
 
 #include "../server/board.h"
+#include <arpa/inet.h>
 
 std::vector<char> Protocol::recv_board_status(Socket& socket){    
     //Primero se obtiene la longitud del mensaje
@@ -71,25 +72,16 @@ void Protocol::send_board_status(Socket& socket,
     std::cout << vector_board.data() << std::endl; 
 }
 
-void Protocol::request(Socket& socket,
-                        const std::string& command, 
-                        const std::string& queue_name){
-    char command_id = this->command_id_map[command];
-    uint16_t queue_name_length = htons(queue_name.length());    
-    socket.send(&command_id, sizeof(command_id));
-    socket.send((char *) &queue_name_length , sizeof(queue_name_length));
-    socket.send(queue_name.c_str(), queue_name.length());
+void Protocol::recv_client_events(Socket& socket){    
+    //Primero se obtiene el tipo de evento
+    char event;
+    socket.recv(&event, sizeof(event));    
+    if (event == 'c'){ // Click / selección
+        uint16_t row, col;        
+        socket.recv((char * ) row, sizeof(row));
+        socket.recv((char * ) col, sizeof(col));
+        row = ntohs(row);
+        col = ntohs(col);
+        std::cout << "CLICK: ROW: "<< row << " COL: "<< col << std::endl;        
+    }    
 }
-
-void Protocol::request(Socket& socket,
-                        const std::string& command, 
-                        const std::string& queue_name, 
-                        const std::string& message){
-    this->request(socket,command,queue_name);
-    // if (!message.empty()){
-    //     this->send_message(socket, message);
-    // }
-}
-
-
-

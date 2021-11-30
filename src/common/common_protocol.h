@@ -26,15 +26,9 @@ class Protocol{
         // Para enviar el estado del tablero a un socket.      
         void send_board_status(Socket& socket,
                                Board& board);
-        // Envía un comando al servidor
-        void request(Socket& socket,
-                    const std::string& command, 
-                    const std::string& queue_name);
-        // Envía un comando con mensaje al servidor
-        void request(Socket& socket,
-                    const std::string& command, 
-                    const std::string& queue_name, 
-                    const std::string& message); 
+        
+        void recv_client_events(Socket& socket);
+
 };
 
 #endif
