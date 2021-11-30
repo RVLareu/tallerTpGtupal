@@ -38,10 +38,13 @@ add_executable (sdlpp-hello
   src/server/knight.cpp
   src/server/game.cpp
     
+  src/common/common_protocol.cpp
+  src/common/common_socket.cpp
 )
 
 add_executable (server
   src/server/main.cpp
+
   src/server/rook.cpp
   src/server/bishop.cpp
   src/server/pawn.cpp
@@ -51,6 +54,9 @@ add_executable (server
   src/server/board.cpp  
   src/server/knight.cpp
   src/server/game.cpp
+  
+  src/common/common_protocol.cpp
+  src/common/common_socket.cpp
 )
 
 target_link_libraries(sdlpp-hello ${SDL2PP_LIBRARIES})
