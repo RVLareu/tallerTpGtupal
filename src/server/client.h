@@ -14,9 +14,7 @@ class Client {
         Socket socket;
         Protocol& protocol;
         // Hilo para recibir eventos del cliente
-        std::thread recv_thread;
-        // Hilo para enviar estado del juego al cliente
-        std::thread send_thread;
+        std::thread recv_thread;        
         bool is_player;
     
     public:

@@ -11,13 +11,12 @@ Client::Client(Socket socket, Protocol& protocol, bool is_player):
                                 socket(std::move(socket)),
                                 protocol(protocol),
                                 is_player(is_player),
-                                recv_thread(&Client::recv_events,this),
-                                send_thread(&Client::run,this),
+                                recv_thread(&Client::recv_events,this)                                
                                 {};
 
 void Client::recv_events(){
     while (true){
-        this->protocol.recv_client_event(this->socket);        
+        this->protocol.recv_client_events(this->socket);        
     }
     
 };
