@@ -11,7 +11,7 @@ Game::Game(BlockingQueue& blocking_queue, std::vector<Client *>& clients) : whit
 void Game::process_position(int row, int col) {
     /*
         Hay una pieza seleccionada
-    */
+    */    
     if (board.is_any_piece_selected()) {        
         std::cout << "HAY PIEZA SELECCIONADA";
         std::tuple<int, int> position_of_selected_piece = this->board.get_selected_piece_position();

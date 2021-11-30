@@ -18,10 +18,12 @@ AcceptThread::AcceptThread(Socket& socket,
                         thread(&AcceptThread::run,this),
                         blocking_queue(blocking_queue){}
 
-void AcceptThread::run(){          
+void AcceptThread::run(){
+    int clients_accepted = 0;          
     while (this->is_running){
         try{
-            Socket client_socket = this->socket.accept();                             
+            Socket client_socket = this->socket.accept();
+            clients_accepted += 1;         
             this->clients.push_back(new Client(std::move(client_socket),
                                                 this->protocol,
                                                 // Solo los primeros 2 clientes son jugadores

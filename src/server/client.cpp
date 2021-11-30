@@ -25,6 +25,11 @@ void Client::recv_events(){
             this->protocol.recv_client_events(this->socket, this->blocking_queue);
         }
     }
+    
+};
+
+void Client::send_board_status(){              
+    // this->protocol.send_board_status(this->socket, this->game.board);    
 };
 
 void Client::send_board_status(Board& board){

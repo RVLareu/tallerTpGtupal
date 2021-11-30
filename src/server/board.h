@@ -25,8 +25,8 @@ class Board {
         tuple<int, int> selected_piece_position;
 
     public:
-        board_map board;        
-
+        board_map board;                
+        
         vector<tuple<int, int>> piece_moves;        
 
         Board();

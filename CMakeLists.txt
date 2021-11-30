@@ -21,8 +21,9 @@ include_directories(${PROJECT_SOURCE_DIR}/libs)
 include_directories(${SDL2PP_INCLUDE_DIRS})
 
 
-add_executable (sdlpp-hello
-  src/client/mainSdlHello.cpp
+add_executable (client
+  src/client/client.cpp
+  src/client/main.cpp
   src/client/renderpiece.cpp
   src/client/spot.cpp
   src/client/chessboard.cpp
@@ -67,7 +68,7 @@ add_executable (server
   src/common/common_socket.cpp
 )
 
-target_link_libraries(sdlpp-hello ${SDL2PP_LIBRARIES})
+target_link_libraries(client ${SDL2PP_LIBRARIES})
 
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})

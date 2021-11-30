@@ -17,6 +17,7 @@ class Game {
         Protocol protocol;
         
     public:
+        bool is_running;
         Board board;
         
         bool is_running;
