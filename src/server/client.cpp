@@ -17,10 +17,12 @@ Client::Client(Socket socket, Protocol& protocol, bool is_player, Game& game):
                                 {};
 
 void Client::recv_events(){
+
     while (true){
-        this->protocol.recv_client_events(this->socket, this->game);        
+        if (is_player) {
+            this->protocol.recv_client_events(this->socket, this->game);
+        }
     }
-    
 };
 
 #endif

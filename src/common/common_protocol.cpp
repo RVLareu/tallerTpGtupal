@@ -15,11 +15,13 @@ std::vector<char> Protocol::recv_board_status(Socket& socket){
     //Primero se obtiene la longitud del mensaje
     uint16_t length;
     socket.recv((char *) &length, sizeof(length));
-    length = ntohs(length);
+    std::cout << "LENGHT: " << length;
+    //length = ntohs(length);
+    std::cout << "LENGHT: " << length;
     // y luego el vector
     std::vector<char> vector_board(length);
     socket.recv(vector_board.data(), length);
-    return std::move(vector_board);
+    return vector_board;
 }
 
 void Protocol::send_board_status(Socket& socket,
@@ -65,11 +67,12 @@ void Protocol::send_board_status(Socket& socket,
     }
 
     std::cout << "SEND BOARD" << std::endl;
-    //Envío de longitud del vector
-    uint16_t length = htons(vector_board.size());    
+    //Envío de longitud del vecto
+    uint16_t length = vector_board.size();
     socket.send((char *) &length, sizeof(length));
     //Envio del vector
     socket.send(vector_board.data(), length);
+
     std::cout << vector_board.data() << std::endl; 
 }
 
@@ -88,8 +91,9 @@ void Protocol::recv_client_events(Socket& socket, Game& game){
         row = ntohs(row);
         col = ntohs(col); 
         game.process_position(row,col);
+        game.print_game();
         this->send_board_status(socket, game.board);
-
+        
     }    
 }
 

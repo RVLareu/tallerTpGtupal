@@ -18,10 +18,10 @@
 
 
 void receive_board_state_and_render(SDL2pp::Renderer& renderer, ChessBoard& board, bool& running, Socket& client_socket, Protocol& protocol) {
-                
+        std::vector<char> pieces;
         while (running) {
             renderer.Clear();
-            std::vector<char> pieces = protocol.recv_board_status(client_socket);
+            pieces = protocol.recv_board_status(client_socket);
             std::cout << pieces.size() << std::endl;
             if (pieces.size() > 0){
                 board.render_from_vector(pieces);
@@ -32,6 +32,7 @@ void receive_board_state_and_render(SDL2pp::Renderer& renderer, ChessBoard& boar
             //     std::cout << e.what() << std::endl;                
             // }
         }
+        std::cout << "NOT RUNNING";
         
 }
 
@@ -89,7 +90,7 @@ int main(int argc, char** argv){
     std::vector<char> pieces;
 
     Socket client_socket;
-    client_socket.connect("localhost", "7774");
+    client_socket.connect("localhost", "7777");
     Protocol protocol;
 
     SDL2pp::Wav wav("assets/in_game_music.wav");

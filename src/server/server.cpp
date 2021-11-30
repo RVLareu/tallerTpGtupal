@@ -6,7 +6,7 @@
 #include <vector>
 
 Server::Server(){
-    this->socket.listen("localhost","7778",50);
+    this->socket.listen("localhost","7777",50);
 };
 
 void Server::main_loop(){     
