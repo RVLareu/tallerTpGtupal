@@ -28,10 +28,6 @@ void Client::recv_events(){
     
 };
 
-void Client::send_board_status(){              
-    // this->protocol.send_board_status(this->socket, this->game.board);    
-};
-
 void Client::send_board_status(Board& board){
     this->protocol.send_board_status(this->socket, board);
 }

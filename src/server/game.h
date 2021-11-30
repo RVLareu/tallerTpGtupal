@@ -18,9 +18,8 @@ class Game {
         
     public:
         bool is_running;
-        Board board;
         
-        bool is_running;
+        Board board;
 
         BlockingQueue& blocking_queue;
 

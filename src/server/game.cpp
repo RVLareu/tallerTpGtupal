@@ -74,9 +74,7 @@ void Game::change_turn() {
 void Game::process_events(BlockingQueue& blocking_queue) {
     bool running = true;
     while(running){
-        std::cout << "PROCESaNDo EVENTOSS" << std::endl;
-        // std::vector<char> pepe2 = {'c',1,1};
-        // this->blocking_queue.push(pepe2);
+        std::cout << "PROCESANDO EVENTOS" << std::endl;
         std::vector<char> event = blocking_queue.pop();
         std::cout << "PROCESANDO EVENTO" << std::endl;
         if (event[0] == 'c'){
@@ -89,11 +87,10 @@ void Game::process_events(BlockingQueue& blocking_queue) {
             if (!this->is_running){
                 client->send_finished_game(this->is_whites_turn());
             } else{
+                std::cout << "ENVIANDO TABLERO AL CLIENTE" << std::endl;
                 client->send_board_status(this->board);
             }
-
-        }
-        
+        }        
     }
 }
 
