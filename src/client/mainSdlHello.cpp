@@ -25,12 +25,13 @@ int receive_board_state_and_render(SDL2pp::Renderer& renderer, ChessBoard& board
                 pieces = protocol.recv_board_status(client_socket);
                 board.render_from_vector(pieces);
                 renderer.Present();
-                SDL_Delay(1000);
+                
             } catch (std::exception& e) {
                 std::cout << e.what() << std::endl;
                 return 1;
             }
         }
+        
 }
 
 
@@ -87,7 +88,7 @@ int main(int argc, char** argv){
     std::vector<char> pieces;
 
     Socket client_socket;
-    client_socket.connect("localhost", "7777");
+    client_socket.connect("localhost", "7774");
     Protocol protocol;
 
     SDL2pp::Wav wav("assets/in_game_music.wav");

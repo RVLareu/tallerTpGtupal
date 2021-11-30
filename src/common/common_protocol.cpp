@@ -90,16 +90,13 @@ void Protocol::send_selection(Socket& socket,
                             int row,
                             int col) {
         const char* selection = "c";
-        socket.send(selection, sizeof(selection));
+        socket.send(selection, sizeof(char));
 
 
-        uint16_t row_net = static_cast<uint16_t> (row);
-        uint16_t col_net = static_cast<uint16_t> (col);
-        
-        row_net = htons(row_net);
-        col_net = htons(col_net);
-        socket.send((char*)&row_net, sizeof(row_net));
-        socket.send((char*)&col_net, sizeof(col_net));   
+        row = htons(row);
+        col = htons(col);
+        socket.send((char*)&row, sizeof(uint16_t));
+        socket.send((char*)&col, sizeof(uint16_t));   
 }
 
 
