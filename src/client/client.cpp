@@ -1,3 +1,8 @@
+#include "client.h"
+
+
+#include "client.h"
+
 #include <iostream>
 #include <exception>
 #include <SDL2pp/SDL2pp.hh>
@@ -7,43 +12,42 @@
 #include <thread>
 
 
-
+#include "client.h"
 #include "spot.h"
 #include "renderpiece.h"
-#include "chessboard.h"
 #include "menu.h"
 #include "endScreen.h"
-#include "../common/common_socket.h"
-#include "../common/common_protocol.h"
 
-char winner = 'b';
 
-void receive_board_state_and_render(SDL2pp::Renderer& renderer, ChessBoard& board, bool& running, Socket& client_socket, Protocol& protocol) {
+Client::Client() : sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO),
+                    window("Chess", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 800, SDL_WINDOW_RESIZABLE),
+                    renderer(this->window, -1, SDL_RENDERER_ACCELERATED),
+                    board(std::ref(this->renderer)),
+                    winner('b') {
+    board.create_spots();
+    this->socket.connect("localhost", "7777");
+}
+
+void Client::receive_board_state_and_render(bool& running) {
         std::vector<char> status;
         while (running) {
             renderer.Clear();
-            status = protocol.recv_board_status(client_socket);
+            status = this->protocol.recv_board_status(this->socket);
             std::cout << status.size() << std::endl;
             if (status.size() > 0){
                 if (status[0] == 'f'){
                     running = false;
-                    winner = status[1];
+                    this->winner = status[1];
                 } else{
-                    board.render_from_vector(status);
-                    renderer.Present();
+                    this->board.render_from_vector(status);
+                    this->renderer.Present();
                 }
             }
-            // try {
-            // } catch (std::exception& e) {
-            //     std::cout << e.what() << std::endl;                
-            // }
         }
-        std::cout << "NOT RUNNING";
-        
 }
 
 
-void receive_client_input_and_send(SDL_Event event, SDL2pp::Point mousePos, bool& running, Socket& socket, ChessBoard& board, Protocol& protocol) {
+void Client::receive_client_input_and_send(SDL_Event event, SDL2pp::Point mousePos, bool& running) {
     while(running) {
         while(SDL_PollEvent(&event)) {
             switch (event.type) {
@@ -57,7 +61,6 @@ void receive_client_input_and_send(SDL_Event event, SDL2pp::Point mousePos, bool
                 case SDL_MOUSEBUTTONDOWN: 
                     if (event.button.button == SDL_BUTTON_LEFT) {
                         protocol.send_selection(socket, std::get<0>(board.mouse_position_to_square(mousePos)), std::get<1>(board.mouse_position_to_square(mousePos)));
-                        //game.process_position(std::get<0>(board.mouse_position_to_square(mousePos)), std::get<1>(board.mouse_position_to_square(mousePos)));
                     break;
                     }
             SDL_Delay(1000);
@@ -67,38 +70,11 @@ void receive_client_input_and_send(SDL_Event event, SDL2pp::Point mousePos, bool
 }
 
 
-int main(int argc, char** argv){
-    // Inicializo biblioteca de SDL
-    SDL2pp::SDL sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    // Creo una ventana dinamica con titulo "Chess set"
-    SDL2pp::Window window("Chess", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-        800, 800,
-        SDL_WINDOW_RESIZABLE);
-
-    // Creo renderer
-    SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-
-    // Initialize Menu
-    Menu menu(std::ref(renderer), std::ref(window));
-    // Menu loop;
-    std::string nickname = menu.show_menu();
-
-    // Initialize a board
-    ChessBoard board(std::ref(renderer));
-
-    board.create_spots();
-
-    SDL2pp::Point mousePos;
-    SDL_Event event;
-    bool running = true;
+void Client::in_game_loop() {
+    /*
+        In Game Music
+    */
     
-    std::vector<char> pieces;
-
-    Socket client_socket;
-    client_socket.connect("localhost", "7777");
-    Protocol protocol;
-
     SDL2pp::Wav wav("assets/in_game_music.wav");
         uint8_t* wav_pos = wav.GetBuffer();
         SDL2pp::AudioDevice dev(SDL2pp::NullOpt, 0, wav.GetSpec(), [&wav, &wav_pos](Uint8* stream, int len) {
@@ -121,23 +97,30 @@ int main(int argc, char** argv){
             );
         
     dev.Pause(false);
-    
 
-    
+    SDL2pp::Point mousePos;
+    SDL_Event event;
+    bool running = true;
+    std::thread client_input (&Client::receive_client_input_and_send,this, event, mousePos, std::ref(running));
 
-    std::thread client_input (receive_client_input_and_send, event, mousePos, std::ref(running), std::ref(client_socket), std::ref(board), std::ref(protocol));
-
-
-
-    std::thread render_board (receive_board_state_and_render, std::ref(renderer), std::ref(board), std::ref(running), std::ref(client_socket), std::ref(protocol));
+    std::thread render_board (&Client::receive_board_state_and_render,this, std::ref(running));
 
     client_input.join();
-    // render_board.join();
-
-
+    render_board.join();
     dev.Pause(true);
-        //End Screen
-    EndScreen endScreen(std::ref(renderer), std::ref(window), winner, nickname);
+}
+
+
+int Client::run(){
+
+    Menu menu(std::ref(renderer), std::ref(window));
+
+    this->nickname = menu.show_menu();
+    
+    this->in_game_loop();
+  
+    EndScreen endScreen(std::ref(renderer), std::ref(window), this->winner, this->nickname);
     endScreen.show_end_screen();
     return 0;
 }
+
