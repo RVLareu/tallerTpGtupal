@@ -63,7 +63,7 @@ void Client::receive_client_input_and_send(SDL_Event event, SDL2pp::Point mouseP
                         protocol.send_selection(socket, std::get<0>(board.mouse_position_to_square(mousePos)), std::get<1>(board.mouse_position_to_square(mousePos)));
                     break;
                     }
-            SDL_Delay(1000);
+            SDL_Delay(100);
             }
         }
     }
