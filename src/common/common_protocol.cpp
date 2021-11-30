@@ -74,21 +74,21 @@ void Protocol::send_board_status(Socket& socket,
                 }
             }
         }
-        // Se recorren todas las piezas del tablero
-        for (const auto& key_value_board: board.board) {
-            for (const auto& key_value_row: key_value_board.second) {
-                vector_board.push_back('p');      
-                vector_board.push_back(key_value_board.first);
-                vector_board.push_back(key_value_row.first);
-                Piece * piece = key_value_row.second;
-                vector_board.push_back((char)piece->name[0]);
-                vector_board.push_back(piece->probability_fraction_den);
-                //esta_pieza_esta_entrelazada_con_la_seleccionada
-                vector_board.push_back(0);
-                //esta_pieza_es_la_misma_que_seleccionada (split)
-                vector_board.push_back(0);            
-            }   
-        }
+    }
+    // Se recorren todas las piezas del tablero
+    for (const auto& key_value_board: board.board) {
+        for (const auto& key_value_row: key_value_board.second) {
+            vector_board.push_back('p');      
+            vector_board.push_back(key_value_board.first);
+            vector_board.push_back(key_value_row.first);
+            Piece * piece = key_value_row.second;
+            vector_board.push_back((char)piece->name[0]);
+            vector_board.push_back(piece->probability_fraction_den);
+            //esta_pieza_esta_entrelazada_con_la_seleccionada
+            vector_board.push_back(0);
+            //esta_pieza_es_la_misma_que_seleccionada (split)
+            vector_board.push_back(0);            
+        }   
     }
     
 

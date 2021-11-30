@@ -24,13 +24,16 @@ void AcceptThread::run(){
         try{
             Socket client_socket = this->socket.accept();
             clients_accepted += 1;         
+            std::cout << "NEW CLIENT!" << std::endl;
             this->clients.push_back(new Client(std::move(client_socket),
                                                 this->protocol,
                                                 // Solo los primeros 2 clientes son jugadores
                                                 (this->clients.size() > 2) ? false : true,
                                                 this->blocking_queue
                                                 ));
-            std::cout << "NEW CLIENT!" << std::endl;
+            // Encolamos el evento de conexion de cliente
+            std::vector<char> event = {'n'}; //'n de (n)ew client
+            this->blocking_queue.push(event);
         }
         catch(...){
             this->is_running = false;

@@ -77,7 +77,7 @@ void Game::process_events(BlockingQueue& blocking_queue) {
         std::cout << "PROCESANDO EVENTOS" << std::endl;
         std::vector<char> event = blocking_queue.pop();
         std::cout << "PROCESANDO EVENTO" << std::endl;
-        if (event[0] == 'c'){
+        if (event[0] == 'c'){ // (c)lick
             this->process_position(event[1],event[2]);
             this->print_game();
         }
@@ -90,7 +90,7 @@ void Game::process_events(BlockingQueue& blocking_queue) {
                 std::cout << "ENVIANDO TABLERO AL CLIENTE" << std::endl;
                 client->send_board_status(this->board);
             }
-        }        
+        }
     }
 }
 
