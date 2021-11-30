@@ -21,10 +21,11 @@ class AcceptThread{
         std::vector<Client*>& clients;     
         Protocol& protocol;
         std::atomic<bool> is_running;
-        std::thread thread; 
-        Game& game; 
+        std::thread thread;        
+        BlockingQueue& blocking_queue;
+        
     public:
-        AcceptThread(Socket& socket, std::vector<Client*>& clients, Protocol& protocol, Game& game);
+        AcceptThread(Socket& socket, std::vector<Client*>& clients, Protocol& protocol, BlockingQueue& blocking_queue);
         //Libera los clientes
         void remove_clients();
         // Join al hilo "thread"

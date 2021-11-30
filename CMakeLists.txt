@@ -38,6 +38,8 @@ add_executable (sdlpp-hello
   src/server/board.cpp  
   src/server/knight.cpp
   src/server/game.cpp
+  src/server/blocking_queue.cpp  
+  src/server/client.cpp  
     
   src/common/common_protocol.cpp
   src/common/common_socket.cpp
@@ -50,6 +52,7 @@ add_executable (server
   src/server/client.cpp
   src/server/game.cpp
   src/server/board.cpp  
+  src/server/blocking_queue.cpp  
 
   # PIEZAS
   src/server/piece.cpp

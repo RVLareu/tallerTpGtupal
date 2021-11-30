@@ -3,7 +3,7 @@
 
 #include "common_socket.h"
 #include "../server/board.h"
-#include "../server/game.h"
+#include "../server/blocking_queue.h"
 
 #include <string>
 #include <unordered_map>
@@ -19,18 +19,12 @@ class Protocol{
         // Para enviar el estado del tablero a un socket.      
         void send_board_status(Socket& socket,
                                Board& board);
+        // Para si el juego terminó a un socket.      
+        void send_finished_game(Socket& socket, 
+                                bool white_wins);
         
-        void recv_client_events(Socket& socket, Game& game);
+        void recv_client_events(Socket& socket, BlockingQueue& blocking_queue);
 
-        // Envía un comando al servidor
-        void request(Socket& socket,
-                    const std::string& command, 
-                    const std::string& queue_name);
-        // Envía un comando con mensaje al servidor
-        void request(Socket& socket,
-                    const std::string& command, 
-                    const std::string& queue_name, 
-                    const std::string& message);
         void send_selection(Socket& socket,
                             int row,
                             int col); 

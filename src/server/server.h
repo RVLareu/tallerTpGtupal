@@ -3,6 +3,7 @@
 
 #include "./client.h"
 #include "./game.h"
+#include "./blocking_queue.h"
 #include "../common/common_socket.h"
 #include "../common/common_protocol.h"
 
@@ -17,6 +18,7 @@ class Server {
         Protocol protocol;        
         std::vector<Client*> clients;
         Game game;
+        BlockingQueue blocking_queue;
 
     public:
         Server();

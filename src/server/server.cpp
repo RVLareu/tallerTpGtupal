@@ -5,7 +5,7 @@
 
 #include <vector>
 
-Server::Server(){
+Server::Server(): game(this->blocking_queue, this->clients){
     this->socket.listen("localhost","7777",50);
 };
 
@@ -13,7 +13,8 @@ void Server::main_loop(){
     AcceptThread accept_thread(this->socket,
                             this->clients,                        
                             this->protocol,
-                            this->game);
+                            this->blocking_queue);
+    this->game.process_events(this->blocking_queue);
     std::string input = "";
     while (input != "q"){
         std::getline(std::cin,input);

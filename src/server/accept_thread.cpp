@@ -1,4 +1,5 @@
 #include "./accept_thread.h"
+#include "./blocking_queue.h"
 #include "./client.h"
 #include "./game.h"
 #include "../common/common_protocol.h"
@@ -9,13 +10,13 @@
 AcceptThread::AcceptThread(Socket& socket,
                         std::vector<Client*>& clients,
                         Protocol& protocol,
-                        Game& game):
+                        BlockingQueue& blocking_queue):
                         socket(socket),
                         clients(clients),
-                        protocol(protocol),
-                        game(game),
+                        protocol(protocol),                        
                         is_running(true),
-                        thread(&AcceptThread::run,this){}
+                        thread(&AcceptThread::run,this),
+                        blocking_queue(blocking_queue){}
 
 void AcceptThread::run(){          
     while (this->is_running){
@@ -25,7 +26,7 @@ void AcceptThread::run(){
                                                 this->protocol,
                                                 // Solo los primeros 2 clientes son jugadores
                                                 (this->clients.size() > 2) ? false : true,
-                                                this->game
+                                                this->blocking_queue
                                                 ));
             std::cout << "NEW CLIENT!" << std::endl;
         }

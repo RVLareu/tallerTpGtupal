@@ -3,7 +3,8 @@
 
 #include "../common/common_socket.h"
 #include "../common/common_protocol.h"
-#include "./game.h"
+#include "./blocking_queue.h"
+#include "./board.h"
 
 #include <vector>
 #include <tuple>
@@ -17,12 +18,13 @@ class Client {
         // Hilo para recibir eventos del cliente
         std::thread recv_thread;        
         bool is_player;
-        Game& game;
+        BlockingQueue& blocking_queue;
     
     public:
-        Client(Socket socket, Protocol& protocol, bool is_player, Game& game);
-        void recv_events();
-        void send_board_status();
+        Client(Socket socket, Protocol& protocol, bool is_player, BlockingQueue& blocking_queue);
+        void recv_events();        
+        void send_board_status(Board& board);
+        void send_finished_game(bool white_wins);
 };
 
 #endif

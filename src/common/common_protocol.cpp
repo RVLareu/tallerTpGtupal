@@ -8,7 +8,8 @@
 #include "common_socket.h"
 
 #include "../server/board.h"
-#include "../server/game.h"
+
+#include "../server/blocking_queue.h"
 #include <arpa/inet.h>
 
 std::vector<char> Protocol::recv_board_status(Socket& socket){    
@@ -24,9 +25,26 @@ std::vector<char> Protocol::recv_board_status(Socket& socket){
     return vector_board;
 }
 
+void Protocol::send_finished_game(Socket& socket, bool white_wins){
+    std::vector<char> vector_status;    
+    vector_status.push_back('f'); //(f)inished
+    if (white_wins){
+        vector_status.push_back('w'); //(w)hites
+    } else{
+        vector_status.push_back('b'); //(b)lacks
+    }
+    std::cout << "SEND FINISH" << std::endl;
+    //Envío de longitud del vector
+    uint16_t length = vector_status.size();
+    socket.send((char *) &length, sizeof(length));
+    //Envio del vector
+    socket.send(vector_status.data(), length);
+    std::cout << vector_status.data() << std::endl; 
+}
+
 void Protocol::send_board_status(Socket& socket,
                             Board& board){
-    std::vector<char> vector_board;    
+    std::vector<char> vector_board;        
     // Se obtienen los posibles movimientos de la pieza seleccionada actualmente (de existir)    
     if (board.is_any_piece_selected()){
         std::tuple<int, int> selected_pos = board.get_selected_piece_position();
@@ -76,25 +94,31 @@ void Protocol::send_board_status(Socket& socket,
     std::cout << vector_board.data() << std::endl; 
 }
 
-void Protocol::recv_client_events(Socket& socket, Game& game){    
+void Protocol::recv_client_events(Socket& socket, BlockingQueue& blocking_queue){    
     //Primero se obtiene el tipo de evento
-    char event;
-    socket.recv(&event, sizeof(event));
+    std::vector<char> event;
+    char event_type;
+    socket.recv(&event_type, sizeof(event_type));
+    std::cout << "EVENT RECEIVED: " << event_type << std::endl;
 
-    if (event == 'c'){ // Click / selección
+    if (event_type == 'c'){ // Click / selección
         uint16_t row;
         uint16_t col;
 
         socket.recv((char * ) &row, sizeof(row));
-        socket.recv((char * ) &col, sizeof(col));
-        
         row = ntohs(row);
-        col = ntohs(col); 
-        game.process_position(row,col);
-        game.print_game();
-        this->send_board_status(socket, game.board);
-        
-    }    
+        std::cout << "EVENT RECEIVED: " << row << std::endl;
+        socket.recv((char * ) &col, sizeof(col));
+        col = ntohs(col);
+        std::cout << "EVENT RECEIVED: " << col << std::endl;
+
+        event.push_back(event_type);
+        event.push_back(row);
+        event.push_back(col);        
+                
+    }
+    blocking_queue.push(event);
+    
 }
 
 void Protocol::send_selection(Socket& socket,

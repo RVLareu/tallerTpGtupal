@@ -1,17 +1,29 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
-#include "board.h"
+#include "../common/common_protocol.h"
 
+#include "board.h"
+#include "blocking_queue.h"
+#include "./client.h"
+#include <vector>
+#include <thread>
 class Game {
     private:
-
         bool whites_turn;
-
+        
+        std::vector<Client *>& clients;
+        
+        Protocol protocol;
+        
     public:
         Board board;
+        
+        bool is_running;
 
-        Game();
+        BlockingQueue& blocking_queue;
+
+        Game(BlockingQueue& blocking_queue, std::vector<Client *>& clients);
 
         void process_position(int row, int col);
 
@@ -19,10 +31,11 @@ class Game {
 
         void change_turn();
 
+        void process_events(BlockingQueue& blocking_queue);
+        
         void print_game();
 
         std::vector<char> get_board();
-
 
 };
 
