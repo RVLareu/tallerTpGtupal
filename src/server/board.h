@@ -1,7 +1,10 @@
+
 #include "piece.h"
 
 #include <vector>
+#include <tuple>
 #include <map>
+
 using namespace std;
 
 #ifndef BOARD_H
@@ -10,7 +13,7 @@ using namespace std;
 
 class Board;
 
-typedef std::map<int, map<int,Piece*>> board_map;
+typedef map<int, map<int,Piece*>> board_map;
 
 class Board {
     private:        
@@ -24,13 +27,9 @@ class Board {
     public:
         board_map board;        
 
-        std::vector<std::tuple<int, int>> piece_moves;
-
-        void erase_possible_squares();
+        vector<tuple<int, int>> piece_moves;        
 
         Board();
-
-        void update_piece_possible_moves(int row, int col);
 
         void create_board();
         
@@ -43,9 +42,9 @@ class Board {
 
         void print_board();
 
-        vector<tuple<int, int>> filter_possible_movements(std::vector<std::tuple<int, int>> positions_available, int row, int col, Piece * piece);
+        vector<tuple<int, int>> filter_possible_movements(vector<tuple<int, int>> positions_available, int row, int col, Piece * piece);
 
-        std::tuple<int, int> get_selected_piece_position();
+        tuple<int, int> get_selected_piece_position();
 
         void select_piece(int row, int col);
 

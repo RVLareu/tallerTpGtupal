@@ -45,16 +45,20 @@ add_executable (sdlpp-hello
 
 add_executable (server
   src/server/main.cpp
+  src/server/server.cpp
+  src/server/accept_thread.cpp
+  src/server/client.cpp
+  src/server/game.cpp
+  src/server/board.cpp  
 
+  # PIEZAS
+  src/server/piece.cpp
   src/server/rook.cpp
   src/server/bishop.cpp
   src/server/pawn.cpp
   src/server/king.cpp
   src/server/queen.cpp
-  src/server/piece.cpp
-  src/server/board.cpp  
   src/server/knight.cpp
-  src/server/game.cpp
   
   src/common/common_protocol.cpp
   src/common/common_socket.cpp

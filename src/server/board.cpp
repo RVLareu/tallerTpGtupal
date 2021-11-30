@@ -1,5 +1,6 @@
 #include "board.h"
 
+#include "piece.h"
 #include "pawn.h"
 #include "rook.h"
 #include "knight.h"
@@ -217,11 +218,6 @@ std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, i
     return std::move(final_pos);
 }
 
-void Board::update_piece_possible_moves(int row, int col) {
-    this->piece_moves = get_piece_possible_movements(row, col);
-}
-
-
 bool Board::square_is_empty(int row, int col) {
     if (board.count(row) > 0) {
         if (board[row].count(col) > 0){                    
@@ -281,16 +277,11 @@ void Board::print_board() {
     }*/
 }
 
-void Board::erase_possible_squares() {
-    piece_moves.clear();
-}
-
 
 std::vector<char> Board::get_vector_board() {    
     std::vector<char> vector_board;
     
-    // Se obtienen los posibles movimientos de la pieza seleccionada actualmente (de existir)
-    vector<tuple<int, int>> selected_piece_possible_movements;
+    // Se obtienen los posibles movimientos de la pieza seleccionada actualmente (de existir)    
     if (this->is_any_piece_selected()){
         std::tuple<int, int> selected_pos = this->get_selected_piece_position();
         // Se resalta la pieza seleccionada
@@ -298,7 +289,7 @@ std::vector<char> Board::get_vector_board() {
         vector_board.push_back(std::get<0>(selected_pos));
         vector_board.push_back(std::get<1>(selected_pos));
         vector_board.push_back('s');
-        selected_piece_possible_movements = 
+        vector<tuple<int, int>> selected_piece_possible_movements = 
             get_piece_possible_movements(std::get<0>(selected_pos),std::get<1>(selected_pos));       
         for (const auto& position: selected_piece_possible_movements) {
             vector_board.push_back('h');

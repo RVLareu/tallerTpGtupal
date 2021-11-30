@@ -1,4 +1,6 @@
 #include "game.h"
+#include "server.h"
+
 #include <iostream>
 #include <functional>
 
@@ -9,6 +11,9 @@
 
 
 int main(int argc, char* argv[]) {
+    Server server;
+    server.main_loop();
+    // Board board;
 
     
     Board board;
@@ -26,7 +31,9 @@ int main(int argc, char* argv[]) {
 
     
 
+    // game.print_game();
 
+    // std::cout<<game.get_board().data();
 
     return 0;
 }

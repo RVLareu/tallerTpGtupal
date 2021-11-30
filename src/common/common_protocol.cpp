@@ -8,6 +8,7 @@
 #include "common_socket.h"
 
 #include "../server/board.h"
+#include <arpa/inet.h>
 
 std::vector<char> Protocol::recv_board_status(Socket& socket){    
     //Primero se obtiene la longitud del mensaje
@@ -69,6 +70,20 @@ void Protocol::send_board_status(Socket& socket,
     //Envio del vector
     socket.send(vector_board.data(), length);
     std::cout << vector_board.data() << std::endl; 
+}
+
+void Protocol::recv_client_events(Socket& socket){    
+    //Primero se obtiene el tipo de evento
+    char event;
+    socket.recv(&event, sizeof(event));    
+    if (event == 'c'){ // Click / selección
+        uint16_t row, col;        
+        socket.recv((char * ) row, sizeof(row));
+        socket.recv((char * ) col, sizeof(col));
+        row = ntohs(row);
+        col = ntohs(col);
+        std::cout << "CLICK: ROW: "<< row << " COL: "<< col << std::endl;        
+    }    
 }
 
 void Protocol::send_selection(Socket& socket,
