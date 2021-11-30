@@ -8,6 +8,7 @@
 #include "common_socket.h"
 
 #include "../server/board.h"
+#include "../server/game.h"
 #include <arpa/inet.h>
 
 std::vector<char> Protocol::recv_board_status(Socket& socket){    
@@ -72,32 +73,36 @@ void Protocol::send_board_status(Socket& socket,
     std::cout << vector_board.data() << std::endl; 
 }
 
-void Protocol::recv_client_events(Socket& socket){    
+void Protocol::recv_client_events(Socket& socket, Game& game){    
     //Primero se obtiene el tipo de evento
     char event;
-    socket.recv(&event, sizeof(event));    
+    socket.recv(&event, sizeof(event));
+
     if (event == 'c'){ // Click / selección
-        uint16_t row, col;        
-        socket.recv((char * ) row, sizeof(row));
-        socket.recv((char * ) col, sizeof(col));
+        uint16_t row;
+        uint16_t col;
+
+        socket.recv((char * ) &row, sizeof(row));
+        socket.recv((char * ) &col, sizeof(col));
+        
         row = ntohs(row);
-        col = ntohs(col);
-        std::cout << "CLICK: ROW: "<< row << " COL: "<< col << std::endl;        
+        col = ntohs(col); 
+        game.process_position(row,col);
+        this->send_board_status(socket, game.board);
+
     }    
 }
 
 void Protocol::send_selection(Socket& socket,
                             int row,
                             int col) {
-        const char* selection = "c";
-        socket.send(selection, sizeof(selection));
+        char selection = 'c';
+        socket.send(&selection, sizeof(selection));
 
-
-        uint16_t row_net = static_cast<uint16_t> (row);
-        uint16_t col_net = static_cast<uint16_t> (col);
-        
-        row_net = htons(row_net);
-        col_net = htons(col_net);
+        std::cout << row << " " << col << std::endl;
+        uint16_t row_net = htons(row);
+        uint16_t col_net = htons(col);
+       
         socket.send((char*)&row_net, sizeof(row_net));
         socket.send((char*)&col_net, sizeof(col_net));   
 }

@@ -3,6 +3,7 @@
 
 #include "common_socket.h"
 #include "../server/board.h"
+#include "../server/game.h"
 
 #include <string>
 #include <unordered_map>
@@ -11,14 +12,6 @@
 
 
 class Protocol{    
-    private:
-        //Traduce un comando a su char identificador        
-        std::unordered_map<std::string,char> command_id_map = {
-            {"define",'d'},
-            {"push",'u'},
-            {"pop",'o'},
-        };
-
     public:
         // Para recibir un mensaje de un socket, siguiendo el
         // formato de 2 bytes con el largo del msg, y luego el msg.        
@@ -27,7 +20,7 @@ class Protocol{
         void send_board_status(Socket& socket,
                                Board& board);
         
-        void recv_client_events(Socket& socket);
+        void recv_client_events(Socket& socket, Game& game);
 
         // Envía un comando al servidor
         void request(Socket& socket,

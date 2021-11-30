@@ -12,7 +12,8 @@ Server::Server(){
 void Server::main_loop(){     
     AcceptThread accept_thread(this->socket,
                             this->clients,                        
-                            this->protocol);
+                            this->protocol,
+                            this->game);
     std::string input = "";
     while (input != "q"){
         std::getline(std::cin,input);

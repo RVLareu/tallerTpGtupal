@@ -8,6 +8,7 @@
 #include "../common/common_protocol.h"
 #include "../common/common_socket.h"
 #include "./client.h"
+#include "./game.h"
 
 // Hilo "aceptador". Se encarga de aceptar nuevos clientes 
 // y asignarles un Client.
@@ -21,8 +22,9 @@ class AcceptThread{
         Protocol& protocol;
         std::atomic<bool> is_running;
         std::thread thread; 
+        Game& game; 
     public:
-        AcceptThread(Socket& socket, std::vector<Client*>& clients, Protocol& protocol);
+        AcceptThread(Socket& socket, std::vector<Client*>& clients, Protocol& protocol, Game& game);
         //Libera los clientes
         void remove_clients();
         // Join al hilo "thread"

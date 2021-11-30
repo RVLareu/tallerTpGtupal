@@ -1,12 +1,8 @@
 #include "game.h"
 #include <iostream>
 
-Game::Game(Board& board) : board(board), whites_turn(true) {
+Game::Game() : whites_turn(true) {
 
-}
-
-std::vector<char> Game::get_board() {
-    return this->board.get_vector_board();
 }
 
 void Game::process_position(int row, int col) {
