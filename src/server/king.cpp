@@ -37,3 +37,13 @@ std::vector<std::tuple<int, int>> King::can_move(int origin_row, int origin_col)
     }
     return std::move(possible_moves);
 }
+
+
+void King::split() {
+    std::cout << "SPLITING";
+    this->right_child = new King(this->color, this->probability_fraction_den * 2);
+    this->left_child = new King(this->color, this->probability_fraction_den * 2);
+
+    right_child->parent = this;
+    left_child->parent = this;
+}

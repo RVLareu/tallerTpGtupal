@@ -47,3 +47,14 @@ std::vector<std::tuple<int, int>> Queen::can_move(int origin_row, int origin_col
     }
     return std::move(possible_moves);
 }
+
+
+
+
+void Queen::split() {
+    this->right_child = new Queen(this->color, this->probability_fraction_den * 2);
+    this->left_child = new Queen(this->color, this->probability_fraction_den * 2);
+
+    right_child->parent = this;
+    left_child->parent = this;
+}

@@ -43,7 +43,6 @@ std::vector<std::tuple<int, int>> Pawn::can_move(int origin_row, int origin_col)
                         found = 1;
                         break;
                     }
-
                 }
                 if (found == 0) {
                     std::cout << " . ";
@@ -54,3 +53,16 @@ std::vector<std::tuple<int, int>> Pawn::can_move(int origin_row, int origin_col)
     return std::move(possible_moves);
 
 }
+
+
+
+
+void Pawn::split() {
+    this->right_child = new Pawn(this->color, this->probability_fraction_den * 2);
+    this->left_child = new Pawn(this->color, this->probability_fraction_den * 2);
+
+    right_child->parent = this;
+    left_child->parent = this;
+}
+
+

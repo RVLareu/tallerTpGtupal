@@ -44,3 +44,13 @@ std::vector<std::tuple<int, int>> Rook::can_move(int origin_row, int origin_col)
     }
     return std::move(possible_moves);
 }
+
+
+void Rook::split() {
+    std::cout << "SPLITING";
+    this->right_child = new Rook(this->color, this->probability_fraction_den * 2);
+    this->left_child = new Rook(this->color, this->probability_fraction_den * 2);
+
+    right_child->parent = this;
+    left_child->parent = this;
+}

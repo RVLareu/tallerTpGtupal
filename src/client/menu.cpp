@@ -39,8 +39,13 @@ void Menu::render() {
 			h += texture.GetHeight() + 30;
 	}
     int w = 0;
-    for (auto& letter: text_box) {
+    for (auto& letter: code_text_box) {
 			renderer.Copy(letter, SDL2pp::NullOpt, SDL2pp::Rect(window.GetWidth() / 3 + w, (window.GetHeight()) * 5 / 6, letter.GetWidth(), letter.GetHeight()));
+			w += letter.GetWidth();
+	}
+    w = 0;
+    for (auto& letter: nickname_text_box) {
+			renderer.Copy(letter, SDL2pp::NullOpt, SDL2pp::Rect(window.GetWidth() / 3 + w, (window.GetHeight()) * 8 / 9, letter.GetWidth(), letter.GetHeight()));
 			w += letter.GetWidth();
 	}
 }
@@ -71,12 +76,17 @@ void Menu::play_background_music() {
     dev.Pause(false);
 }
 
-void Menu::render_text_box() {
+void Menu::code_text_box_bg() {
     renderer.SetDrawColor(SDL2pp::Color(100,80,37));
     renderer.FillRect(SDL2pp::Rect(window.GetWidth() / 3 , (window.GetHeight()) * 5 / 6, 230, 30));
 }
 
-int Menu::show_menu() {
+void Menu::nickname_text_box_bg() {
+    renderer.SetDrawColor(SDL2pp::Color(100,80,37));
+    renderer.FillRect(SDL2pp::Rect(window.GetWidth() / 3 , (window.GetHeight()) * 8 / 9, 230, 30));
+}
+
+std::string Menu::show_menu() {
 
     bool running = true;
     SDL_Event event;
@@ -119,7 +129,7 @@ int Menu::show_menu() {
     /////////////////////
     SDL2pp::Wav w("assets/play_game_sound.wav");
     /////////////////////
-
+    bool code_input = true;
     while (running) {
         
         while(SDL_PollEvent(&event)) {
@@ -137,39 +147,54 @@ int Menu::show_menu() {
                         if (event.motion.x > window.GetWidth() / 3 and event.motion.x < ((window.GetWidth() / 3) + 300)) {
                             if (event.motion.y > window.GetHeight() / 3 and event.motion.y < (window.GetHeight() / 3 + 100)) {
                                 // tocó play game
-                                return 0;
+                                dev.Pause(true);
+                                return std::move(nickname);
                             }
                         }
+                    } else if (event.button.button == SDL_BUTTON_RIGHT) {
+                        code_input = !code_input;
                     }
                     break;
                 case SDL_KEYDOWN:
-                    if (event.key.keysym.sym == SDLK_LEFT and text_box.size() > 0) {
-                            text_box.pop_back();
+                    if (code_input) {
+                        if (event.key.keysym.sym == SDLK_LEFT and code_text_box.size() > 0) {
+                            code_text_box.pop_back();
                             code.pop_back();
-                        }
+                        }  
+                    } else if (event.key.keysym.sym == SDLK_LEFT and nickname_text_box.size() > 0) {
+                            nickname_text_box.pop_back();
+                            nickname.pop_back();
+                        } 
                     break;
                 case SDL_TEXTINPUT: 
                     SDL2pp::SDLTTF ttf;
                     SDL2pp::Font font("assets/SIXTY.TTF", 20);
-                    text_box.emplace_back(renderer,
-                        font.RenderText_Solid(event.text.text, SDL_Color{255, 255, 255, 255})
-                    );
-                    code.append(event.text.text);
+                    if (code_input) {
+                        code_text_box.emplace_back(renderer,
+                            font.RenderText_Solid(event.text.text, SDL_Color{255, 255, 255, 255})
+                        );
+                        code.append(event.text.text);
+                    } else {
+                        nickname_text_box.emplace_back(renderer,
+                            font.RenderText_Solid(event.text.text, SDL_Color{255, 255, 255, 255})
+                        );
+                        nickname.append(event.text.text);
+                    }
                     break;
             }
         }
         try {
 
             renderer.Clear();
-            this->render_text_box();
+            this->code_text_box_bg();
+            this->nickname_text_box_bg();
             this->render();
             renderer.Present();
             SDL_Delay(100);
 
         } catch (std::exception& e) {
             std::cout << e.what() << std::endl;
-            return 1;
         }
     }
-    return 0;
+    return std::move(nickname);
 }

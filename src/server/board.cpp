@@ -38,7 +38,11 @@ void Board::create_board() {
         board[1][col] = new Pawn(1,float(1));
         board[6][col] = new Pawn(0,float(1));        
     }
-
+    board[1][0]->split();
+    board[1][0]->right_child->split();
+    board[1][0]->left_child->parent_kill_me();
+    board[1][0]->print_tree(board[1][0]);
+    
     // /*
     //     ROOKS
     // */        
@@ -317,7 +321,7 @@ std::vector<char> Board::get_vector_board() {
             vector_board.push_back(key_value_row.first);
             Piece * piece = key_value_row.second;
             vector_board.push_back((char)piece->name[0]);
-            vector_board.push_back(piece->probability_fraction);
+            vector_board.push_back(piece->probability_fraction_den);
             //esta_pieza_esta_entrelazada_con_la_seleccionada
             vector_board.push_back(0);
             //esta_pieza_es_la_misma_que_seleccionada (split)

@@ -41,3 +41,12 @@ std::vector<std::tuple<int, int>> Knight::can_move(int origin_row, int origin_co
     }
     return std::move(possible_moves);
 }
+
+
+void Knight::split() {
+    this->right_child = new Knight(this->color, this->probability_fraction_den * 2);
+    this->left_child = new Knight(this->color, this->probability_fraction_den * 2);
+
+    right_child->parent = this;
+    left_child->parent = this;
+}

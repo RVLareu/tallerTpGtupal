@@ -4,13 +4,16 @@
 #include <map>
 using namespace std;
 
+#ifndef BOARD_H
+#define BOARD_H
+
+
 class Board;
 
 typedef std::map<int, map<int,Piece*>> board_map;
 
 class Board {
     private:        
-        board_map board;        
 
         bool in_bounds(int col, int row);
 
@@ -19,6 +22,7 @@ class Board {
         tuple<int, int> selected_piece_position;
 
     public:
+        board_map board;        
 
         std::vector<std::tuple<int, int>> piece_moves;
 
@@ -53,3 +57,5 @@ class Board {
 
         std::vector<char> get_vector_board();
 };
+
+#endif
