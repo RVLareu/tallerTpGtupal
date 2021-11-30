@@ -7,8 +7,10 @@ class Game {
     private:
 
         bool whites_turn;
+        
 
     public:
+        bool is_running;
         Board board;
 
         Game();

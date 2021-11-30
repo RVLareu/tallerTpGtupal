@@ -16,16 +16,22 @@
 #include "../common/common_socket.h"
 #include "../common/common_protocol.h"
 
+char winner = 'b';
 
 void receive_board_state_and_render(SDL2pp::Renderer& renderer, ChessBoard& board, bool& running, Socket& client_socket, Protocol& protocol) {
-        std::vector<char> pieces;
+        std::vector<char> status;
         while (running) {
             renderer.Clear();
-            pieces = protocol.recv_board_status(client_socket);
-            std::cout << pieces.size() << std::endl;
-            if (pieces.size() > 0){
-                board.render_from_vector(pieces);
-                renderer.Present();
+            status = protocol.recv_board_status(client_socket);
+            std::cout << status.size() << std::endl;
+            if (status.size() > 0){
+                if (status[0] == 'f'){
+                    running = false;
+                    winner = status[1];
+                } else{
+                    board.render_from_vector(status);
+                    renderer.Present();
+                }
             }
             // try {
             // } catch (std::exception& e) {
@@ -131,7 +137,7 @@ int main(int argc, char** argv){
 
     dev.Pause(true);
         //End Screen
-    EndScreen endScreen(std::ref(renderer), std::ref(window), 'b', nickname);
+    EndScreen endScreen(std::ref(renderer), std::ref(window), winner, nickname);
     endScreen.show_end_screen();
     return 0;
 }

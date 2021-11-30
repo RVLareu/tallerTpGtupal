@@ -18,7 +18,7 @@ class Protocol{
         std::vector<char> recv_board_status(Socket& socket);
         // Para enviar el estado del tablero a un socket.      
         void send_board_status(Socket& socket,
-                               Board& board);
+                               Game& game);
         
         void recv_client_events(Socket& socket, Game& game);
 

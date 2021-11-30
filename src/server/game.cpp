@@ -1,14 +1,14 @@
 #include "game.h"
 #include <iostream>
 
-Game::Game() : whites_turn(true) {
+Game::Game() : whites_turn(true), is_running(true){
 
 }
 
 void Game::process_position(int row, int col) {
     /*
         Hay una pieza seleccionada
-    */
+    */    
     if (board.is_any_piece_selected()) {        
         std::cout << "HAY PIEZA SELECCIONADA";
         std::tuple<int, int> position_of_selected_piece = this->board.get_selected_piece_position();
@@ -31,9 +31,14 @@ void Game::process_position(int row, int col) {
                 return;
             //color opuesto al turno
             } else if ((this->board.is_piece_white(row, col) and !is_whites_turn()) || (!this->board.is_piece_white(row, col) and is_whites_turn())) {
+                string enemy_type = board.board[row][col]->name;
                 if (this->board.move_piece(std::get<0>(position_of_selected_piece), std::get<1>(position_of_selected_piece), row, col)) {
                     this->board.unselect_piece(row, col);
-                    change_turn();
+                    if (enemy_type == "K" || enemy_type == "k" ){
+                        this->is_running = false;
+                    } else{
+                        change_turn();
+                    }
                 
                 }
             }
