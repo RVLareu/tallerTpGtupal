@@ -39,10 +39,6 @@ void Board::create_board() {
         board[1][col] = new Pawn(1,float(1));
         board[6][col] = new Pawn(0,float(1));        
     }
-    board[1][0]->split();
-    board[1][0]->right_child->split();
-    board[1][0]->left_child->parent_kill_me();
-    board[1][0]->print_tree(board[1][0]);
     
     // /*
     //     ROOKS
@@ -63,18 +59,18 @@ void Board::create_board() {
     // /*
     //     BISHOPS
     // */
-    board[0][2] =new Bishop(1, float(1));
-    board[0][5] =new Bishop(1, float(1));
+    board[0][2] = new Bishop(1, float(1));
+    board[0][5] = new Bishop(1, float(1));
 
-    board[7][2] =new Bishop(0, float(1));
-    board[7][5] =new Bishop(0, float(1));    
+    board[7][2] = new Bishop(0, float(1));
+    board[7][5] = new Bishop(0, float(1));    
     // /*
     //     QUEENS
     // */
-    board[0][4] =new Queen(1, float(1));
+    board[0][4] = new Queen(1, float(1));
     // board[4][4] =new Queen(4, 4, 1, float(1));
 
-    board[7][4] =new Queen(0, float(1));
+    board[7][4] = new Queen(0, float(1));
 
     // /*
     //     KINGS
@@ -321,4 +317,3 @@ std::vector<char> Board::get_vector_board() {
     }    
     return std::move(vector_board);
 }
-

@@ -18,14 +18,14 @@ class AcceptThread{
         // Socket del que se aceptarán clientes
         Socket& socket;
         // Vector de clientes
-        std::vector<Client*>& clients;     
+        std::list<Client*>& clients;     
         Protocol& protocol;
         std::atomic<bool> is_running;
         std::thread thread;        
         BlockingQueue& blocking_queue;
         
     public:
-        AcceptThread(Socket& socket, std::vector<Client*>& clients, Protocol& protocol, BlockingQueue& blocking_queue);
+        AcceptThread(Socket& socket, std::list<Client*>& clients, Protocol& protocol, BlockingQueue& blocking_queue);
         //Libera los clientes
         void remove_clients();
         // Join al hilo "thread"

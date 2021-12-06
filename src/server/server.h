@@ -7,7 +7,7 @@
 #include "../common/common_socket.h"
 #include "../common/common_protocol.h"
 
-#include <vector>
+#include <list>
 #include <tuple>
 #include <map>
 
@@ -16,7 +16,7 @@ class Server {
     private:
         Socket socket;
         Protocol protocol;        
-        std::vector<Client*> clients;
+        std::list<Client*> clients;
         Game game;
         BlockingQueue blocking_queue;
 

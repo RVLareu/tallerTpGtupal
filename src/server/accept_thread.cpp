@@ -8,7 +8,7 @@
 #include <utility>
 
 AcceptThread::AcceptThread(Socket& socket,
-                        std::vector<Client*>& clients,
+                        std::list<Client*>& clients,
                         Protocol& protocol,
                         BlockingQueue& blocking_queue):
                         socket(socket),
@@ -44,7 +44,7 @@ void AcceptThread::run(){
 }
 
 void AcceptThread::check_dead_clients() {
-    std::vector<Client*>::iterator it;
+    std::list<Client*>::iterator it;
     for (it = this->clients.begin(); it != this->clients.end(); ++it) {
         if (!(*it)->is_dead()) {
             it = clients.erase(it);
@@ -54,7 +54,7 @@ void AcceptThread::check_dead_clients() {
 }
 
 void AcceptThread::remove_clients(){
-    std::vector<Client*>::iterator it;
+    std::list<Client*>::iterator it;
     for (it = this->clients.begin(); it != this->clients.end(); ++it) {
             it = this->clients.erase(it);
             delete *it;

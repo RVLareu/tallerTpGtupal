@@ -1,9 +1,10 @@
 #include "./game.h"
 #include "./blocking_queue.h"
 #include <vector>
+#include <list>
 #include <iostream>
 
-Game::Game(BlockingQueue& blocking_queue, std::vector<Client *>& clients) : whites_turn(true),
+Game::Game(BlockingQueue& blocking_queue, std::list<Client *>& clients) : whites_turn(true),
                                                                             blocking_queue(blocking_queue),                                                                             
                                                                             clients(clients),
                                                                             is_running(true){}
@@ -98,3 +99,4 @@ void Game::process_events(BlockingQueue& blocking_queue) {
 void Game::print_game() {
     this->board.print_board();
 }
+

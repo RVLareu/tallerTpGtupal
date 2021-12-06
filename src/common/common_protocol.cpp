@@ -39,7 +39,7 @@ void Protocol::send_finished_game(Socket& socket, bool white_wins){
     socket.send((char *) &length, sizeof(length));
     //Envio del vector
     socket.send(vector_status.data(), length);
-    std::cout << vector_status.data() << std::endl; 
+    //std::cout << vector_status.data() << std::endl; 
 }
 
 void Protocol::send_board_status(Socket& socket,

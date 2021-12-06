@@ -7,12 +7,13 @@
 #include "blocking_queue.h"
 #include "./client.h"
 #include <vector>
+#include <list>
 #include <thread>
 class Game {
     private:
         bool whites_turn;
         
-        std::vector<Client *>& clients;
+        std::list<Client *>& clients;
         
         Protocol protocol;
         
@@ -23,7 +24,7 @@ class Game {
 
         BlockingQueue& blocking_queue;
 
-        Game(BlockingQueue& blocking_queue, std::vector<Client *>& clients);
+        Game(BlockingQueue& blocking_queue, std::list<Client *>& clients);
 
         void process_position(int row, int col);
 

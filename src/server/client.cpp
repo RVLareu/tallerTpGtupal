@@ -26,7 +26,6 @@ void Client::recv_events(){
 
     while (true){
         if (is_player) {
-            std::cout << "RECV EVENT" << std::endl;
             try {
                 this->protocol.recv_client_events(this->socket, this->blocking_queue);
             } catch(std::runtime_error) {
@@ -34,7 +33,7 @@ void Client::recv_events(){
             }
         }
     }
-    alive = false;
+    this->alive = false;
 };
 
 void Client::send_board_status(Board& board){
