@@ -23,54 +23,62 @@ Client::Client() : sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO),
                     window("Chess", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 800, SDL_WINDOW_RESIZABLE),
                     renderer(this->window, -1, SDL_RENDERER_ACCELERATED),
                     board(std::ref(this->renderer)),
-                    winner('b') {
+                    winner('b'),
+                    running(true) {
     board.create_spots();
     this->socket.connect("localhost", "7777");
 }
 
-void Client::receive_board_state_and_render(bool& running) {
-        std::vector<char> status;
-        while (running) {
-            renderer.Clear();
-            status = this->protocol.recv_board_status(this->socket);
-            std::cout << status.size() << std::endl;
-            if (status.size() > 0){
-                if (status[0] == 'f'){
-                    running = false;
-                    this->winner = status[1];
-                } else{
-                    this->board.render_from_vector(status);
-                    this->renderer.Present();
-                }
-            }
+int Client::receive_board_state_and_render() {
+    std::vector<char> status;
+    if (!this->status_queue.empty()) {
+        renderer.Clear();
+        status = this->status_queue.front();
+        this->status_queue.pop();
+    }
+    if (status.size() > 0){
+        if (status[0] == 'f'){
+            this->winner = status[1];
+            return 1;
+        } else{
+            this->board.render_from_vector(status);
+            this->renderer.Present();
         }
+    }
+    return 0;
 }
 
 
-void Client::receive_client_input_and_send(SDL_Event event, SDL2pp::Point mousePos, bool& running) {
-    while(running) {
-        while(SDL_PollEvent(&event)) {
-            switch (event.type) {
-                case SDL_QUIT:
-                    running = false;                    
-                    break;
-                case SDL_MOUSEMOTION:
+int Client::receive_client_input_and_send() {
+    SDL2pp::Point mousePos;
+    SDL_Event event;
+    while(SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_QUIT:
+                return 1;                  
+                break;
+            case SDL_MOUSEBUTTONDOWN: 
+                if (event.button.button == SDL_BUTTON_LEFT) {
                     mousePos.SetX(event.motion.x);
                     mousePos.SetY(event.motion.y);
-                    break;
-                case SDL_MOUSEBUTTONDOWN: 
-                    if (event.button.button == SDL_BUTTON_LEFT) {
-                        protocol.send_selection(socket, std::get<0>(board.mouse_position_to_square(mousePos)), std::get<1>(board.mouse_position_to_square(mousePos)));
-                    break;
-                    }
-            SDL_Delay(100);
-            }
+                    this->selection_queue.push(board.mouse_position_to_square(mousePos));
+                break;
+                }
         }
     }
+    return 0;
 }
 
 
 void Client::in_game_loop() {
+
+    /*
+        Send And Receive Queues
+    */
+    std::thread receive (&Client::receive_status,this);
+    std::thread send (&Client::send_selection,this);
+
+
     /*
         In Game Music
     */
@@ -97,30 +105,61 @@ void Client::in_game_loop() {
             );
         
     dev.Pause(false);
+    
+    renderer.Clear();
+    while (this->running) {
+        if (receive_client_input_and_send()) {
+            this->running = false;
+            break;
+        }
+        if (receive_board_state_and_render()) {
+            this->running = false;
+            break;
+        }
+        SDL_Delay(1000 * (1/60));
+    }
 
-    SDL2pp::Point mousePos;
-    SDL_Event event;
-    bool running = true;
-    std::thread client_input (&Client::receive_client_input_and_send,this, event, mousePos, std::ref(running));
+    receive.join();
+    send.join();
 
-    std::thread render_board (&Client::receive_board_state_and_render,this, std::ref(running));
-
-    client_input.join();
-    render_board.join();
     dev.Pause(true);
 }
 
 
 int Client::run(){
-
+    /*
+        Menu
+    */
     Menu menu(std::ref(renderer), std::ref(window));
-
     this->nickname = menu.show_menu();
-    
+
+
     this->in_game_loop();
-  
+
     EndScreen endScreen(std::ref(renderer), std::ref(window), this->winner, this->nickname);
     endScreen.show_end_screen();
     return 0;
 }
 
+void Client::receive_status() {
+    std::vector<char> status;
+    while (this->running) {
+        if (status.size() > 0) {
+            if (status[0] == 'f') {
+                break;
+            }
+        }
+        status = this->protocol.recv_board_status(this->socket);
+        this->status_queue.push(status);
+    }
+}
+
+void Client::send_selection() {
+    while (this->running) {
+        if (!this->selection_queue.empty()) {
+            std::tuple<int, int> selection = this->selection_queue.front();
+            this->selection_queue.pop();
+            protocol.send_selection(socket, std::get<0>(selection), std::get<1>(selection));
+        }
+    }
+}
