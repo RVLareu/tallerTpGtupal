@@ -86,6 +86,7 @@ void Game::process_events(BlockingQueue& blocking_queue) {
             // Ya finalizó el juego
             if (!this->is_running){
                 client->send_finished_game(this->is_whites_turn());
+                running = false;
             } else{
                 std::cout << "ENVIANDO TABLERO AL CLIENTE" << std::endl;
                 client->send_board_status(this->board);

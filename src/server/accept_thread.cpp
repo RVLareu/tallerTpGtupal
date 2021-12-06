@@ -37,14 +37,27 @@ void AcceptThread::run(){
         }
         catch(...){
             this->is_running = false;
-        }        
+        }
+        check_dead_clients();        
     }
     this->remove_clients();
 }
 
+void AcceptThread::check_dead_clients() {
+    std::vector<Client*>::iterator it;
+    for (it = this->clients.begin(); it != this->clients.end(); ++it) {
+        if (!(*it)->is_dead()) {
+            it = clients.erase(it);
+            delete *it;
+        }
+    }
+}
+
 void AcceptThread::remove_clients(){
-    for (auto &client : this->clients){
-        delete client;
+    std::vector<Client*>::iterator it;
+    for (it = this->clients.begin(); it != this->clients.end(); ++it) {
+            it = this->clients.erase(it);
+            delete *it;
     }
 }
 

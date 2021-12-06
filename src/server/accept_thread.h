@@ -32,6 +32,8 @@ class AcceptThread{
         void join();
         // Función principal que es ejecutada por el hilo "thread"
         void run();
+        // remueve clientes desconectados
+        void check_dead_clients();
 };
 
 #endif

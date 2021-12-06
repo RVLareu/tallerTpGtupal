@@ -14,18 +14,27 @@ Client::Client(Socket socket, Protocol& protocol, bool is_player, BlockingQueue&
                                 protocol(protocol),
                                 is_player(is_player),
                                 recv_thread(&Client::recv_events,this),
-                                blocking_queue(blocking_queue)
+                                blocking_queue(blocking_queue),
+                                alive(true)
                                 {};
+
+bool Client::is_dead() {
+    return alive;
+}
 
 void Client::recv_events(){
 
     while (true){
         if (is_player) {
-            std::cout << "RECV EVENT" << std::endl;            
-            this->protocol.recv_client_events(this->socket, this->blocking_queue);
+            std::cout << "RECV EVENT" << std::endl;
+            try {
+                this->protocol.recv_client_events(this->socket, this->blocking_queue);
+            } catch(std::runtime_error) {
+                break;
+            }
         }
     }
-    
+    alive = false;
 };
 
 void Client::send_board_status(Board& board){

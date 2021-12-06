@@ -15,10 +15,6 @@ void Server::main_loop(){
                             this->protocol,
                             this->blocking_queue);
     this->game.process_events(this->blocking_queue);
-    std::string input = "";
-    while (input != "q"){
-        std::getline(std::cin,input);
-    }
     this->socket.force_stop();
     accept_thread.join();
 }

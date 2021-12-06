@@ -22,12 +22,14 @@ class Client {
         std::thread send_thread;        
         bool is_player;
         BlockingQueue& blocking_queue;
+        bool alive;
     
     public:
         Client(Socket socket, Protocol& protocol, bool is_player, BlockingQueue& blocking_queue);
         void recv_events();        
         void send_board_status(Board& board);
         void send_finished_game(bool white_wins);
+        bool is_dead();
 };
 
 #endif
