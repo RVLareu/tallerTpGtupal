@@ -19,14 +19,14 @@
 #include "endScreen.h"
 
 
-Client::Client() : sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO),
+Client::Client(char* host, char* port) : sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO),
                     window("Chess", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 800, SDL_WINDOW_RESIZABLE),
                     renderer(this->window, -1, SDL_RENDERER_ACCELERATED),
                     board(std::ref(this->renderer)),
                     winner('b'),
                     running(true) {
     board.create_spots();
-    this->socket.connect("localhost", "7777");
+    this->socket.connect(host, port);
 }
 
 int Client::receive_board_state_and_render() {

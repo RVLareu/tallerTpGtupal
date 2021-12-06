@@ -5,8 +5,8 @@
 
 #include <vector>
 
-Server::Server(): game(this->blocking_queue, this->clients){
-    this->socket.listen("localhost","7777",50);
+Server::Server(char* host, char* port): game(this->blocking_queue, this->clients){
+    this->socket.listen(host, port, 50);
 };
 
 void Server::main_loop(){     

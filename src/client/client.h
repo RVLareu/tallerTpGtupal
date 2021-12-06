@@ -34,7 +34,7 @@ class Client {
     public:
         int receive_board_state_and_render();
         int receive_client_input_and_send();
-        Client();
+        Client(char* host, char* port);
         int run();
         void send_selection();
         void receive_status();

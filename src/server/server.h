@@ -21,7 +21,7 @@ class Server {
         BlockingQueue blocking_queue;
 
     public:
-        Server();
+        Server(char* host, char* port);
         void main_loop();
 };
 
