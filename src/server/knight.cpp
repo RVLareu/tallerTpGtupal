@@ -43,10 +43,18 @@ std::vector<std::tuple<int, int>> Knight::can_move(int origin_row, int origin_co
 }
 
 
-void Knight::split() {
+std::vector<Piece*> Knight::split() {
     this->right_child = new Knight(this->color, this->probability_fraction_den * 2);
     this->left_child = new Knight(this->color, this->probability_fraction_den * 2);
 
     right_child->parent = this;
     left_child->parent = this;
+
+    std::vector<Piece*> childs;
+    childs.push_back(right_child);
+    childs[0]->parent = this;
+    childs.push_back(left_child);
+    childs[1]->parent = this;
+
+    return childs; 
 }

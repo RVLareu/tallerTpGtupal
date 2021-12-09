@@ -29,7 +29,7 @@ class Piece {
 
         std::string name;           
 
-        virtual void split() = 0;
+        virtual std::vector<Piece*> split() = 0;
 
         bool has_childs();
 
@@ -52,6 +52,12 @@ class Piece {
         void set_prob(int probability_fraction);        
 
         virtual std::vector<std::tuple<int, int>> can_move(int origin_row, int origin_col) = 0;
+
+        std::vector<Piece*> get_piece_leafs();
+
+
+
+        Piece* get_piece_root();
      
 };
 

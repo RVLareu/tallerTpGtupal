@@ -40,6 +40,7 @@ void Board::create_board() {
         board[6][col] = new Pawn(0,float(1));        
     }
     
+    
     // /*
     //     ROOKS
     // */        
@@ -78,6 +79,9 @@ void Board::create_board() {
     board[0][3] = new King(1, float(1));
 
     board[7][3] = new King(0, float(1));
+
+    this->split_piece(1, 1, 2, 2, 3, 3);
+    this->split_piece(2, 2, 4, 4, 5, 5);
 }
 
 // bool Board::in_bounds(int col, int row) {
@@ -87,6 +91,20 @@ void Board::create_board() {
 
 bool Board::is_piece_white(int row, int col) {
     return board[row][col]->is_white();
+}
+
+int Board::split_piece(int piece_row,
+                int piece_col,
+                int first_splited_piece_row,
+                int first_splited_piece_col,
+                int second_splited_piece_row,
+                int second_splited_piece_col) {
+    std::vector<Piece*> pieces = board.at(piece_row).at(piece_col)->split();
+    board.at(piece_row).erase(piece_col);
+
+    board[first_splited_piece_row][first_splited_piece_col] = pieces.at(0);
+    board[second_splited_piece_row][second_splited_piece_col] = pieces.at(1);
+    return 0;
 }
 
 int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {    
@@ -181,6 +199,7 @@ vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<
     }     
     return std::move(final_pos);
 }
+
 
 
 std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, int col) {
@@ -317,3 +336,5 @@ std::vector<char> Board::get_vector_board() {
     }    
     return std::move(vector_board);
 }
+
+

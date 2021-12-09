@@ -90,3 +90,12 @@ void Piece::receive_probability(int probability) {
     }
 }
 
+
+
+Piece* Piece::get_piece_root() {
+    if (!this->parent) {
+        return this;
+    } else {
+        this->parent->get_piece_root();
+    }
+}

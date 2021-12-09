@@ -57,12 +57,20 @@ std::vector<std::tuple<int, int>> Pawn::can_move(int origin_row, int origin_col)
 
 
 
-void Pawn::split() {
+std::vector<Piece*> Pawn::split() {
     this->right_child = new Pawn(this->color, this->probability_fraction_den * 2);
     this->left_child = new Pawn(this->color, this->probability_fraction_den * 2);
 
     right_child->parent = this;
     left_child->parent = this;
+
+    std::vector<Piece*> childs;
+    childs.push_back(right_child);
+    childs[0]->parent = this;
+    childs.push_back(left_child);
+    childs[1]->parent = this;
+
+    return childs;
 }
 
 

@@ -39,11 +39,19 @@ std::vector<std::tuple<int, int>> King::can_move(int origin_row, int origin_col)
 }
 
 
-void King::split() {
+std::vector<Piece*> King::split() {
     std::cout << "SPLITING";
     this->right_child = new King(this->color, this->probability_fraction_den * 2);
     this->left_child = new King(this->color, this->probability_fraction_den * 2);
 
     right_child->parent = this;
     left_child->parent = this;
+
+    std::vector<Piece*> childs;
+    childs.push_back(right_child);
+    childs[0]->parent = this;
+    childs.push_back(left_child);
+    childs[1]->parent = this;
+
+    return childs; 
 }

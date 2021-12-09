@@ -55,6 +55,16 @@ class Board {
         bool is_any_piece_selected();
 
         std::vector<char> get_vector_board();
+        
+        int split_piece(int piece_row,
+                int piece_col,
+                int first_splited_piece_row,
+                int first_splited_piece_col,
+                int second_splited_piece_row,
+                int second_splited_piece_col);
+        
+
+
 };
 
 #endif
