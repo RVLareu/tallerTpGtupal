@@ -14,7 +14,10 @@
 
 Instalación con *apt*:
 ```bash
-sudo apt install libsdl2-dev, libsdl2-image-dev, libsdl2-mixer-dev, libsdl2-ttf-dev, libsdl2-gfx-dev
+sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libsdl2-gfx-dev
+```
+```bash
+sudo apt install build-essential
 ```
 ```bash
 sudo apt install cmake
