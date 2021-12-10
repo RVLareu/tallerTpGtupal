@@ -29,6 +29,8 @@ class Piece {
 
         std::string name;           
 
+        std::vector<Piece*> leafs;
+
         virtual std::vector<Piece*> split() = 0;
 
         bool has_childs();
@@ -53,9 +55,9 @@ class Piece {
 
         virtual std::vector<std::tuple<int, int>> can_move(int origin_row, int origin_col) = 0;
 
-        std::vector<Piece*> get_piece_leafs();
+        void get_piece_leafs(Piece* piece);
 
-
+        std::vector<Piece*>  get_piece_instances();      
 
         Piece* get_piece_root();
      
