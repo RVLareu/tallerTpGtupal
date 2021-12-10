@@ -84,6 +84,7 @@ void Protocol::send_board_status(Socket& socket,
             Piece * piece = key_value_row.second;
             vector_board.push_back((char)piece->name[0]);
             vector_board.push_back(piece->probability_fraction_den);
+            vector_board.push_back(piece->probability_fraction_num);
             //esta_pieza_esta_entrelazada_con_la_seleccionada
             vector_board.push_back(0);
             //esta_pieza_es_la_misma_que_seleccionada (split)

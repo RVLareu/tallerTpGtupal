@@ -89,11 +89,12 @@ void ChessBoard::render_from_vector(std::vector<char> board) {
             int x = (board[ptr+1]) * size_spot;
             int y = (board[ptr+2]) * size_spot;
             char name = board[ptr+3];
-            int probability_fraction = board[ptr+4];
-            int is_entangled = board[ptr+5];
-            int is_same_as_selected = board[ptr+6];
-            pieces.emplace_back(renderer, x, y, map_pieces.at(name), probability_fraction);            
-            ptr += 7;        
+            int probability_fraction_den = board[ptr+4];
+            int probability_fraction_num = board[ptr+5];
+            int is_entangled = board[ptr+6];
+            int is_same_as_selected = board[ptr+7];
+            pieces.emplace_back(renderer, x, y, map_pieces.at(name), probability_fraction_den, probability_fraction_num);            
+            ptr += 8;        
         }
         // Resaltados
         else if (type == 'h'){

@@ -83,6 +83,10 @@ void Board::create_board() {
     this->split_piece(1, 1, 2, 2, 3, 3);
     this->split_piece(2, 2, 4, 4, 5, 5);
 
+    //this->split_piece(7, 1, 7, 3, 7, 4);
+
+    //this->split_piece(7, 5, 3, 4, 3, 5);
+
 }
 
 // bool Board::in_bounds(int col, int row) {
