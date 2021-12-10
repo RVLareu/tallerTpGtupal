@@ -235,6 +235,12 @@ std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, i
         }
     }
     
+
+    return std::move(final_pos);
+}
+
+std::vector<std::tuple<int, int>> Board::get_piece_instances_positions(int row, int col) {
+    std::vector<std::tuple<int, int>> instances_positions;
     std::vector<Piece*> instances = board[row][col]->get_piece_instances();
     for (int row = 0; row < 8; row++) {
         for (int col = 0; col < 8; col ++) {
@@ -242,7 +248,7 @@ std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, i
                 Piece* piece_in_board = board[row][col];
                 for (auto piece_instance : instances) {
                     if (piece_in_board == piece_instance) {
-                        final_pos.push_back(std::tuple<int, int>(row, col));
+                        instances_positions.push_back(std::tuple<int, int>(row, col));
                         std::cout << "Instance found: " << row << "," << col;
                         std::cout << "\n";
                         break;
@@ -251,7 +257,7 @@ std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, i
             }
         }
     }
-    return std::move(final_pos);
+    return instances_positions;
 }
 
 bool Board::square_is_empty(int row, int col) {
