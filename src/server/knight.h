@@ -2,7 +2,7 @@
 
 class Knight : public Piece {
     public:
-        Knight(int color, int probability_fraction);
+        Knight(int color, int probability_fraction_den, int probability_fraction_num);
 
         std::vector<Piece*> split();
 

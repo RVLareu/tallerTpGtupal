@@ -4,7 +4,7 @@ class Bishop : public Piece {
     private:
 
     public:
-        Bishop(int color, int probability_fraction);
+        Bishop(int color, int probability_fraction_den, int probability_fraction_num);
 
         std::vector<Piece*> split();
 

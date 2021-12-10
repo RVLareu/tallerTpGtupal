@@ -4,7 +4,7 @@ class Queen : public Piece {
     private:
 
     public:
-        Queen(int color, int probability_fraction);
+        Queen(int color, int probability_fraction_den, int probability_fraction_num);
 
         std::vector<Piece*> split();
 

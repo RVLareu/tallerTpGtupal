@@ -1,7 +1,7 @@
 #include "queen.h"
 #include <iostream>
 
-Queen::Queen(int color, int probability_fraction) : Piece(color, probability_fraction, color == 1 ? "q" : "Q") {
+Queen::Queen(int color, int probability_fraction_den, int probability_fraction_num) : Piece(color, probability_fraction_den, probability_fraction_num, color == 1 ? "q" : "Q") {
     
 }
 
@@ -52,8 +52,8 @@ std::vector<std::tuple<int, int>> Queen::can_move(int origin_row, int origin_col
 
 
 std::vector<Piece*> Queen::split() {
-    this->right_child = new Queen(this->color, this->probability_fraction_den * 2);
-    this->left_child = new Queen(this->color, this->probability_fraction_den * 2);
+    this->right_child = new Queen(this->color, this->probability_fraction_den * 2, probability_fraction_num);
+    this->left_child = new Queen(this->color, this->probability_fraction_den * 2, probability_fraction_num);
 
     right_child->parent = this;
     left_child->parent = this;

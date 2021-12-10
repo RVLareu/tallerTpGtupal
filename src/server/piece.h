@@ -15,7 +15,7 @@ class Piece {
 
         int probability_fraction_den;
 
-        //int probability_fraction_den;
+        int probability_fraction_num;
 
         Piece* parent;
 
@@ -39,15 +39,11 @@ class Piece {
         
         void kill_child(Piece* piece);
 
-        void receive_probability(int probability);
+        void receive_probability(int probability_den, int probability_num);
 
         void create_merge_son(Piece* parent_left, Piece* parent_right);
 
-        void _print_tree(const std::string& prefix, Piece* node, bool isLeft);
-
-        void print_tree(Piece* piece);
-
-        Piece(int color, int probability_fraction, std::string name);
+        Piece(int color, int probability_fraction_den, int probability_fraction_num, std::string name);
                 
         bool is_white();                
         
@@ -60,6 +56,8 @@ class Piece {
         std::vector<Piece*>  get_piece_instances();      
 
         Piece* get_piece_root();
+
+        int gcd(int num_a, int num_b);
      
 };
 

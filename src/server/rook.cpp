@@ -3,7 +3,7 @@
 #include <vector>
 #include <iostream>
 
-Rook::Rook(int color, int probability_fraction) : Piece(color, probability_fraction, color == 1 ? "r" : "R") {
+Rook::Rook(int color, int probability_fraction_den, int probability_fraction_num) : Piece(color, probability_fraction_den, probability_fraction_num, color == 1 ? "r" : "R") {
     
 }
 
@@ -48,8 +48,8 @@ std::vector<std::tuple<int, int>> Rook::can_move(int origin_row, int origin_col)
 
 std::vector<Piece*> Rook::split() {
     std::cout << "SPLITING";
-    this->right_child = new Rook(this->color, this->probability_fraction_den * 2);
-    this->left_child = new Rook(this->color, this->probability_fraction_den * 2);
+    this->right_child = new Rook(this->color, this->probability_fraction_den * 2, probability_fraction_num);
+    this->left_child = new Rook(this->color, this->probability_fraction_den * 2, probability_fraction_num);
 
     right_child->parent = this;
     left_child->parent = this;

@@ -1,6 +1,6 @@
 #include "bishop.h"
 #include <iostream>
-Bishop::Bishop(int color, int probability_fraction) : Piece(color, probability_fraction, color == 1 ? "b" : "B") {
+Bishop::Bishop(int color, int probability_fraction_den, int probability_fraction_num) : Piece(color, probability_fraction_den, probability_fraction_num, color == 1 ? "b" : "B") {
 
 }
 
@@ -41,8 +41,8 @@ std::vector<std::tuple<int, int>> Bishop::can_move(int origin_row, int origin_co
 
 std::vector<Piece*> Bishop::split() {
     std::cout << "SPLITING";
-    this->right_child = new Bishop(this->color, this->probability_fraction_den * 2);
-    this->left_child = new Bishop(this->color, this->probability_fraction_den * 2);
+    this->right_child = new Bishop(this->color, this->probability_fraction_den * 2, probability_fraction_num);
+    this->left_child = new Bishop(this->color, this->probability_fraction_den * 2, probability_fraction_num);
 
     right_child->parent = this;
     left_child->parent = this;

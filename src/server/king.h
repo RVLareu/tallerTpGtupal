@@ -4,7 +4,7 @@ class King : public Piece {
     private:
         
     public:
-        King(int color, int probability_fraction);
+        King(int color, int probability_fraction_den, int probability_fraction_num);
 
         std::vector<Piece*> split();
 

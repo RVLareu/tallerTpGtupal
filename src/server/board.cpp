@@ -36,49 +36,49 @@ void Board::create_board() {
         PAWNS
     */
     for (int col = 0; col < 8; col++) {
-        board[1][col] = new Pawn(1,float(1));
-        board[6][col] = new Pawn(0,float(1));        
+        board[1][col] = new Pawn(1,float(1), float(1));
+        board[6][col] = new Pawn(0,float(1), float(1));        
     }
     
     
     // /*
     //     ROOKS
     // */        
-    board[0][7] =new Rook(1, float(1));
-    board[0][0] =new Rook(1, float(1));
+    board[0][7] =new Rook(1, float(1), float(1));
+    board[0][0] =new Rook(1, float(1), float(1));
 
-    board[7][0] =new Rook(0, float(1));
-    board[7][7] =new Rook(0, float(1));
+    board[7][0] =new Rook(0, float(1), float(1));
+    board[7][7] =new Rook(0, float(1), float(1));
     // /*
     //     KNIGHTS
     // */
-    board[0][1] = new Knight(1, float(1));
-    board[0][6] = new Knight(1, float(1));
+    board[0][1] = new Knight(1, float(1), float(1));
+    board[0][6] = new Knight(1, float(1), float(1));
  
-    board[7][1] = new Knight(0, float(1));
-    board[7][6] = new Knight(0, float(1));
+    board[7][1] = new Knight(0, float(1), float(1));
+    board[7][6] = new Knight(0, float(1), float(1));
     // /*
     //     BISHOPS
     // */
-    board[0][2] = new Bishop(1, float(1));
-    board[0][5] = new Bishop(1, float(1));
+    board[0][2] = new Bishop(1, float(1), float(1));
+    board[0][5] = new Bishop(1, float(1), float(1));
 
-    board[7][2] = new Bishop(0, float(1));
-    board[7][5] = new Bishop(0, float(1));    
+    board[7][2] = new Bishop(0, float(1), float(1));
+    board[7][5] = new Bishop(0, float(1), float(1));    
     // /*
     //     QUEENS
     // */
-    board[0][4] = new Queen(1, float(1));
-    // board[4][4] =new Queen(4, 4, 1, float(1));
+    board[0][4] = new Queen(1, float(1), float(1));
+    // board[4][4] =new Queen(4, 4, 1, float(1), float(1));
 
-    board[7][4] = new Queen(0, float(1));
+    board[7][4] = new Queen(0, float(1), float(1));
 
     // /*
     //     KINGS
     // */
-    board[0][3] = new King(1, float(1));
+    board[0][3] = new King(1, float(1), float(1));
 
-    board[7][3] = new King(0, float(1));
+    board[7][3] = new King(0, float(1), float(1));
 
     this->split_piece(1, 1, 2, 2, 3, 3);
     this->split_piece(2, 2, 4, 4, 5, 5);

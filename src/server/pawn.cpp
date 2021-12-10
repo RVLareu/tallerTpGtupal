@@ -1,6 +1,6 @@
 #include "pawn.h"
 #include <iostream>
-Pawn::Pawn(int color, int probability_fraction) : Piece(color, probability_fraction, color == 1 ? "p" : "P"), first_move_done(false) {
+Pawn::Pawn(int color, int probability_fraction_den, int probability_fraction_num) : Piece(color, probability_fraction_den, probability_fraction_num, color == 1 ? "p" : "P"), first_move_done(false) {
 
 }
 
@@ -58,8 +58,8 @@ std::vector<std::tuple<int, int>> Pawn::can_move(int origin_row, int origin_col)
 
 
 std::vector<Piece*> Pawn::split() {
-    this->right_child = new Pawn(this->color, this->probability_fraction_den * 2);
-    this->left_child = new Pawn(this->color, this->probability_fraction_den * 2);
+    this->right_child = new Pawn(this->color, this->probability_fraction_den * 2, probability_fraction_num);
+    this->left_child = new Pawn(this->color, this->probability_fraction_den * 2, probability_fraction_num);
 
     right_child->parent = this;
     left_child->parent = this;
