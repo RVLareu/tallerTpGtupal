@@ -1,6 +1,6 @@
 #include "piece.h"
 #include <iostream>
-#include <cstdlib>
+#include <random>
 
 Piece::Piece(int color, int probability_fraction_den, int probability_fraction_num, std::string name) :
                                         alive(true),                                                 
@@ -110,14 +110,20 @@ Piece* Piece::get_piece_root() {
     if (!this->parent) {
         return this;
     } else {
-        this->parent->get_piece_root();
+        return this->parent->get_piece_root();
     }
 }
 
 bool Piece::exists() {
-    int random = rand() % 100;
-    std::cout << random << std::endl;
-    if (random <= (this->probability_fraction_num / this->probability_fraction_den) * 100){
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> dist(1,100);
+    int random = dist(rng);
+    // std::cout << "EL NUMERO RANDOM ES : " << random << std::endl;
+    // std::cout << "LA PROB DE LA PIEZA ES : " << ((float)this->probability_fraction_num / (float)this->probability_fraction_den) * 100 << std::endl;
+    // std::cout << "NUMERADOR : " << this->probability_fraction_num << std::endl;
+    // std::cout << "DENOMINADOR : " << this->probability_fraction_den << std::endl;
+    if (random <= ((float)this->probability_fraction_num / (float)this->probability_fraction_den) * 100){
         return true;
     }
     return false;

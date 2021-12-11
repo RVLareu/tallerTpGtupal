@@ -214,24 +214,24 @@ std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, i
         final_pos = filter_possible_movements(std::move(positions_available), row, col, board[row][col]);
         
         //print 
-        std::cout << "BOARD\n";      
+        // std::cout << "BOARD\n";      
         for (int row = 0; row < 8; row ++) {
             for (int col = 0; col < 8; col++) {
                 int found = 0;
                 for (auto t: final_pos) {
                     
                     if (std::get<0>(t) == row and std::get<1>(t) == col) {
-                        std::cout << " x ";
+                        // std::cout << " x ";
                         found = 1;
                         break;
                     }
 
                 }
                 if (found == 0) {
-                    std::cout << " . ";
+                    // std::cout << " . ";
                 }
             }
-            std::cout << "\n";
+            // std::cout << "\n";
         }
     }
     
@@ -296,12 +296,12 @@ void Board::print_board() {
      for (int row = 0; row < 8; row++) {
          for (int col = 0; col < 8; col ++) {
              if (!this->square_is_empty(row, col)){
-                 std::cout << " " << board[row][col]->name << " ";                
+                //  std::cout << " " << board[row][col]->name << " ";                
              } else {
-                 std::cout << " - ";
+                //  std::cout << " - ";
              }
          }
-         std::cout << "\n";
+        //  std::cout << "\n";
      }
     
     /*for (int row = 0; row < 8; row++) {

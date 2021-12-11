@@ -110,7 +110,7 @@ void Protocol::send_board_status(Socket& socket,
     //Envio del vector
     socket.send(vector_board.data(), length);
 
-    std::cout << vector_board.data() << std::endl; 
+    // std::cout << vector_board.data() << std::endl; 
 }
 
 void Protocol::recv_client_events(Socket& socket, BlockingQueue& blocking_queue){    
