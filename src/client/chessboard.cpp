@@ -49,7 +49,7 @@ std::tuple<int, int> ChessBoard::mouse_position_to_square(SDL2pp::Point mousePos
 
 
 /*
-    Creates 64 Spots and places them in spots list
+    Crea 64 casilleros y los pone en al lista de casilleros
 */
 void ChessBoard::create_spots() {
     std::list<Spot> spots;
