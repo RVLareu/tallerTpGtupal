@@ -110,7 +110,7 @@ void ChessBoard::render_from_vector(std::vector<char> board) {
             } else if (highlight_type == 's'){ // Highlight por ser la pieza (s)eleccionada
                 color = SDL2pp::Color(0,150,0);
             } else if (highlight_type == 'i') {// Highlight por ser (i)nstancia de la misma pieza
-                color = SDL2pp::Color(30,70,120);
+                color = SDL2pp::Color(0,30,255);
             }
             
             spots_painted.emplace_back(renderer,

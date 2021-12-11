@@ -56,7 +56,7 @@ void Protocol::send_board_status(Socket& socket,
         // Se resaltan sus instancias
         vector<tuple<int, int>> piece_instances_positions = board.get_piece_instances_positions(std::get<0>(selected_pos), std::get<1>(selected_pos));
         for (const auto& position: piece_instances_positions) {
-            if (std::get<0>(position) != std::get<0>(selected_pos) and std::get<1>(position) != std::get<1>(selected_pos)) {
+            if (std::get<0>(position) != std::get<0>(selected_pos) and std::get<1>(position) != std::get<1>(selected_pos)) { // no se resalta a la pieza seleccionada
                 vector_board.push_back('h'); //(h)ighlight
                 vector_board.push_back(std::get<0>(position));
                 vector_board.push_back(std::get<1>(position));

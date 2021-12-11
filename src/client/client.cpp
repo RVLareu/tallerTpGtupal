@@ -61,7 +61,11 @@ int Client::receive_client_input_and_send() {
                 if (event.button.button == SDL_BUTTON_LEFT) {
                     mousePos.SetX(event.motion.x);
                     mousePos.SetY(event.motion.y);
+                    try {
                     this->selection_queue.push(board.mouse_position_to_square(mousePos));
+                    } catch (std::range_error) {
+                        std::cout << "Out of range click";
+                    }
                 break;
                 }
         }
