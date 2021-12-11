@@ -62,6 +62,8 @@ class Board {
                 int first_splited_piece_col,
                 int second_splited_piece_row,
                 int second_splited_piece_col);
+
+        std::vector<std::tuple<int, int>> get_piece_instances_positions(int row, int col);  
         
 
 

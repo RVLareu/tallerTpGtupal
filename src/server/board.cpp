@@ -83,6 +83,10 @@ void Board::create_board() {
     this->split_piece(1, 1, 2, 2, 3, 3);
     this->split_piece(2, 2, 4, 4, 5, 5);
 
+    //this->split_piece(7, 1, 7, 3, 7, 4);
+
+    //this->split_piece(7, 5, 3, 4, 3, 5);
+
 }
 
 // bool Board::in_bounds(int col, int row) {
@@ -231,6 +235,12 @@ std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, i
         }
     }
     
+
+    return std::move(final_pos);
+}
+
+std::vector<std::tuple<int, int>> Board::get_piece_instances_positions(int row, int col) {
+    std::vector<std::tuple<int, int>> instances_positions;
     std::vector<Piece*> instances = board[row][col]->get_piece_instances();
     for (int row = 0; row < 8; row++) {
         for (int col = 0; col < 8; col ++) {
@@ -238,7 +248,7 @@ std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, i
                 Piece* piece_in_board = board[row][col];
                 for (auto piece_instance : instances) {
                     if (piece_in_board == piece_instance) {
-                        final_pos.push_back(std::tuple<int, int>(row, col));
+                        instances_positions.push_back(std::tuple<int, int>(row, col));
                         std::cout << "Instance found: " << row << "," << col;
                         std::cout << "\n";
                         break;
@@ -247,7 +257,7 @@ std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, i
             }
         }
     }
-    return std::move(final_pos);
+    return instances_positions;
 }
 
 bool Board::square_is_empty(int row, int col) {

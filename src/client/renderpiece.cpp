@@ -3,18 +3,18 @@
 #include "renderpiece.h"
 
 
-RenderPiece::RenderPiece(SDL2pp::Renderer& renderer, int y, int x, std::string path, int probability_fraction) : renderer(renderer), sprite(renderer, path), x_top(x), y_top(y), selected(false), probability_fraction(probability_fraction) {
+RenderPiece::RenderPiece(SDL2pp::Renderer& renderer, int y, int x, std::string path, int probability_fraction_den, int probability_fraction_num) : renderer(renderer), sprite(renderer, path), x_top(x), y_top(y), selected(false), probability_fraction_den(probability_fraction_den), probability_fraction_num(probability_fraction_num) {
 
 }
 
 void RenderPiece::copy() {
     this->renderer.Copy(sprite, SDL2pp::NullOpt, SDL2pp::Rect(x_top, y_top, 80, 80));
-    if (this->probability_fraction != 0) {
+    if (this->probability_fraction_den != 0) {
         SDL2pp::SDLTTF ttf;
         SDL2pp::Font font("assets/SIXTY.TTF", 50);  
-        SDL2pp::Texture num_text(renderer, font.RenderText_Solid("1", SDL_Color{255, 0, 0, 0}));
+        SDL2pp::Texture num_text(renderer, font.RenderText_Solid(std::to_string(this->probability_fraction_num), SDL_Color{255, 0, 0, 0}));
         SDL2pp::Texture dash(renderer, font.RenderText_Solid("-", SDL_Color{255, 0, 0, 0}));
-        SDL2pp::Texture denom_text(renderer, font.RenderText_Solid(std::to_string(this->probability_fraction), SDL_Color{255, 0, 0, 0}));
+        SDL2pp::Texture denom_text(renderer, font.RenderText_Solid(std::to_string(this->probability_fraction_den), SDL_Color{255, 0, 0, 0}));
         this->renderer.Copy(num_text, SDL2pp::NullOpt, SDL2pp::Rect(x_top + 5, y_top, 3, 20));
         this->renderer.Copy(dash, SDL2pp::NullOpt, SDL2pp::Rect(x_top , y_top + 10, 15, 20));
         this->renderer.Copy(denom_text, SDL2pp::NullOpt, SDL2pp::Rect(x_top + 5, y_top + 18, 3, 20));
