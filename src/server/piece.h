@@ -58,6 +58,8 @@ class Piece {
         Piece* get_piece_root();
 
         int gcd(int num_a, int num_b);
+
+        bool exists(); 
      
 };
 

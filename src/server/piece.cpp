@@ -1,5 +1,6 @@
 #include "piece.h"
 #include <iostream>
+#include <cstdlib>
 
 Piece::Piece(int color, int probability_fraction_den, int probability_fraction_num, std::string name) :
                                         alive(true),                                                 
@@ -92,7 +93,7 @@ void Piece::receive_probability(int probability_den, int probability_num) {
 std::vector<Piece*>  Piece::get_piece_instances() {
     this->get_piece_leafs(this->get_piece_root());
     return this->leafs;
-}
+} 
 
 void Piece::get_piece_leafs(Piece* piece) {
     if(!piece->has_childs()) {
@@ -111,4 +112,13 @@ Piece* Piece::get_piece_root() {
     } else {
         this->parent->get_piece_root();
     }
+}
+
+bool Piece::exists() {
+    int random = rand() % 100;
+    std::cout << random << std::endl;
+    if (random <= (this->probability_fraction_num / this->probability_fraction_den) * 100){
+        return true;
+    }
+    return false;
 }

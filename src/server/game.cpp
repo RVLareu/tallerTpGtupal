@@ -36,7 +36,12 @@ void Game::process_position(int row, int col) {
             //color opuesto al turno
             } else if ((this->board.is_piece_white(row, col) and !is_whites_turn()) || (!this->board.is_piece_white(row, col) and is_whites_turn())) {
                 std::string enemy_type = this->board.board[row][col]->name;
-                this->board.board[row][col]->parent_kill_me();
+                if (this->board.board[row][col]->exists()){
+                    //this->board.board[row][col]->parent_im_here();
+                    std::cout << "EXISTE LA PIEZA" << std::endl;
+                } else{
+                    this->board.board[row][col]->parent_kill_me();
+                }
                 if (this->board.move_piece(std::get<0>(position_of_selected_piece), std::get<1>(position_of_selected_piece), row, col)) {
                     this->board.unselect_piece(row, col);
                     //Muere el rey
