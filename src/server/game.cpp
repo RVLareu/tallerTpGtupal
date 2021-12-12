@@ -14,10 +14,10 @@ void Game::process_position(int row, int col) {
         Hay una pieza seleccionada
     */    
     if (board.is_any_piece_selected()) {        
-        std::cout << "HAY PIEZA SELECCIONADA";
+        std::cout << "HAY PIEZA SELECCIONADA" << std::endl;
         std::tuple<int, int> position_of_selected_piece = this->board.get_selected_piece_position();
 
-        // El lugar al que muevo la pieza está vacio
+        // El lugar seleccionado está vacio
         if (this->board.square_is_empty(row, col)) {
 
             // Muevo y deselecciono
@@ -26,10 +26,17 @@ void Game::process_position(int row, int col) {
                 change_turn();            
             } 
         } else {
-            // El lugar al que muevo la pieza no está vacio
+            // El lugar seleccionado no está vacio
 
-            // es del mismo color que el del turno
+            // hay una pieza del mismo color que el del turno
             if ((this->board.is_piece_white(row, col) and is_whites_turn()) || (!this->board.is_piece_white(row, col) and !is_whites_turn())) {
+                // Es la misma pieza -> se quiere hacer un split
+                if ( row == std::get<0>(position_of_selected_piece) && col == std::get<1>(position_of_selected_piece)){
+                    std::cout << "MARK FOR SPLIT" << std::endl;
+                    this->board.mark_for_split(row, col);
+                    std::cout << std::get<0>(this->board.get_marked_for_split_position()) << " " << std::get<1>(this->board.get_marked_for_split_position()) << std::endl;
+                }
+                // Es otra pieza propia
                 this->board.unselect_piece(row, col);
                 this->board.select_piece(row, col);                
                 return;

@@ -24,6 +24,14 @@ class Board {
         
         tuple<int, int> selected_piece_position;
 
+
+        // La posicion de la pieza que va a realizar un split
+        tuple<int, int> marked_for_split_position;
+
+        // Las posiciones de los casilleros en los que se va a hacer el split
+        tuple<int, int> first_split_position;
+        tuple<int, int> second_split_position;
+
     public:
         board_map board;                
         
@@ -62,6 +70,11 @@ class Board {
                 int first_splited_piece_col,
                 int second_splited_piece_row,
                 int second_splited_piece_col);
+
+        // Marca una posicion como seleccionada para hacer un split
+        void mark_for_split(int row, int col);
+        void unmark_for_split(int row, int col);
+        tuple<int, int> get_marked_for_split_position();
 
         std::vector<std::tuple<int, int>> get_piece_instances_positions(int row, int col);  
         
