@@ -59,7 +59,11 @@ class Piece {
 
         int gcd(int num_a, int num_b);
 
-        bool exists(); 
+        bool exists();
+
+        std::vector<Piece*> parent_im_here();
+
+        void delete_full_tree(Piece* node);
      
 };
 

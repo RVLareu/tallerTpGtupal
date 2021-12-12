@@ -80,12 +80,12 @@ void Board::create_board() {
 
     board[7][3] = new King(0, float(1), float(1));
 
-    this->split_piece(1, 1, 2, 2, 3, 3);
-    this->split_piece(2, 2, 4, 4, 5, 5);
+    this->split_piece(1, 1, 2, 2, 2, 3);
+    this->split_piece(2, 3, 3, 3, 3, 4);
 
-    //this->split_piece(7, 1, 7, 3, 7, 4);
+    this->split_piece(3, 4, 3, 5, 3, 6);
+    this->split_piece(3, 5, 4, 5, 4, 6);
 
-    //this->split_piece(7, 5, 3, 4, 3, 5);
 
 }
 
@@ -234,10 +234,29 @@ std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, i
             // std::cout << "\n";
         }
     }
-    
-
     return std::move(final_pos);
 }
+
+
+void Board::remove_pieces(std::vector<Piece*>  pieces) {
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col ++) {
+            if (!this->square_is_empty(row, col)){
+                Piece* piece_in_board = board[row][col];
+                for (auto piece : pieces) {
+                    if (piece == piece_in_board) {
+                        board[row].erase(col);
+                        piece->parent_kill_me();
+                        break;
+                    }
+                }                
+            }
+        }
+    }
+
+}
+
+
 
 std::vector<std::tuple<int, int>> Board::get_piece_instances_positions(int row, int col) {
     std::vector<std::tuple<int, int>> instances_positions;
@@ -248,9 +267,8 @@ std::vector<std::tuple<int, int>> Board::get_piece_instances_positions(int row, 
                 Piece* piece_in_board = board[row][col];
                 for (auto piece_instance : instances) {
                     if (piece_in_board == piece_instance) {
+                    std::cout << "instance found" << row << "," << col << "\n";
                         instances_positions.push_back(std::tuple<int, int>(row, col));
-                        std::cout << "Instance found: " << row << "," << col;
-                        std::cout << "\n";
                         break;
                     }
                 }                

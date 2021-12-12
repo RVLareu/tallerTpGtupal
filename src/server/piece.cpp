@@ -48,6 +48,7 @@ void Piece::kill_child(Piece* piece) {
             parent->kill_child(this);
         }
         //free right_child
+        
         right_child = nullptr;
     } else if (piece == left_child) {
         if (right_child) {
@@ -55,6 +56,7 @@ void Piece::kill_child(Piece* piece) {
         } else if (parent) {
             parent->kill_child(this);
         }
+        
         //free right_child
         left_child = nullptr;
     }
@@ -103,7 +105,6 @@ void Piece::get_piece_leafs(Piece* piece) {
     } if (piece->left_child != NULL) {
         get_piece_leafs(piece->left_child);
     }
-
 }
 
 Piece* Piece::get_piece_root() {
@@ -128,3 +129,33 @@ bool Piece::exists() {
     }
     return false;
 }
+
+
+
+void Piece::delete_full_tree(Piece* node) {
+    if (node == nullptr) {
+        return;
+    }
+    if (node->right_child) {
+        delete_full_tree(node->right_child);
+    }
+    if (node->left_child) {
+        delete_full_tree(node->left_child);
+    }
+    delete node;
+    node = nullptr;
+}
+
+std::vector<Piece*> Piece::parent_im_here() {
+    std::vector<Piece*> dead_childs;
+    this->get_piece_leafs(this->get_piece_root());
+    for (auto piece : this->leafs) {
+        if (piece != this) {
+            
+            dead_childs.push_back(piece);
+        }
+    }
+    return dead_childs;
+
+}
+

@@ -66,7 +66,7 @@ class Board {
         std::vector<std::tuple<int, int>> get_piece_instances_positions(int row, int col);  
         
 
-
+        void remove_pieces(std::vector<Piece*>  pieces);
 };
 
 #endif

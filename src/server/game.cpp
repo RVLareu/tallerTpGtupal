@@ -37,7 +37,8 @@ void Game::process_position(int row, int col) {
             } else if ((this->board.is_piece_white(row, col) and !is_whites_turn()) || (!this->board.is_piece_white(row, col) and is_whites_turn())) {
                 std::string enemy_type = this->board.board[row][col]->name;
                 if (this->board.board[row][col]->exists()){
-                    //this->board.board[row][col]->parent_im_here();
+                    std::vector<Piece*> dead_childs = this->board.board[row][col]->parent_im_here();
+                    this->board.remove_pieces(dead_childs);
                     std::cout << "EXISTE LA PIEZA" << std::endl;
                 } else{
                     this->board.board[row][col]->parent_kill_me();
