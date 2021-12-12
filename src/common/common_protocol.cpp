@@ -52,7 +52,12 @@ void Protocol::send_board_status(Socket& socket,
         vector_board.push_back('h'); //(h)ighlight
         vector_board.push_back(std::get<0>(selected_pos));
         vector_board.push_back(std::get<1>(selected_pos));
-        vector_board.push_back('s');// Pieza (s)eleccionada
+        // Si la pieza seleccionada está marcada para hacer un split
+        if (board.get_marked_for_split_position() == selected_pos){
+            vector_board.push_back('t');// Pieza seleccionada para hacer un spli(t)
+        } else {
+            vector_board.push_back('s');// Pieza (s)eleccionada
+        }
         // Se resaltan sus instancias
         vector<tuple<int, int>> piece_instances_positions = board.get_piece_instances_positions(std::get<0>(selected_pos), std::get<1>(selected_pos));
         for (const auto& position: piece_instances_positions) {
@@ -66,10 +71,10 @@ void Protocol::send_board_status(Socket& socket,
         vector<tuple<int, int>> selected_piece_possible_movements = 
             board.get_piece_possible_movements(std::get<0>(selected_pos),std::get<1>(selected_pos));       
         for (const auto& position: selected_piece_possible_movements) {
-            vector_board.push_back('h'); //(h)ighlight
-            vector_board.push_back(std::get<0>(selected_pos));
-            vector_board.push_back(std::get<1>(selected_pos));
-            vector_board.push_back('s');// Pieza (s)eleccionada
+            // vector_board.push_back('h'); //(h)ighlight
+            // vector_board.push_back(std::get<0>(selected_pos));
+            // vector_board.push_back(std::get<1>(selected_pos));
+            // vector_board.push_back('s');// Pieza (s)eleccionada
             vector<tuple<int, int>> selected_piece_possible_movements = 
                 board.get_piece_possible_movements(std::get<0>(selected_pos),std::get<1>(selected_pos));       
             for (const auto& position: selected_piece_possible_movements) {

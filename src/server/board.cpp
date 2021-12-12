@@ -364,4 +364,18 @@ std::vector<char> Board::get_vector_board() {
     return std::move(vector_board);
 }
 
+void Board::mark_for_split(int row, int col){
+    this->marked_for_split_position = std::make_tuple(row, col);
+    this->first_split_position = std::make_tuple(-1, -1);
+    this->first_split_position = std::make_tuple(-1, -1);
+}
 
+void Board::unmark_for_split(int row, int col){
+    this->marked_for_split_position = std::make_tuple(row, col);
+    this->first_split_position = std::make_tuple(-1, -1);
+    this->first_split_position = std::make_tuple(-1, -1);
+}
+
+tuple<int, int> Board::get_marked_for_split_position(){
+    return this->marked_for_split_position;
+}   
