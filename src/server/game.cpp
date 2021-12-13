@@ -3,6 +3,7 @@
 #include <vector>
 #include <list>
 #include <iostream>
+#include <algorithm>
 
 Game::Game(BlockingQueue& blocking_queue, std::list<Client *>& clients) : whites_turn(true),
                                                                             blocking_queue(blocking_queue),                                                                             
@@ -37,31 +38,37 @@ void Game::process_position(int row, int col, char type) {
         // El lugar seleccionado está vacio
         if (this->board.square_is_empty(row, col)) {
             // Había una pieza marcada para hacer split => se seleccionan los casilleros para hace el split.
+            std::tuple<int, int> marked_for_split_position = this->board.get_marked_for_split_position();
             std::tuple<int, int> null_tuple = std::make_tuple(-1, -1);
-            if (this->board.get_marked_for_split_position() != null_tuple){ 
+            if (marked_for_split_position != null_tuple){ 
+                std::vector<tuple<int, int>> marked_for_split_piece_moves = this->board.get_piece_possible_movements(std::get<0>(marked_for_split_position), std::get<1>(marked_for_split_position));
+                // Se revisa que la posicion seleccionada para hacer split sea un movimiento válido de la pieza
+                if (std::find(marked_for_split_piece_moves.begin(), marked_for_split_piece_moves.end(), std::make_tuple(row, col)) == marked_for_split_piece_moves.end()){
+                    return;
+                }
+                // Seleccion primer posicion para split
                 if (this->board.first_split_position == null_tuple){
-                    std::cout << "PEPE 2" << std::endl;
                     this->board.first_split_position = std::make_tuple(row, col);
-                } else {//if (this->board.second_split_position != null_tuple){
-                    std::cout << "PEPE 3" << std::endl;
+                } else { // Seleccion segunda posicion para split
                     this->board.second_split_position = std::make_tuple(row, col);   
-                    std::cout << std::get<0>(this->board.get_marked_for_split_position()) << " " << std::get<1>(this->board.get_marked_for_split_position()) << std::endl;
+                    std::cout << std::get<0>(marked_for_split_position) << " " << std::get<1>(marked_for_split_position) << std::endl;
                     std::cout << std::get<0>(this->board.first_split_position) << " " << std::get<1>(this->board.first_split_position) << std::endl;
                     std::cout << std::get<0>(this->board.second_split_position) << " " << std::get<1>(this->board.second_split_position) << std::endl;
-                    this->board.split_piece(std::get<0>(this->board.get_marked_for_split_position()),
-                                            std::get<1>(this->board.get_marked_for_split_position()),
+                    this->board.split_piece(std::get<0>(marked_for_split_position),
+                                            std::get<1>(marked_for_split_position),
                                             std::get<0>(this->board.first_split_position),
                                             std::get<1>(this->board.first_split_position),
                                             row,
                                             col );
-                    this->change_turn();     
-                    this->board.print_board();
+                    this->board.unmark_for_split();
+                    this->board.unselect_piece();
+                    this->change_turn();                    
                     return;        
                 }
             } else {
                 // Muevo y deselecciono
                 if (this->board.move_piece(std::get<0>(position_of_selected_piece), std::get<1>(position_of_selected_piece), row, col)) {
-                    this->board.unselect_piece(row, col);
+                    this->board.unselect_piece();
                     this->change_turn();            
                 } 
             }
@@ -77,28 +84,30 @@ void Game::process_position(int row, int col, char type) {
                     std::cout << std::get<0>(this->board.get_marked_for_split_position()) << " " << std::get<1>(this->board.get_marked_for_split_position()) << std::endl;
                 }
                 // Es otra pieza propia
-                this->board.unselect_piece(row, col);
+                this->board.unselect_piece();
                 this->board.select_piece(row, col);                
                 return;
             //color opuesto al turno
             } else if ((this->board.is_piece_white(row, col) and !is_whites_turn()) || (!this->board.is_piece_white(row, col) and is_whites_turn())) {
-                std::string enemy_type = this->board.board[row][col]->name;
-                if (this->board.board[row][col]->exists()){
-                    std::vector<Piece*> dead_childs = this->board.board[row][col]->parent_im_here();
+                Piece * enemy_piece = this->board.board[row][col];
+                std::string enemy_type = enemy_piece->name;
+                if (enemy_piece->exists()){
+                    std::vector<Piece*> dead_childs = enemy_piece->parent_im_here();
                     this->board.remove_pieces(dead_childs);
                     std::cout << "EXISTE LA PIEZA" << std::endl;
-                } else{
-                    this->board.board[row][col]->parent_kill_me();
-                }
-                if (this->board.move_piece(std::get<0>(position_of_selected_piece), std::get<1>(position_of_selected_piece), row, col)) {
-                    this->board.unselect_piece(row, col);
                     //Muere el rey
                     if (enemy_type == "K" || enemy_type == "k"){
                         this->is_running = false;
-                    } else{
-                        change_turn();
                     }
-                
+                } else{
+                    enemy_piece->parent_kill_me();
+                    delete enemy_piece;
+                }
+                if (this->board.move_piece(std::get<0>(position_of_selected_piece), std::get<1>(position_of_selected_piece), row, col)) {
+                    this->board.unselect_piece();   
+                    if (this->is_running){
+                        change_turn();
+                    }             
                 }
             }
         }
@@ -112,7 +121,7 @@ void Game::process_position(int row, int col, char type) {
             //selecciono la pieza
             if ((this->board.is_piece_white(row, col) and is_whites_turn()) || (!this->board.is_piece_white(row, col) and !is_whites_turn())) {
                 if (type == 'm') {
-                    this->board.unselect_all();
+                    this->board.unselect_piece();
                     this->board.select_piece_for_merge(row, col);
 
                 } else {

@@ -36,13 +36,10 @@ bool Piece::has_childs() {
 
 void Piece::parent_kill_me() {
     if (this->parent) {
-        std::cout << "Killing parent"<< std::endl;
         this->parent->kill_child(this, this->probability_fraction_den, this->probability_fraction_num);
     } if (parent_left_merge) {
-        std::cout << "Killing parent left"<< std::endl;
         this->parent_left_merge->kill_child(this, this->den_from_left_merge, this->num_from_left_merge);
     } if (parent_right_merge) {
-        std::cout << "Killing parent right"<< std::endl;
         this->parent_right_merge->kill_child(this, this->den_from_right_merge, this->num_from_right_merge);
     }
 }
@@ -55,29 +52,23 @@ void Piece::kill_child(Piece* piece, int prob_den, int prob_num) {
     std::cout << "piece" << piece;
     std::cout << "right child" << this->right_child;
     if (piece == this->right_child) {
-        std::cout << "Right child invoque me"<< std::endl;
         if (left_child) {
-            std::cout << "Giving left"<< std::endl;
             left_child->receive_probability(prob_den,prob_num);
         } else if (parent) {
-            std::cout << "sending to parent"<< std::endl;
             parent->kill_child(this, this->probability_fraction_den, this->probability_fraction_num);
         }
-        //free right_child
+        // delete this->right_child;
         
         right_child = nullptr;
     }else if (piece == this->left_child) {
-        std::cout << "Left child invoque me"<< std::endl;
         if (right_child) {
-            std::cout << "Giving right"<< std::endl;
             right_child->receive_probability(prob_den, prob_num);
         } else if (parent) {
 
-            std::cout << "sending to parent"<< std::endl;
             parent->kill_child(this, this->probability_fraction_den, this->probability_fraction_num);
         }
         
-        //free right_child
+        // delete this->left_child;
         left_child = nullptr;
     }
 }

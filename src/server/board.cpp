@@ -13,6 +13,9 @@
 #include <cctype>
 #include <algorithm>
 
+#include <vector>
+#include <tuple>
+
 
 
 int Board::sign(int n) {
@@ -32,6 +35,14 @@ Board::Board(): selected_piece_position(-1,-1),
     create_board();
 }
 
+Board::~Board(){
+    for (const auto& key_value_board: this->board) {
+        for (const auto& key_value_row: key_value_board.second) {
+            Piece * piece = key_value_row.second;
+            delete piece;
+        }
+    }
+}
 
 void Board::create_board() {  
     // 1 black, 0 white
@@ -116,15 +127,18 @@ int Board::split_piece(int piece_row,
 }
 
 int Board::merge_pieces(int first_piece_row, int first_piece_col, int second_piece_row, int second_piece_col, int dst_row, int dst_col) {
-    if (!this->square_is_empty(first_piece_row, first_piece_col) and !this->square_is_empty(second_piece_row, second_piece_col)) { // ambos casilleros con piezas
-        if (get_piece_instances_positions(first_piece_row, first_piece_col) == get_piece_instances_positions(second_piece_row, second_piece_col)) { // son instancia de la otra
+    // ambos casilleros con piezas
+    if (!this->square_is_empty(first_piece_row, first_piece_col) and !this->square_is_empty(second_piece_row, second_piece_col)) { 
+        // son instancia de la otra
+        if (get_piece_instances_positions(first_piece_row, first_piece_col) == get_piece_instances_positions(second_piece_row, second_piece_col)) { 
             std::vector<tuple<int, int>> first_piece_moves = get_piece_possible_movements(first_piece_row, first_piece_col);
             first_piece_moves.push_back(std::tuple<int, int>{second_piece_row, second_piece_col});
             first_piece_moves.push_back(std::tuple<int, int>{first_piece_row, first_piece_col});
             std::vector<tuple<int, int>> second_piece_moves = get_piece_possible_movements(second_piece_row, second_piece_col);
             second_piece_moves.push_back(std::tuple<int, int>{first_piece_row, first_piece_col});
             second_piece_moves.push_back(std::tuple<int, int>{second_piece_row, second_piece_col});
-            if (std::find(first_piece_moves.begin(), first_piece_moves.end(), tuple<int, int>{dst_row, dst_col}) != first_piece_moves.end()) { // se pueden mover al destino ambas
+            // se pueden mover al destino ambas
+            if (std::find(first_piece_moves.begin(), first_piece_moves.end(), tuple<int, int>{dst_row, dst_col}) != first_piece_moves.end()) { 
                 if(std::find(second_piece_moves.begin(), second_piece_moves.end(), tuple<int, int>{dst_row, dst_col}) != second_piece_moves.end()) {
                     Piece* first_piece = board.at(first_piece_row).at(first_piece_col);
                     board.at(first_piece_row).erase(first_piece_col);
@@ -156,18 +170,6 @@ int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {
     return 0;  
 }
 
-void Board::unselect_all() {
-
-    for (int row = 0; row < 8; row++) {
-        for (int col = 0; col < 8; col ++) {
-            if (!this->square_is_empty(row, col)){
-                this->unselect_piece(row, col);
-            }                
-            
-        }
-    }   
-
-}
 vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<int, int>> positions_available, int row, int col, Piece * piece) {
     std::vector<std::tuple<int, int>> final_pos;
     
@@ -289,6 +291,7 @@ void Board::remove_pieces(std::vector<Piece*>  pieces) {
                     if (piece == piece_in_board) {
                         board[row].erase(col);
                         piece->parent_kill_me();
+                        delete piece;
                         break;
                     }
                 }                
@@ -350,11 +353,43 @@ void Board::select_piece(int row, int col) {
 
 void Board::select_piece_for_merge(int row, int col) {
     if(!this->square_is_empty(row,col)){
-        this->selected_pieces_for_merge.push_back(std::make_tuple(row, col));
+        std::tuple<int, int> selected_position = std::make_tuple(row, col);
+        Piece * selected_piece = this->board[row][col];
+        // Si la probabilidad de la pieza seleccionada es 1, no puede mergearse.
+        if (selected_piece->probability_fraction_den == 1){
+            return;
+        }
+        // Nos fijamos que la pieza marcada para mergear no haya sido marcada antes
+        std::vector<std::tuple<int, int>>::iterator pos = std::find(this->selected_pieces_for_merge.begin(), 
+                                                            this->selected_pieces_for_merge.end(), 
+                                                            selected_position);
+        // Si ya fue marcada, se desmarca
+        if (pos != this->selected_pieces_for_merge.end()){
+            this->selected_pieces_for_merge.erase(pos);
+        } else{
+            // Si ya hay piezas marcadas, la nueva seleccion tiene que ser una instancia de ellas.
+            if (this->selected_pieces_for_merge.size() > 0){
+                Piece * marked_piece = this->board[std::get<0>(this->selected_pieces_for_merge[0])]
+                                                  [std::get<1>(this->selected_pieces_for_merge[0])];
+                std::vector<Piece *> marked_piece_instances = marked_piece->get_piece_instances();
+                if (std::find(marked_piece_instances.begin(), 
+                              marked_piece_instances.end(), 
+                              selected_piece) == marked_piece_instances.end()){
+                    return;
+                }                
+            }
+            // Si ya hay dos piezas marcadas para mergear, las 
+            // siguientes selecciones reemplazan a la segunda selección
+            if (this->selected_pieces_for_merge.size() == 2){
+                this->selected_pieces_for_merge[1] = selected_position;
+            } else{
+                this->selected_pieces_for_merge.push_back(selected_position);
+            }
+        }
     }    
 }
 
-void Board::unselect_piece(int row, int col) {
+void Board::unselect_piece() {
     this->selected_piece_position = std::make_tuple(-1, -1);
 }
 
@@ -438,8 +473,8 @@ void Board::mark_for_split(int row, int col){
     this->first_split_position = std::make_tuple(-1, -1);
 }
 
-void Board::unmark_for_split(int row, int col){
-    this->marked_for_split_position = std::make_tuple(row, col);
+void Board::unmark_for_split(){
+    this->marked_for_split_position = std::make_tuple(-1, -1);
     this->first_split_position = std::make_tuple(-1, -1);
     this->first_split_position = std::make_tuple(-1, -1);
 }

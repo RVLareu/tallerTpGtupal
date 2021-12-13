@@ -38,6 +38,7 @@ class Board {
         tuple<int, int> second_split_position;
 
         Board();
+        ~Board();
 
         void create_board();
         
@@ -56,7 +57,7 @@ class Board {
 
         void select_piece(int row, int col);
 
-        void unselect_piece(int row, int col);
+        void unselect_piece();
 
         bool is_piece_white(int row, int col);
         
@@ -73,7 +74,7 @@ class Board {
 
         // Marca una posicion como seleccionada para hacer un split
         void mark_for_split(int row, int col);
-        void unmark_for_split(int row, int col);
+        void unmark_for_split();
         tuple<int, int> get_marked_for_split_position();
 
         std::vector<std::tuple<int, int>> get_piece_instances_positions(int row, int col);  
@@ -85,8 +86,6 @@ class Board {
 
         std::vector<std::tuple<int, int>> selected_pieces_for_merge;
         void select_piece_for_merge(int row, int col);
-
-        void unselect_all();
 };
 
 #endif
