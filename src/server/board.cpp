@@ -84,11 +84,11 @@ void Board::create_board() {
     board[7][3] = new King(0, float(1), float(1));
 
     this->split_piece(1, 1, 2, 2, 2, 3);
-    this->split_piece(2, 3, 3, 3, 3, 4);
-
-    this->split_piece(3, 4, 3, 5, 3, 6);
-    this->split_piece(3, 5, 4, 5, 4, 6);
-
+    this->split_piece(2, 2, 3, 2, 3, 3);
+    this->split_piece(3, 2, 4, 4, 5, 5);
+    this->split_piece(4, 4, 4, 5, 4, 6);
+    this->split_piece(7, 4, 3, 1, 4, 1);
+    //this->merge_pieces(5, 5, 4, 6, 5, 6);
 
 }
 
@@ -115,6 +115,32 @@ int Board::split_piece(int piece_row,
     return 0;
 }
 
+int Board::merge_pieces(int first_piece_row, int first_piece_col, int second_piece_row, int second_piece_col, int dst_row, int dst_col) {
+    if (get_piece_instances_positions(first_piece_row, first_piece_col) == get_piece_instances_positions(second_piece_row, second_piece_col)) { // son instancia de la otra
+        std::vector<tuple<int, int>> first_piece_moves = get_piece_possible_movements(first_piece_row, first_piece_col);
+        first_piece_moves.push_back(std::tuple<int, int>{second_piece_row, second_piece_col});
+        first_piece_moves.push_back(std::tuple<int, int>{first_piece_row, first_piece_col});
+        std::vector<tuple<int, int>> second_piece_moves = get_piece_possible_movements(second_piece_row, second_piece_col);
+        second_piece_moves.push_back(std::tuple<int, int>{first_piece_row, first_piece_col});
+        second_piece_moves.push_back(std::tuple<int, int>{second_piece_row, second_piece_col});
+        if (std::find(first_piece_moves.begin(), first_piece_moves.end(), tuple<int, int>{dst_row, dst_col}) != first_piece_moves.end()) { // se pueden mover al destino ambas
+
+            if(std::find(second_piece_moves.begin(), second_piece_moves.end(), tuple<int, int>{dst_row, dst_col}) != second_piece_moves.end()) {
+                Piece* first_piece = board.at(first_piece_row).at(first_piece_col);
+                board.at(first_piece_row).erase(first_piece_col);
+                Piece* second_piece = board.at(second_piece_row).at(second_piece_col);
+                board.at(second_piece_row).erase(second_piece_col);
+                Piece* merged_piece = first_piece->merge(second_piece);
+                board[dst_row][dst_col] = merged_piece;
+                return 1;
+
+            }
+        }
+    }
+    return 0;
+}
+
+
 int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {    
     std::vector<std::tuple<int, int>> piece_poss_moves = get_piece_possible_movements(start_row, start_col);
        
@@ -129,6 +155,18 @@ int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {
     return 0;  
 }
 
+void Board::unselect_all() {
+
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col ++) {
+            if (!this->square_is_empty(row, col)){
+                this->unselect_piece(row, col);
+            }                
+            
+        }
+    }   
+
+}
 vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<int, int>> positions_available, int row, int col, Piece * piece) {
     std::vector<std::tuple<int, int>> final_pos;
     
@@ -304,6 +342,12 @@ bool Board::is_any_piece_selected() {
 void Board::select_piece(int row, int col) {
     if(!this->square_is_empty(row,col)){
         this->selected_piece_position = std::make_tuple(row, col);
+    }    
+}
+
+void Board::select_piece_for_merge(int row, int col) {
+    if(!this->square_is_empty(row,col)){
+        this->selected_pieces_for_merge.push_back(std::make_tuple(row, col));
     }    
 }
 

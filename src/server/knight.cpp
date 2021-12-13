@@ -58,3 +58,25 @@ std::vector<Piece*> Knight::split() {
 
     return childs; 
 }
+
+Piece* Knight::merge(Piece* knight) {
+    // creo nodo merge y asigna la suma de la probabilidad de ambos padres
+    Knight* new_knight = new Knight(this->color, this->probability_fraction_den, probability_fraction_num);
+    this->right_child = new_knight;
+    new_knight->parent_left_merge = this;
+    
+    new_knight->den_from_left_merge = this->probability_fraction_den;
+    new_knight->num_from_left_merge = this->probability_fraction_num;
+
+
+    knight->right_child = new_knight;
+    new_knight->receive_probability(knight->probability_fraction_den, knight->probability_fraction_num);
+
+
+    new_knight->parent_right_merge = knight;
+    new_knight->den_from_right_merge = knight->probability_fraction_den;
+    new_knight->num_from_right_merge = knight->probability_fraction_num;
+
+
+    return new_knight;
+}

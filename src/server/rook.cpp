@@ -62,3 +62,26 @@ std::vector<Piece*> Rook::split() {
 
     return childs; 
 }
+
+
+Piece* Rook::merge(Piece* rook) {
+    // creo nodo merge y asigna la suma de la probabilidad de ambos padres
+    Rook* new_rook = new Rook(this->color, this->probability_fraction_den, probability_fraction_num);
+    this->right_child = new_rook;
+    new_rook->parent_left_merge = this;
+    
+    new_rook->den_from_left_merge = this->probability_fraction_den;
+    new_rook->num_from_left_merge = this->probability_fraction_num;
+
+
+    rook->right_child = new_rook;
+    new_rook->receive_probability(rook->probability_fraction_den, rook->probability_fraction_num);
+
+
+    new_rook->parent_right_merge = rook;
+    new_rook->den_from_right_merge = rook->probability_fraction_den;
+    new_rook->num_from_right_merge = rook->probability_fraction_num;
+
+
+    return new_rook;
+}

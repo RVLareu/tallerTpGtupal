@@ -73,4 +73,26 @@ std::vector<Piece*> Pawn::split() {
     return childs;
 }
 
+Piece* Pawn::merge(Piece* pawn) {
+    // creo nodo merge y asigna la suma de la probabilidad de ambos padres
+    Pawn* new_pawn = new Pawn(this->color, this->probability_fraction_den, probability_fraction_num);
+    this->right_child = new_pawn;
+    new_pawn->parent_left_merge = this;
+    
+    new_pawn->den_from_left_merge = this->probability_fraction_den;
+    new_pawn->num_from_left_merge = this->probability_fraction_num;
+
+
+    pawn->right_child = new_pawn;
+    new_pawn->receive_probability(pawn->probability_fraction_den, pawn->probability_fraction_num);
+
+
+    new_pawn->parent_right_merge = pawn;
+    new_pawn->den_from_right_merge = pawn->probability_fraction_den;
+    new_pawn->num_from_right_merge = pawn->probability_fraction_num;
+
+
+    return new_pawn;
+}
+
 

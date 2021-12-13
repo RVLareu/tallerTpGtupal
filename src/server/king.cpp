@@ -55,3 +55,25 @@ std::vector<Piece*> King::split() {
 
     return childs; 
 }
+
+Piece* King::merge(Piece* king) {
+    // creo nodo merge y asigna la suma de la probabilidad de ambos padres
+    King* new_king = new King(this->color, this->probability_fraction_den, probability_fraction_num);
+    this->right_child = new_king;
+    new_king->parent_left_merge = this;
+    
+    new_king->den_from_left_merge = this->probability_fraction_den;
+    new_king->num_from_left_merge = this->probability_fraction_num;
+
+
+    king->right_child = new_king;
+    new_king->receive_probability(king->probability_fraction_den, king->probability_fraction_num);
+
+
+    new_king->parent_right_merge = king;
+    new_king->den_from_right_merge = king->probability_fraction_den;
+    new_king->num_from_right_merge = king->probability_fraction_num;
+
+
+    return new_king;
+}

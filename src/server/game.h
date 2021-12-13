@@ -26,7 +26,7 @@ class Game {
 
         Game(BlockingQueue& blocking_queue, std::list<Client *>& clients);
 
-        void process_position(int row, int col);
+        void process_position(int row, int col, char type);
 
         bool is_whites_turn();
 

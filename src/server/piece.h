@@ -25,7 +25,13 @@ class Piece {
 
         Piece* parent_left_merge;
 
+        int den_from_left_merge;
+        int num_from_left_merge;
+
         Piece* parent_right_merge;
+
+        int den_from_right_merge;
+        int num_from_right_merge;
 
         std::string name;           
 
@@ -37,7 +43,7 @@ class Piece {
 
         void parent_kill_me();
         
-        void kill_child(Piece* piece);
+        void kill_child(Piece* piece, int prob_den, int prob_num);
 
         void receive_probability(int probability_den, int probability_num);
 
@@ -64,6 +70,8 @@ class Piece {
         std::vector<Piece*> parent_im_here();
 
         void delete_full_tree(Piece* node);
+
+        virtual Piece* merge(Piece* piece) = 0;
      
 };
 

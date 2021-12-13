@@ -80,6 +80,13 @@ class Board {
         
 
         void remove_pieces(std::vector<Piece*>  pieces);
+
+        int merge_pieces(int first_piece_row, int first_piece_col, int second_piece_row, int second_piece_col,int dst_row, int dst_col); 
+
+        std::vector<std::tuple<int, int>> selected_pieces_for_merge;
+        void select_piece_for_merge(int row, int col);
+
+        void unselect_all();
 };
 
 #endif

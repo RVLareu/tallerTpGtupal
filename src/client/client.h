@@ -27,10 +27,10 @@ class Client {
         std::string nickname;
 
         bool running;
-
         std::queue<std::vector<char>> status_queue;
         std::queue<std::tuple<int, int>> selection_queue;
 
+        bool is_merge;
     public:
         int receive_board_state_and_render();
         int receive_client_input_and_send();

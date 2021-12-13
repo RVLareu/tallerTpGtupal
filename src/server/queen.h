@@ -8,5 +8,6 @@ class Queen : public Piece {
 
         std::vector<Piece*> split();
 
+    Piece* merge(Piece* queen);
     std::vector<std::tuple<int, int>> can_move(int origin_row, int origin_col) override;
 };
