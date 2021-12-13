@@ -25,7 +25,10 @@ int Board::sign(int n) {
     }
 }
 
-Board::Board(): selected_piece_position(-1,-1){
+Board::Board(): selected_piece_position(-1,-1), 
+                marked_for_split_position(-1,-1), 
+                first_split_position(-1,-1), 
+                second_split_position(-1,-1){
     create_board();
 }
 
@@ -314,12 +317,12 @@ void Board::print_board() {
      for (int row = 0; row < 8; row++) {
          for (int col = 0; col < 8; col ++) {
              if (!this->square_is_empty(row, col)){
-                //  std::cout << " " << board[row][col]->name << " ";                
+                 std::cout << " " << board[row][col]->name << " ";                
              } else {
-                //  std::cout << " - ";
+                 std::cout << " - ";
              }
          }
-        //  std::cout << "\n";
+        std::cout << "\n";
      }
     
     /*for (int row = 0; row < 8; row++) {

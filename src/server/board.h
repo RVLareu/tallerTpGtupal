@@ -28,14 +28,14 @@ class Board {
         // La posicion de la pieza que va a realizar un split
         tuple<int, int> marked_for_split_position;
 
-        // Las posiciones de los casilleros en los que se va a hacer el split
-        tuple<int, int> first_split_position;
-        tuple<int, int> second_split_position;
-
     public:
         board_map board;                
         
         vector<tuple<int, int>> piece_moves;        
+        
+        // Las posiciones de los casilleros en los que se va a hacer el split
+        tuple<int, int> first_split_position;
+        tuple<int, int> second_split_position;
 
         Board();
 

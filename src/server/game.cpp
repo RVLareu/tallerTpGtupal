@@ -19,12 +19,35 @@ void Game::process_position(int row, int col) {
 
         // El lugar seleccionado está vacio
         if (this->board.square_is_empty(row, col)) {
-
-            // Muevo y deselecciono
-            if (this->board.move_piece(std::get<0>(position_of_selected_piece), std::get<1>(position_of_selected_piece), row, col)) {
-                this->board.unselect_piece(row, col);
-                change_turn();            
-            } 
+            // Había una pieza marcada para hacer split => se seleccionan los casilleros para hace el split.
+            std::tuple<int, int> null_tuple = std::make_tuple(-1, -1);
+            if (this->board.get_marked_for_split_position() != null_tuple){ 
+                if (this->board.first_split_position == null_tuple){
+                    std::cout << "PEPE 2" << std::endl;
+                    this->board.first_split_position = std::make_tuple(row, col);
+                } else {//if (this->board.second_split_position != null_tuple){
+                    std::cout << "PEPE 3" << std::endl;
+                    this->board.second_split_position = std::make_tuple(row, col);   
+                    std::cout << std::get<0>(this->board.get_marked_for_split_position()) << " " << std::get<1>(this->board.get_marked_for_split_position()) << std::endl;
+                    std::cout << std::get<0>(this->board.first_split_position) << " " << std::get<1>(this->board.first_split_position) << std::endl;
+                    std::cout << std::get<0>(this->board.second_split_position) << " " << std::get<1>(this->board.second_split_position) << std::endl;
+                    this->board.split_piece(std::get<0>(this->board.get_marked_for_split_position()),
+                                            std::get<1>(this->board.get_marked_for_split_position()),
+                                            std::get<0>(this->board.first_split_position),
+                                            std::get<1>(this->board.first_split_position),
+                                            row,
+                                            col );
+                    this->change_turn();     
+                    this->board.print_board();
+                    return;        
+                }
+            } else {
+                // Muevo y deselecciono
+                if (this->board.move_piece(std::get<0>(position_of_selected_piece), std::get<1>(position_of_selected_piece), row, col)) {
+                    this->board.unselect_piece(row, col);
+                    this->change_turn();            
+                } 
+            }
         } else {
             // El lugar seleccionado no está vacio
 
