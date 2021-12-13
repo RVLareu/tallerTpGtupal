@@ -66,3 +66,26 @@ std::vector<Piece*> Queen::split() {
 
     return childs; 
 }
+
+
+Piece* Queen::merge(Piece* queen) {
+    // creo nodo merge y asigna la suma de la probabilidad de ambos padres
+    Queen* new_queen = new Queen(this->color, this->probability_fraction_den, probability_fraction_num);
+    this->right_child = new_queen;
+    new_queen->parent_left_merge = this;
+    
+    new_queen->den_from_left_merge = this->probability_fraction_den;
+    new_queen->num_from_left_merge = this->probability_fraction_num;
+
+
+    queen->right_child = new_queen;
+    new_queen->receive_probability(queen->probability_fraction_den, queen->probability_fraction_num);
+
+
+    new_queen->parent_right_merge = queen;
+    new_queen->den_from_right_merge = queen->probability_fraction_den;
+    new_queen->num_from_right_merge = queen->probability_fraction_num;
+
+
+    return new_queen;
+}

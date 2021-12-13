@@ -8,7 +8,10 @@ class Pawn : public Piece {
         
         std::vector<Piece*> split();
 
-    std::vector<std::tuple<int, int>> can_move(int origin_row, int origin_col) override;
+        std::vector<std::tuple<int, int>> can_move(int origin_row, int origin_col) override;
 
+        Piece* merge(Piece* pawn);
+
+        
     //~Pawn();
 };

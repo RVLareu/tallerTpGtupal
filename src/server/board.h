@@ -80,6 +80,8 @@ class Board {
         
 
         void remove_pieces(std::vector<Piece*>  pieces);
+
+        int merge_pieces(int first_piece_row, int first_piece_col, int second_piece_row, int second_piece_col,int dst_row, int dst_col); 
 };
 
 #endif

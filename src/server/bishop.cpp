@@ -57,3 +57,26 @@ std::vector<Piece*> Bishop::split() {
 }
 
 
+Piece* Bishop::merge(Piece* bishop) {
+    // creo nodo merge y asigna la suma de la probabilidad de ambos padres
+    Bishop* new_bishop = new Bishop(this->color, this->probability_fraction_den, probability_fraction_num);
+    this->right_child = new_bishop;
+    new_bishop->parent_left_merge = this;
+    
+    new_bishop->den_from_left_merge = this->probability_fraction_den;
+    new_bishop->num_from_left_merge = this->probability_fraction_num;
+
+
+    bishop->right_child = new_bishop;
+    new_bishop->receive_probability(bishop->probability_fraction_den, bishop->probability_fraction_num);
+
+
+    new_bishop->parent_right_merge = bishop;
+    new_bishop->den_from_right_merge = bishop->probability_fraction_den;
+    new_bishop->num_from_right_merge = bishop->probability_fraction_num;
+
+
+    return new_bishop;
+}
+
+
