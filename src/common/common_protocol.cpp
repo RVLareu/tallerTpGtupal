@@ -44,7 +44,13 @@ void Protocol::send_finished_game(Socket& socket, bool white_wins){
 
 void Protocol::send_board_status(Socket& socket,
                             Board& board){
-    std::vector<char> vector_board;        
+    std::vector<char> vector_board;
+    for (const auto merge_pos : board.selected_pieces_for_merge) {
+        vector_board.push_back('h'); //(h)ighlight
+        vector_board.push_back(std::get<0>(merge_pos));
+        vector_board.push_back(std::get<1>(merge_pos));
+        vector_board.push_back('i'); 
+    }      
     // Se obtienen los posibles movimientos de la pieza seleccionada actualmente (de existir)    
     if (board.is_any_piece_selected()){
         std::tuple<int, int> selected_pos = board.get_selected_piece_position();
@@ -66,7 +72,6 @@ void Protocol::send_board_status(Socket& socket,
                 vector_board.push_back(std::get<0>(position));
                 vector_board.push_back(std::get<1>(position));
                 vector_board.push_back('i'); // (i)nstancia de la misma pieza seleccionada
-                std::cout << "INSTANCIA: " << std::get<0>(position) << " " << std::get<1>(position) << std::endl;
             }
         }
         vector<tuple<int, int>> selected_piece_possible_movements = 
@@ -137,6 +142,20 @@ void Protocol::recv_client_events(Socket& socket, BlockingQueue& blocking_queue)
         event.push_back(row);
         event.push_back(col);        
                 
+    } else if (event_type == 'm') { //piece to merge
+        uint16_t row;
+        uint16_t col;
+
+        socket.recv((char * ) &row, sizeof(row));
+        row = ntohs(row);
+        std::cout << "EVENT RECEIVED: " << row << std::endl;
+        socket.recv((char * ) &col, sizeof(col));
+        col = ntohs(col);
+        std::cout << "EVENT RECEIVED: " << col << std::endl;
+
+        event.push_back(event_type);
+        event.push_back(row);
+        event.push_back(col);   
     }
     blocking_queue.push(event);
     
@@ -144,8 +163,9 @@ void Protocol::recv_client_events(Socket& socket, BlockingQueue& blocking_queue)
 
 void Protocol::send_selection(Socket& socket,
                             int row,
-                            int col) {
-        char selection = 'c';
+                            int col,
+                            char selection) {
+        //char selection = 'c';
         socket.send(&selection, sizeof(selection));
 
         std::cout << row << " " << col << std::endl;

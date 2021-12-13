@@ -24,7 +24,8 @@ Client::Client(char* host, char* port) : sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO),
                     renderer(this->window, -1, SDL_RENDERER_ACCELERATED),
                     board(std::ref(this->renderer)),
                     winner('b'),
-                    running(true) {
+                    running(true),
+                    is_merge(false) {
     board.create_spots();
     this->socket.connect(host, port);
 }
@@ -58,16 +59,21 @@ int Client::receive_client_input_and_send() {
                 return 1;                  
                 break;
             case SDL_MOUSEBUTTONDOWN: 
+                mousePos.SetX(event.motion.x);
+                mousePos.SetY(event.motion.y);
                 if (event.button.button == SDL_BUTTON_LEFT) {
-                    mousePos.SetX(event.motion.x);
-                    mousePos.SetY(event.motion.y);
                     try {
-                    this->selection_queue.push(board.mouse_position_to_square(mousePos));
+                        is_merge = false;
+                        this->selection_queue.push(board.mouse_position_to_square(mousePos));
                     } catch (std::range_error) {
                         std::cout << "Out of range click";
                     }
-                break;
+                } else if (event.button.button == SDL_BUTTON_RIGHT) {
+                    is_merge = true;
+                    this->selection_queue.push(board.mouse_position_to_square(mousePos));
                 }
+                break;
+                
         }
     }
     return 0;
@@ -163,7 +169,11 @@ void Client::send_selection() {
         if (!this->selection_queue.empty()) {
             std::tuple<int, int> selection = this->selection_queue.front();
             this->selection_queue.pop();
-            protocol.send_selection(socket, std::get<0>(selection), std::get<1>(selection));
+            if (is_merge) { // right_click
+                protocol.send_selection(socket, std::get<0>(selection), std::get<1>(selection), 'm');
+            } else {
+                protocol.send_selection(socket, std::get<0>(selection), std::get<1>(selection), 'c');
+            }
         }
     }
 }

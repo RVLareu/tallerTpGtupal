@@ -9,11 +9,28 @@ Game::Game(BlockingQueue& blocking_queue, std::list<Client *>& clients) : whites
                                                                             clients(clients),
                                                                             is_running(true){}
 
-void Game::process_position(int row, int col) {
+void Game::process_position(int row, int col, char type) {
     /*
         Hay una pieza seleccionada
-    */    
-    if (board.is_any_piece_selected()) {        
+    */
+    if ((this->board.selected_pieces_for_merge.size() >= 2) and type == 'c') {
+        std::cout << "Attemp to merge"<< std::endl;
+        std::tuple<int, int> first_piece_to_merge = this->board.selected_pieces_for_merge.at(0);
+        std::tuple<int, int> second_piece_to_merge = this->board.selected_pieces_for_merge.at(1);
+        if (this->board.merge_pieces(get<0>(first_piece_to_merge),
+                                 get<1>(first_piece_to_merge),
+                                 get<0>(second_piece_to_merge),
+                                 get<1>(second_piece_to_merge),
+                                 row,
+                                 col)) {
+
+            change_turn();
+        }
+        this->board.selected_pieces_for_merge.clear();
+    }
+
+    else if (board.is_any_piece_selected() and type == 'c') {
+                
         std::cout << "HAY PIEZA SELECCIONADA" << std::endl;
         std::tuple<int, int> position_of_selected_piece = this->board.get_selected_piece_position();
 
@@ -71,7 +88,13 @@ void Game::process_position(int row, int col) {
         } else {
             //selecciono la pieza
             if ((this->board.is_piece_white(row, col) and is_whites_turn()) || (!this->board.is_piece_white(row, col) and !is_whites_turn())) {
-                this->board.select_piece(row, col);                
+                if (type == 'm') {
+                    this->board.unselect_all();
+                    this->board.select_piece_for_merge(row, col);
+
+                } else {
+                    this->board.select_piece(row, col);                
+                }
             }            
         }
     }    
@@ -93,8 +116,11 @@ void Game::process_events(BlockingQueue& blocking_queue) {
         std::vector<char> event = blocking_queue.pop();
         std::cout << "PROCESANDO EVENTO" << std::endl;
         if (event[0] == 'c'){ // (c)lick
-            this->process_position(event[1],event[2]);
+            this->process_position(event[1],event[2], 'c');
             this->print_game();
+        } else if (event[0] == 'm') { // (m)erge
+            this->process_position(event[1],event[2], 'm');
+            this->print_game();        
         }
         // Se envia el estado actualizado a los clientes
         for (auto &client : this->clients){

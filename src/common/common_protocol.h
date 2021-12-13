@@ -27,7 +27,8 @@ class Protocol{
 
         void send_selection(Socket& socket,
                             int row,
-                            int col); 
+                            int col,
+                            char selection); 
 };
 
 #endif
