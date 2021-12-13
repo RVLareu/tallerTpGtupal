@@ -116,24 +116,25 @@ int Board::split_piece(int piece_row,
 }
 
 int Board::merge_pieces(int first_piece_row, int first_piece_col, int second_piece_row, int second_piece_col, int dst_row, int dst_col) {
-    if (get_piece_instances_positions(first_piece_row, first_piece_col) == get_piece_instances_positions(second_piece_row, second_piece_col)) { // son instancia de la otra
-        std::vector<tuple<int, int>> first_piece_moves = get_piece_possible_movements(first_piece_row, first_piece_col);
-        first_piece_moves.push_back(std::tuple<int, int>{second_piece_row, second_piece_col});
-        first_piece_moves.push_back(std::tuple<int, int>{first_piece_row, first_piece_col});
-        std::vector<tuple<int, int>> second_piece_moves = get_piece_possible_movements(second_piece_row, second_piece_col);
-        second_piece_moves.push_back(std::tuple<int, int>{first_piece_row, first_piece_col});
-        second_piece_moves.push_back(std::tuple<int, int>{second_piece_row, second_piece_col});
-        if (std::find(first_piece_moves.begin(), first_piece_moves.end(), tuple<int, int>{dst_row, dst_col}) != first_piece_moves.end()) { // se pueden mover al destino ambas
+    if (!this->square_is_empty(first_piece_row, first_piece_col) and !this->square_is_empty(second_piece_row, second_piece_col)) { // ambos casilleros con piezas
+        if (get_piece_instances_positions(first_piece_row, first_piece_col) == get_piece_instances_positions(second_piece_row, second_piece_col)) { // son instancia de la otra
+            std::vector<tuple<int, int>> first_piece_moves = get_piece_possible_movements(first_piece_row, first_piece_col);
+            first_piece_moves.push_back(std::tuple<int, int>{second_piece_row, second_piece_col});
+            first_piece_moves.push_back(std::tuple<int, int>{first_piece_row, first_piece_col});
+            std::vector<tuple<int, int>> second_piece_moves = get_piece_possible_movements(second_piece_row, second_piece_col);
+            second_piece_moves.push_back(std::tuple<int, int>{first_piece_row, first_piece_col});
+            second_piece_moves.push_back(std::tuple<int, int>{second_piece_row, second_piece_col});
+            if (std::find(first_piece_moves.begin(), first_piece_moves.end(), tuple<int, int>{dst_row, dst_col}) != first_piece_moves.end()) { // se pueden mover al destino ambas
+                if(std::find(second_piece_moves.begin(), second_piece_moves.end(), tuple<int, int>{dst_row, dst_col}) != second_piece_moves.end()) {
+                    Piece* first_piece = board.at(first_piece_row).at(first_piece_col);
+                    board.at(first_piece_row).erase(first_piece_col);
+                    Piece* second_piece = board.at(second_piece_row).at(second_piece_col);
+                    board.at(second_piece_row).erase(second_piece_col);
+                    Piece* merged_piece = first_piece->merge(second_piece);
+                    board[dst_row][dst_col] = merged_piece;
+                    return 1;
 
-            if(std::find(second_piece_moves.begin(), second_piece_moves.end(), tuple<int, int>{dst_row, dst_col}) != second_piece_moves.end()) {
-                Piece* first_piece = board.at(first_piece_row).at(first_piece_col);
-                board.at(first_piece_row).erase(first_piece_col);
-                Piece* second_piece = board.at(second_piece_row).at(second_piece_col);
-                board.at(second_piece_row).erase(second_piece_col);
-                Piece* merged_piece = first_piece->merge(second_piece);
-                board[dst_row][dst_col] = merged_piece;
-                return 1;
-
+                }
             }
         }
     }
