@@ -134,7 +134,7 @@ Piece* Piece::get_piece_root() {
         return this->parent_left_merge->get_piece_root();
     } else if (parent_right_merge) {
         return this->parent_right_merge->get_piece_root();
-    } else {
+    } else if (parent) {
         return this->parent->get_piece_root();
     }
 }

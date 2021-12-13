@@ -301,18 +301,20 @@ void Board::remove_pieces(std::vector<Piece*>  pieces) {
 
 std::vector<std::tuple<int, int>> Board::get_piece_instances_positions(int row, int col) {
     std::vector<std::tuple<int, int>> instances_positions;
-    std::vector<Piece*> instances = board[row][col]->get_piece_instances();
-    for (int row = 0; row < 8; row++) {
-        for (int col = 0; col < 8; col ++) {
-            if (!this->square_is_empty(row, col)){
-                Piece* piece_in_board = board[row][col];
-                for (auto piece_instance : instances) {
-                    if (piece_in_board == piece_instance) {
-                    std::cout << "instance found" << row << "," << col << "\n";
-                        instances_positions.push_back(std::tuple<int, int>(row, col));
-                        break;
-                    }
-                }                
+    if (!this->square_is_empty(row, col)){
+        std::vector<Piece*> instances = board[row][col]->get_piece_instances();
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col ++) {
+                if (!this->square_is_empty(row, col)){
+                    Piece* piece_in_board = board[row][col];
+                    for (auto piece_instance : instances) {
+                        if (piece_in_board == piece_instance) {
+                        std::cout << "instance found" << row << "," << col << "\n";
+                            instances_positions.push_back(std::tuple<int, int>(row, col));
+                            break;
+                        }
+                    }                
+                }
             }
         }
     }
