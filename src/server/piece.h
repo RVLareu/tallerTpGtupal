@@ -5,8 +5,6 @@
 #define PIECE_H
 
 class Piece {
-    private:
-
     public:
         // 1 black, 0 white
         int color;
@@ -51,9 +49,7 @@ class Piece {
 
         Piece(int color, int probability_fraction_den, int probability_fraction_num, std::string name);
                 
-        bool is_white();                
-        
-        void set_prob(int probability_fraction);        
+        bool is_white();                    
 
         virtual std::vector<std::tuple<int, int>> can_move(int origin_row, int origin_col) = 0;
 
@@ -63,6 +59,7 @@ class Piece {
 
         Piece* get_piece_root();
 
+        // Devuelve el máximo común divisor entre dos enteros
         int gcd(int num_a, int num_b);
 
         bool exists();

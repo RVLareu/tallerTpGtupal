@@ -24,11 +24,6 @@ bool Piece::is_white() {
     return this->color == 0;
 }
 
-void Piece::set_prob(int probability_fraction) {
-    this->probability_fraction_den = probability_fraction;
-}
-
-
 bool Piece::has_childs() {
     return ((right_child != nullptr) || (left_child != nullptr));
 }
@@ -66,7 +61,6 @@ void Piece::kill_child(Piece* piece, int prob_den, int prob_num) {
         left_child = nullptr;
     }
 }
-
 
 int Piece::gcd(int num_a, int num_b) {
     if (num_a == 0) {
