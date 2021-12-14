@@ -2,8 +2,7 @@
 #include <iostream>
 #include <random>
 
-Piece::Piece(int color, int probability_fraction_den, int probability_fraction_num, std::string name) :
-                                        alive(true),                                                 
+Piece::Piece(int color, int probability_fraction_den, int probability_fraction_num, std::string name) :                 
                                         color(color),
                                         probability_fraction_den(probability_fraction_den), 
                                         probability_fraction_num(probability_fraction_num),

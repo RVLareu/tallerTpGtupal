@@ -16,27 +16,43 @@ class Client {
     private:
 
         Protocol protocol;
+        
         Socket socket;
+        
         SDL2pp::SDL sdl;
+        
         SDL2pp::Window window;
+        
         SDL2pp::Renderer renderer;
+        
         ChessBoard board;
 
         char winner;
+        
         void in_game_loop();
+        
         std::string nickname;
 
         bool running;
+        
         std::queue<std::vector<char>> status_queue;
+        
         std::queue<std::tuple<int, int>> selection_queue;
 
         bool is_merge;
     public:
+        // recibe estado del tablero y renderiza
         int receive_board_state_and_render();
+        
+        // recibe eventos del usuario y los envia
         int receive_client_input_and_send();
+        
         Client(char* host, char* port);
+        
         int run();
+        
         void send_selection();
+        
         void receive_status();
 };
 

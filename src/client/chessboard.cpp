@@ -132,47 +132,6 @@ void ChessBoard::render_from_vector(std::vector<char> board) {
 
 
 
-
-bool ChessBoard::move_piece_if_selected(int pos_x, int pos_y) {
-    int x = pos_x - this->clickOffset.GetX();
-    int y = pos_y - this->clickOffset.GetY();
-    std::list<Spot>::iterator it_spot;
-    std::list<RenderPiece>::iterator it_piece;
-    for (it_piece = pieces.begin(); it_piece != pieces.end(); ++it_piece) {
-        if (it_piece->selected) {
-            it_piece->set_position(x, y);
-            it_piece->selected = false;
-            for(it_spot = spots.begin(); it_spot != spots.end(); ++it_spot) {
-                if (it_spot->selected) {
-                    it_spot->selected = false;
-                    it_spot->setOriginalColor();
-                    return true;
-                }       
-            }
-        }
-    }
-    return false;
-}
-
-void ChessBoard::select_piece(SDL2pp::Point mousePos) {
-    std::list<Spot>::iterator it_spot;
-    std::list<RenderPiece>::iterator it_piece;
-    for (it_piece = pieces.begin(); it_piece != pieces.end(); ++it_piece) {
-        if (it_piece->clicked(mousePos)) {
-            it_piece->selected = true;
-            clickOffset.SetX(mousePos.GetX() - it_piece->x_top);
-            clickOffset.SetY(mousePos.GetY() - it_piece->y_top);
-            for (it_spot = spots.begin(); it_spot != spots.end(); ++it_spot) {
-                if (it_spot->clicked(mousePos)) {
-                    it_spot->selected = true;
-                    it_spot->set_color(SDL2pp::Color(87,35,100));
-                    break;
-                }
-            }
-        }
-    }
-}
-
 void ChessBoard::render() {
     
     std::list<Spot>::iterator spot;

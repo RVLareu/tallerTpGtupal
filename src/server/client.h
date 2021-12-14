@@ -29,11 +29,20 @@ class Client {
                bool is_player, 
                BlockingQueue& blocking_queue, 
                int client_id);
-        ~Client();
+        
+        // recibe eventos del cliente
         void recv_events();        
+        
+        // envia estado del tablero al cliente
         void send_board_status(Board& board);
+        
+        // indica al cliente que finalizó el juego
         void send_finished_game(bool white_wins);
+        
+        // devuelve true si el cliente está caido
         bool is_dead();
+        
+        ~Client();
 };
 
 #endif
