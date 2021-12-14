@@ -130,9 +130,11 @@ void Protocol::send_board_status(Socket& socket,
     // std::cout << vector_board.data() << std::endl; 
 }
 
-void Protocol::recv_client_events(Socket& socket, BlockingQueue& blocking_queue){    
-    //Primero se obtiene el tipo de evento
+void Protocol::recv_client_events(Socket& socket, 
+                                  BlockingQueue& blocking_queue,
+                                  int client_id){    
     std::vector<char> event;
+    //Primero se obtiene el tipo de evento
     char event_type;
     socket.recv(&event_type, sizeof(event_type));
     std::cout << "EVENT RECEIVED: " << event_type << std::endl;
@@ -166,6 +168,12 @@ void Protocol::recv_client_events(Socket& socket, BlockingQueue& blocking_queue)
         event.push_back(event_type);
         event.push_back(row);
         event.push_back(col);   
+    }
+    // Se envia el color del jugador
+    if (client_id == 0){
+        event.push_back('w'); // (w)hite player
+    } else {
+        event.push_back('b'); // (b)lack player
     }
     blocking_queue.push(event);
     

@@ -186,7 +186,8 @@ int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {
                     ){
                         // Si la pieza en el destino existe, no se puede realizar el movimiento.
                         if (destination_piece->exists()){
-                            destination_piece->parent_im_here();
+                            std::vector<Piece*> dead_childs = destination_piece->parent_im_here();
+                            this->remove_pieces(dead_childs);
                             return 0;
                         } else {                            
                             destination_piece->parent_kill_me();
@@ -198,6 +199,7 @@ int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {
                 // Es una pieza enemiga
                 else {
                     // Enemiga en superposicion
+                    //TODO: VER SI HAY QUE HACER QUER SE MIDA TAMBIEN LA PIEZA PROPIA.
                     if (destination_piece->probability_fraction_den != 1){
                         if (destination_piece->exists()){
                             std::vector<Piece*> dead_childs = destination_piece->parent_im_here();
@@ -205,12 +207,16 @@ int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {
                             // SE REVISA SI LA PIEZA QUE EXISTE Y VA A MORIR ES EL REY
                             if (destination_piece->name == "K" || destination_piece->name == "k"){
                                this->dead_king = true;
-                            }                    
+                            }        
                         } else {
                             destination_piece->parent_kill_me();
                         }
+                    } else {
+                        // Ckeck rey muerto 
+                        if (destination_piece->name == "K" || destination_piece->name == "k"){
+                               this->dead_king = true;
+                        }   
                     }
-                    //TODO: VER SI HAY QUE HACER QUER SE MIDA TAMBIEN LA PIEZA PROPIA.
                 } 
                 // Se destruye la pieza que estaba en ese lugar
                 delete board[end_row][end_col];                

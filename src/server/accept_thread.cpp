@@ -28,7 +28,8 @@ void AcceptThread::run(){
                                                 this->protocol,
                                                 // Solo los primeros 2 clientes son jugadores
                                                 (clients_accepted >= 2) ? false : true,
-                                                this->blocking_queue
+                                                this->blocking_queue,
+                                                clients_accepted
                                                 ));
             // Encolamos el evento de conexion de cliente
             std::vector<char> event = {'n'}; //'n de (n)ew client
@@ -54,10 +55,8 @@ void AcceptThread::check_dead_clients() {
 }
 
 void AcceptThread::remove_clients(){
-    std::list<Client*>::iterator it;
-    for (it = this->clients.begin(); it != this->clients.end(); ++it) {
-            it = this->clients.erase(it);
-            delete *it;
+    for (auto &client : this->clients){
+        delete client;
     }
 }
 

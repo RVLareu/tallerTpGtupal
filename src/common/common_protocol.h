@@ -23,7 +23,9 @@ class Protocol{
         void send_finished_game(Socket& socket, 
                                 bool white_wins);
         
-        void recv_client_events(Socket& socket, BlockingQueue& blocking_queue);
+        void recv_client_events(Socket& socket, 
+                                BlockingQueue& blocking_queue,
+                                int client_id);
 
         void send_selection(Socket& socket,
                             int row,
