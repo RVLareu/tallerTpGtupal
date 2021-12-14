@@ -7,3 +7,5 @@ CMakeFiles/
 /Makefile
 .vscode/
 Makefile
+build/
+

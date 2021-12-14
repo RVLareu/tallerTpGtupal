@@ -12,7 +12,6 @@ class Menu {
         std::vector<SDL2pp::Texture> textures;
         SDL2pp::Window& window;
         void render();
-        void play_background_music();
         std::vector<SDL2pp::Texture> code_text_box;
         std::vector<SDL2pp::Texture> nickname_text_box;
         std::string code;
@@ -23,7 +22,6 @@ class Menu {
         
         std::string show_menu();
         
-        void code_text_box_bg();
 
         void nickname_text_box_bg();
 };
