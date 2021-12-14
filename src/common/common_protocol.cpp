@@ -16,9 +16,6 @@ std::vector<char> Protocol::recv_board_status(Socket& socket){
     //Primero se obtiene la longitud del mensaje
     uint16_t length;
     socket.recv((char *) &length, sizeof(length));
-    std::cout << "LENGHT: " << length;
-    //length = ntohs(length);
-    std::cout << "LENGHT: " << length;
     // y luego el vector
     std::vector<char> vector_board(length);
     socket.recv(vector_board.data(), length);
@@ -33,13 +30,11 @@ void Protocol::send_finished_game(Socket& socket, bool white_wins){
     } else{
         vector_status.push_back('b'); //(b)lacks
     }
-    std::cout << "SEND FINISH" << std::endl;
     //Envío de longitud del vector
     uint16_t length = vector_status.size();
     socket.send((char *) &length, sizeof(length));
     //Envio del vector
     socket.send(vector_status.data(), length);
-    //std::cout << vector_status.data() << std::endl; 
 }
 
 void Protocol::send_board_status(Socket& socket,
@@ -120,14 +115,12 @@ void Protocol::send_board_status(Socket& socket,
     }
     
 
-    std::cout << "SEND BOARD" << std::endl;
     //Envío de longitud del vecto
     uint16_t length = vector_board.size();
     socket.send((char *) &length, sizeof(length));
     //Envio del vector
     socket.send(vector_board.data(), length);
 
-    // std::cout << vector_board.data() << std::endl; 
 }
 
 void Protocol::recv_client_events(Socket& socket, 
@@ -137,7 +130,6 @@ void Protocol::recv_client_events(Socket& socket,
     //Primero se obtiene el tipo de evento
     char event_type;
     socket.recv(&event_type, sizeof(event_type));
-    std::cout << "EVENT RECEIVED: " << event_type << std::endl;
 
     if (event_type == 'c'){ // Click / selección
         uint16_t row;
@@ -145,10 +137,8 @@ void Protocol::recv_client_events(Socket& socket,
 
         socket.recv((char * ) &row, sizeof(row));
         row = ntohs(row);
-        std::cout << "EVENT RECEIVED: " << row << std::endl;
         socket.recv((char * ) &col, sizeof(col));
         col = ntohs(col);
-        std::cout << "EVENT RECEIVED: " << col << std::endl;
 
         event.push_back(event_type);
         event.push_back(row);
@@ -160,10 +150,8 @@ void Protocol::recv_client_events(Socket& socket,
 
         socket.recv((char * ) &row, sizeof(row));
         row = ntohs(row);
-        std::cout << "EVENT RECEIVED: " << row << std::endl;
         socket.recv((char * ) &col, sizeof(col));
         col = ntohs(col);
-        std::cout << "EVENT RECEIVED: " << col << std::endl;
 
         event.push_back(event_type);
         event.push_back(row);
@@ -186,7 +174,6 @@ void Protocol::send_selection(Socket& socket,
         //char selection = 'c';
         socket.send(&selection, sizeof(selection));
 
-        std::cout << row << " " << col << std::endl;
         uint16_t row_net = htons(row);
         uint16_t col_net = htons(col);
        

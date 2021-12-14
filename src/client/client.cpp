@@ -68,7 +68,6 @@ int Client::receive_client_input_and_send() {
                         is_merge = false;
                         this->selection_queue.push(board.mouse_position_to_square(mousePos));
                     } catch (std::range_error) {
-                        std::cout << "Out of range click";
                     }
                 } else if (event.button.button == SDL_BUTTON_RIGHT) {
                     is_merge = true;

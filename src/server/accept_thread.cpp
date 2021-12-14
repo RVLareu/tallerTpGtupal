@@ -23,7 +23,6 @@ void AcceptThread::run(){
     while (this->is_running){
         try{
             Socket client_socket = this->socket.accept();
-            std::cout << "NEW CLIENT!" << std::endl;
             this->clients.push_back(new Client(std::move(client_socket),
                                                 this->protocol,
                                                 // Solo los primeros 2 clientes son jugadores

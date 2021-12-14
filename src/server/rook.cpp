@@ -22,32 +22,11 @@ std::vector<std::tuple<int, int>> Rook::can_move(int origin_row, int origin_col)
         }
     }
 
-
-    //print 
-    // std::cout << "Rook\n";
-    // for (int row = 0; row < 8; row ++) {
-    //     for (int col = 0; col < 8; col++) {
-    //         int found = 0;
-    //         for (auto t: possible_moves) {
-    //             if (std::get<0>(t) == row and std::get<1>(t) == col) {
-    //                 std::cout << " x ";
-    //                 found = 1;
-    //                 break;
-    //             }
-
-    //         }
-    //         if (found == 0) {
-    //             std::cout << " . ";
-    //         }
-    //     }
-    //     std::cout << "\n";
-    // }
     return std::move(possible_moves);
 }
 
 
 std::vector<Piece*> Rook::split() {
-    std::cout << "SPLITING";
     this->right_child = new Rook(this->color, this->probability_fraction_den * 2, probability_fraction_num);
     this->left_child = new Rook(this->color, this->probability_fraction_den * 2, probability_fraction_num);
 
@@ -60,7 +39,7 @@ std::vector<Piece*> Rook::split() {
     childs.push_back(left_child);
     childs[1]->parent = this;
 
-    return childs; 
+    return std::move(childs); 
 }
 
 

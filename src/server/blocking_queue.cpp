@@ -15,7 +15,6 @@ void BlockingQueue::push(const std::vector<char> &item){
     std::unique_lock<std::mutex> unique_lock(this->mutex);
     this->queue.push(item);
     this->condition_variable.notify_all();
-    std::cout<<item[0]<<std::endl; 
 } 
 std::vector<char> BlockingQueue::pop(){
     std::unique_lock<std::mutex> unique_lock(this->mutex);

@@ -340,27 +340,6 @@ std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, i
     if (!this->square_is_empty(row, col)) {         
         std::vector<std::tuple<int, int>> positions_available = board[row][col]->can_move(row, col);
         final_pos = filter_possible_movements(std::move(positions_available), row, col, board[row][col], include_enemies_and_superpositions);
-        
-        //print 
-        // std::cout << "BOARD\n";      
-        for (int row = 0; row < 8; row ++) {
-            for (int col = 0; col < 8; col++) {
-                int found = 0;
-                for (auto t: final_pos) {
-                    
-                    if (std::get<0>(t) == row and std::get<1>(t) == col) {
-                        // std::cout << " x ";
-                        found = 1;
-                        break;
-                    }
-
-                }
-                if (found == 0) {
-                    // std::cout << " . ";
-                }
-            }
-            // std::cout << "\n";
-        }
     }
     return std::move(final_pos);
 }
@@ -397,7 +376,6 @@ std::vector<std::tuple<int, int>> Board::get_piece_instances_positions(int row, 
                     Piece* piece_in_board = board[row][col];
                     for (auto piece_instance : instances) {
                         if (piece_in_board == piece_instance) {
-                        std::cout << "instance found" << row << "," << col << "\n";
                             instances_positions.push_back(std::tuple<int, int>(row, col));
                             break;
                         }
@@ -476,21 +454,6 @@ void Board::select_piece_for_merge(int row, int col) {
 void Board::unselect_piece() {
     this->selected_piece_position = std::make_tuple(-1, -1);
 }
-
-void Board::print_board() {    
-    std::cout << "\n";    
-     for (int row = 0; row < 8; row++) {
-         for (int col = 0; col < 8; col ++) {
-             if (!this->square_is_empty(row, col)){
-                 std::cout << " " << board[row][col]->name << " ";                
-             } else {
-                 std::cout << " - ";
-             }
-         }
-        std::cout << "\n";
-     }
-}
-
 
 std::vector<char> Board::get_vector_board() {    
     std::vector<char> vector_board;

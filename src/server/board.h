@@ -49,8 +49,6 @@ class Board {
         
         int move_piece(int start_row, int start_col, int end_row, int end_col);
 
-        void print_board();
-
         // Dado un vector con movimientos posibles de una pieza en un tablero vacío, 
         // devuelve los movimientos filtrados teniendo en cuenta los obstaculos que pueden haber en el tablero real.
         vector<tuple<int, int>> filter_possible_movements(vector<tuple<int, int>> positions_available, 

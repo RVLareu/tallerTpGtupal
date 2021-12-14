@@ -15,32 +15,11 @@ std::vector<std::tuple<int, int>> King::can_move(int origin_row, int origin_col)
             }
         }
     }
-    // std::cout << "KING\n";
-    //     std::vector<std::tuple<int, int>>::iterator it;
-    //     for (int i = 0; i < 8; i ++) {
-    //         for (int j = 0; j < 8; j++) {
-    //             int found = 0;
-    //             for (auto t: possible_moves) {
-                    
-    //                 if (std::get<0>(t) == i and std::get<1>(t) == j) {
-    //                     std::cout << " x ";
-    //                     found = 1;
-    //                     break;
-    //                 }
-
-    //             }
-    //             if (found == 0) {
-    //                 std::cout << " . ";
-    //             }
-    //         }
-    //         std::cout << "\n";
-    // }
     return std::move(possible_moves);
 }
 
 
 std::vector<Piece*> King::split() {
-    std::cout << "SPLITING";
     this->right_child = new King(this->color, this->probability_fraction_den * 2, probability_fraction_num);
     this->left_child = new King(this->color, this->probability_fraction_den * 2, probability_fraction_num);
 

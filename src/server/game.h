@@ -33,8 +33,6 @@ class Game {
         void change_turn();
 
         void process_events(BlockingQueue& blocking_queue);
-        
-        void print_game();
 
         std::vector<char> get_board();
 

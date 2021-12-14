@@ -49,17 +49,13 @@ void Piece::create_merge_son(Piece* parent_left, Piece* parent_right) {
 }
 
 void Piece::kill_child(Piece* piece, int prob_den, int prob_num) {
-    std::cout << "piece" << piece;
-    std::cout << "right child" << this->right_child;
     if (piece == this->right_child) {
         if (left_child) {
             left_child->receive_probability(prob_den,prob_num);
         } else if (parent) {
             parent->kill_child(this, this->probability_fraction_den, this->probability_fraction_num);
         }
-        // delete this->right_child;
-        
-        right_child = nullptr;
+        right_child = nullptr;        
     }else if (piece == this->left_child) {
         if (right_child) {
             right_child->receive_probability(prob_den, prob_num);
@@ -67,8 +63,6 @@ void Piece::kill_child(Piece* piece, int prob_den, int prob_num) {
 
             parent->kill_child(this, this->probability_fraction_den, this->probability_fraction_num);
         }
-        
-        // delete this->left_child;
         left_child = nullptr;
     }
 }

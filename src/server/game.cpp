@@ -13,7 +13,6 @@ Game::Game(BlockingQueue& blocking_queue, std::list<Client *>& clients) : whites
 void Game::process_position(int row, int col, char type) {
     // MERGE
     if ((this->board.selected_pieces_for_merge.size() == 2) and type == 'c') {
-        std::cout << "Attemp to merge"<< std::endl;
         if (this->board.merge_pieces(row, col)) {
             change_turn();
         }
@@ -23,9 +22,7 @@ void Game::process_position(int row, int col, char type) {
     /*
         Hay una pieza seleccionada
     */
-    else if (board.is_any_piece_selected() and type == 'c') {
-                
-        std::cout << "HAY PIEZA SELECCIONADA" << std::endl;
+    else if (board.is_any_piece_selected() and type == 'c') {                        
         std::tuple<int, int> position_of_selected_piece = this->board.get_selected_piece_position();
 
         // El lugar seleccionado está vacio
@@ -43,10 +40,7 @@ void Game::process_position(int row, int col, char type) {
                 if (this->board.first_split_position == null_tuple){
                     this->board.first_split_position = std::make_tuple(row, col);
                 } else { // Seleccion segunda posicion para split
-                    this->board.second_split_position = std::make_tuple(row, col);   
-                    std::cout << std::get<0>(marked_for_split_position) << " " << std::get<1>(marked_for_split_position) << std::endl;
-                    std::cout << std::get<0>(this->board.first_split_position) << " " << std::get<1>(this->board.first_split_position) << std::endl;
-                    std::cout << std::get<0>(this->board.second_split_position) << " " << std::get<1>(this->board.second_split_position) << std::endl;
+                    this->board.second_split_position = std::make_tuple(row, col);
                     this->board.split_piece(std::get<0>(marked_for_split_position),
                                             std::get<1>(marked_for_split_position),
                                             std::get<0>(this->board.first_split_position),
@@ -73,9 +67,7 @@ void Game::process_position(int row, int col, char type) {
                 (!this->board.is_piece_white(row, col) and !is_whites_turn())) {
                 // Es la misma pieza -> se quiere hacer un split
                 if ( row == std::get<0>(position_of_selected_piece) && col == std::get<1>(position_of_selected_piece)){
-                    std::cout << "MARK FOR SPLIT" << std::endl;
-                    this->board.mark_for_split(row, col);
-                    std::cout << std::get<0>(this->board.get_marked_for_split_position()) << " " << std::get<1>(this->board.get_marked_for_split_position()) << std::endl;
+                    this->board.mark_for_split(row, col);                    
                 } else{
                     // Es otra pieza propia
                     // Intenta moverse (por si la pieza propia esta en superposicion)
@@ -137,18 +129,14 @@ void Game::change_turn() {
 
 void Game::process_events(BlockingQueue& blocking_queue) {
     bool running = true;
-    while(running){
-        std::cout << "PROCESANDO EVENTOS" << std::endl;
-        std::vector<char> event = blocking_queue.pop();
-        std::cout << "PROCESANDO EVENTO" << std::endl;
+    while(running){        
+        std::vector<char> event = blocking_queue.pop();        
         // Check de que el evento pertenezca al jugador del turno actual
         if ((event[3] == 'w') == this->is_whites_turn()){
             if (event[0] == 'c'){ // (c)lick
                 this->process_position(event[1],event[2], 'c');
-                this->print_game();
             } else if (event[0] == 'm') { // (m)erge
-                this->process_position(event[1],event[2], 'm');
-                this->print_game();        
+                this->process_position(event[1],event[2], 'm');       
             }
         }
         // Se envia el estado actualizado a los clientes
@@ -158,14 +146,8 @@ void Game::process_events(BlockingQueue& blocking_queue) {
                 client->send_finished_game(this->is_whites_turn());
                 running = false;
             } else{
-                std::cout << "ENVIANDO TABLERO AL CLIENTE" << std::endl;
                 client->send_board_status(this->board);
             }
         }            
     }
 }
-
-void Game::print_game() {
-    this->board.print_board();
-}
-
