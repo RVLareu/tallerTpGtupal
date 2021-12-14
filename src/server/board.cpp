@@ -99,7 +99,6 @@ void Board::create_board() {
     this->split_piece(3, 2, 4, 4, 5, 5);
     this->split_piece(4, 4, 4, 5, 4, 6);
     this->split_piece(7, 4, 3, 1, 4, 1);
-    //this->merge_pieces(5, 5, 4, 6, 5, 6);
 
 }
 
@@ -126,31 +125,52 @@ int Board::split_piece(int piece_row,
     return 0;
 }
 
-int Board::merge_pieces(int first_piece_row, int first_piece_col, int second_piece_row, int second_piece_col, int dst_row, int dst_col) {
-    // ambos casilleros con piezas
-    if (!this->square_is_empty(first_piece_row, first_piece_col) and !this->square_is_empty(second_piece_row, second_piece_col)) { 
-        // son instancia de la otra
-        if (get_piece_instances_positions(first_piece_row, first_piece_col) == get_piece_instances_positions(second_piece_row, second_piece_col)) { 
-            std::vector<tuple<int, int>> first_piece_moves = get_piece_possible_movements(first_piece_row, first_piece_col);
-            first_piece_moves.push_back(std::tuple<int, int>{second_piece_row, second_piece_col});
-            first_piece_moves.push_back(std::tuple<int, int>{first_piece_row, first_piece_col});
-            std::vector<tuple<int, int>> second_piece_moves = get_piece_possible_movements(second_piece_row, second_piece_col);
-            second_piece_moves.push_back(std::tuple<int, int>{first_piece_row, first_piece_col});
-            second_piece_moves.push_back(std::tuple<int, int>{second_piece_row, second_piece_col});
-            // se pueden mover al destino ambas
-            if (std::find(first_piece_moves.begin(), first_piece_moves.end(), tuple<int, int>{dst_row, dst_col}) != first_piece_moves.end()) { 
-                if(std::find(second_piece_moves.begin(), second_piece_moves.end(), tuple<int, int>{dst_row, dst_col}) != second_piece_moves.end()) {
-                    Piece* first_piece = board.at(first_piece_row).at(first_piece_col);
-                    board.at(first_piece_row).erase(first_piece_col);
-                    Piece* second_piece = board.at(second_piece_row).at(second_piece_col);
-                    board.at(second_piece_row).erase(second_piece_col);
-                    Piece* merged_piece = first_piece->merge(second_piece);
-                    board[dst_row][dst_col] = merged_piece;
-                    return 1;
+std::vector<tuple<int, int>> Board::get_possible_merge_positions(){
+    // Posiciones de las piezas a mergear
+    int first_piece_row = std::get<0>(this->selected_pieces_for_merge[0]);
+    int first_piece_col = std::get<1>(this->selected_pieces_for_merge[0]);
+    int second_piece_row = std::get<0>(this->selected_pieces_for_merge[1]);
+    int second_piece_col = std::get<1>(this->selected_pieces_for_merge[1]);
+    
+    // Se quitan los casilleros en los que hay enemigos
+    // (no se puede hacer merge en un casillero ocupado)
+    // Movimientos posibles de la primer pieza
+    std::vector<tuple<int, int>> first_piece_moves = this->get_piece_possible_movements(first_piece_row, first_piece_col, false);
+    // Movimientos posibles de la segunda pieza
+    std::vector<tuple<int, int>> second_piece_moves = this->get_piece_possible_movements(second_piece_row, second_piece_col, false);
+    
+    
+    std::vector<tuple<int, int>> possible_merge_positions;
 
-                }
-            }
-        }
+    // Se busca la interseccion de los movimientos posibles de ambas piezas
+    std::sort(first_piece_moves.begin(), first_piece_moves.end());
+    std::sort(second_piece_moves.begin(), second_piece_moves.end());
+    std::set_intersection(first_piece_moves.begin(),first_piece_moves.end(),
+                          second_piece_moves.begin(),second_piece_moves.end(),
+                          back_inserter(possible_merge_positions));
+
+    // Se agregan las posiciones de ambas piezas
+    // (Se puede hacer el merge de ambas piezas en la posicion de cualquiera de las dos)
+    possible_merge_positions.push_back(std::tuple<int, int>{first_piece_row, first_piece_col});
+    possible_merge_positions.push_back(std::tuple<int, int>{second_piece_row, second_piece_col});
+    return possible_merge_positions;
+}
+
+int Board::merge_pieces(int dst_row, int dst_col) { 
+    // se pueden mover al destino ambas
+    std::vector<tuple<int, int>> possible_merge_positions = this->get_possible_merge_positions();
+    if (std::find(possible_merge_positions.begin(), possible_merge_positions.end(), tuple<int, int>{dst_row, dst_col}) != possible_merge_positions.end()) { 
+        int first_piece_row = std::get<0>(this->selected_pieces_for_merge[0]);
+        int first_piece_col = std::get<1>(this->selected_pieces_for_merge[0]);
+        int second_piece_row = std::get<0>(this->selected_pieces_for_merge[1]);
+        int second_piece_col = std::get<1>(this->selected_pieces_for_merge[1]);
+        Piece* first_piece = board.at(first_piece_row).at(first_piece_col);
+        board.at(first_piece_row).erase(first_piece_col);
+        Piece* second_piece = board.at(second_piece_row).at(second_piece_col);
+        board.at(second_piece_row).erase(second_piece_col);
+        Piece* merged_piece = first_piece->merge(second_piece);
+        board[dst_row][dst_col] = merged_piece;
+        return 1;
     }
     return 0;
 }
@@ -170,7 +190,11 @@ int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {
     return 0;  
 }
 
-vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<int, int>> positions_available, int row, int col, Piece * piece) {
+vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<int, int>> positions_available, 
+                                                         int row, 
+                                                         int col, 
+                                                         Piece * piece, 
+                                                         bool include_enemies_and_superpositions) {
     std::vector<std::tuple<int, int>> final_pos;
     
     //Si es caballo, no verifica que no haya piezas entre el origen y el destino
@@ -182,10 +206,16 @@ vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<
             //El casillero esta vacio
             if (this->square_is_empty(dest_row, dest_col)) {
                 valid_square = true;
-            }
-            //El casillero contiene una pieza enemiga
-            else if (this->board[dest_row][dest_col]->is_white() != piece->is_white()){
-                valid_square = true;
+            } else if (include_enemies_and_superpositions){
+                //El casillero contiene una pieza enemiga 
+                if ((this->board[dest_row][dest_col]->is_white() != piece->is_white())
+                    // o una pieza propia en superposición 
+                    // que no es la pieza actualmente seleccionada
+                    || ((this->board[dest_row][dest_col]->probability_fraction_den != 1)
+                    && (piece->get_piece_instances() != this->board[dest_row][dest_col]->get_piece_instances()))
+                ){
+                    valid_square = true;
+                }
             }
             if (valid_square){
                 final_pos.push_back(square_dest);
@@ -207,25 +237,37 @@ vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<
             // hasta la posicion destino, hasta que se tope con un obstaculo.
             while(true) {
                 // Hay una pieza en la posicion actual
-                if (!this->square_is_empty(current_row, current_col)) {                    
-                    //Es del mismo color
-                    if(this->board[current_row][current_col]->is_white() == piece->is_white()){
+                if (!this->square_is_empty(current_row, current_col)) { 
+                    if (!include_enemies_and_superpositions){
                         erased = true;
                         break;
                     } else{
-                        // Si es enemiga, se permite solo si se encuentra en la posicion destino.
-                        if (!(dest_row == current_row and dest_col == current_col)){
-                            erased = true;
-                            break;
-                        } 
-                        // Pero si es peon, se permite si además es en diagonal
-                        else if (piece->name == "p" || piece->name == "P") {
-                            if (col == current_col){
+                        // Si del mismo color, se permite solo si la pieza está en superposición, 
+                        // no es una instancia de la pieza seleccionada actualmente
+                        // y solo si se encuentra en la posición de destino.
+                        if(this->board[current_row][current_col]->is_white() == piece->is_white()){
+                            if (!(dest_row == current_row and dest_col == current_col) 
+                                || (this->board[current_row][current_col]->probability_fraction_den == 1)
+                                || (piece->get_piece_instances() == this->board[current_row][current_col]->get_piece_instances())
+                            ){
                                 erased = true;
-                                break;                      
+                                break;
+                            }
+                        } else{
+                            // Si es enemiga, se permite solo si se encuentra en la posicion destino.
+                            if (!(dest_row == current_row and dest_col == current_col)){
+                                erased = true;
+                                break;
+                            } 
+                            // Pero si es peon, se permite si además es en diagonal
+                            else if (piece->name == "p" || piece->name == "P") {
+                                if (col == current_col){
+                                    erased = true;
+                                    break;                      
+                                }
                             }
                         }
-                    }
+                    }      
                 }
                 // Si es peon, solo mueve hacia adelante en casilleros vacios
                 else if (piece->name == "p" || piece->name == "P") {
@@ -251,11 +293,11 @@ vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<
 
 
 
-std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, int col) {
+std::vector<std::tuple<int, int>> Board::get_piece_possible_movements(int row, int col, bool include_enemies_and_superpositions) {
     std::vector<std::tuple<int, int>> final_pos;
     if (!this->square_is_empty(row, col)) {         
         std::vector<std::tuple<int, int>> positions_available = board[row][col]->can_move(row, col);
-        final_pos = filter_possible_movements(std::move(positions_available), row, col, board[row][col]);
+        final_pos = filter_possible_movements(std::move(positions_available), row, col, board[row][col], include_enemies_and_superpositions);
         
         //print 
         // std::cout << "BOARD\n";      
@@ -393,7 +435,6 @@ void Board::unselect_piece() {
     this->selected_piece_position = std::make_tuple(-1, -1);
 }
 
-
 void Board::print_board() {    
     std::cout << "\n";    
      for (int row = 0; row < 8; row++) {
@@ -406,20 +447,6 @@ void Board::print_board() {
          }
         std::cout << "\n";
      }
-    
-    /*for (int row = 0; row < 8; row++) {
-        for (int col = 0; col < 8; col ++) {
-            if (!this->square_is_empty(row, col)){
-                Piece * piece = board[row][col];                
-                std::cout << "*";
-                std::cout << piece->name;
-                std::cout << "*," << 1 << "," << col << ","<< row << ","<< 1;   
-                if (row != 7 || col !=7) {
-                    std::cout << ",";
-                }              
-            }
-        }        
-    }*/
 }
 
 

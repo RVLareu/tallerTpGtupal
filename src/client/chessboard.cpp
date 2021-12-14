@@ -113,6 +113,8 @@ void ChessBoard::render_from_vector(std::vector<char> board) {
                 color = SDL2pp::Color(0,30,255);
             } else if (highlight_type == 't') {// Highlight por ser pieza marcada para hacer spli(t)
                 color = SDL2pp::Color(239,0,255);
+            } else if (highlight_type == 'g') {// Highlight por ser pieza marcada para hacer mer(g)e
+                color = SDL2pp::Color(153, 0, 255);
             }
             
             spots_painted.emplace_back(renderer,

@@ -49,7 +49,7 @@ void Protocol::send_board_status(Socket& socket,
         vector_board.push_back('h'); //(h)ighlight
         vector_board.push_back(std::get<0>(merge_pos));
         vector_board.push_back(std::get<1>(merge_pos));
-        vector_board.push_back('i'); 
+        vector_board.push_back('g'); // Marcado para mer(g)ear
     }      
     // Se obtienen los posibles movimientos de la pieza seleccionada actualmente (de existir)    
     if (board.is_any_piece_selected()){
@@ -65,7 +65,9 @@ void Protocol::send_board_status(Socket& socket,
             vector_board.push_back('s');// Pieza (s)eleccionada
         }
         // Se resaltan sus instancias
-        vector<tuple<int, int>> piece_instances_positions = board.get_piece_instances_positions(std::get<0>(selected_pos), std::get<1>(selected_pos));
+        vector<tuple<int, int>> piece_instances_positions = 
+            board.get_piece_instances_positions(std::get<0>(selected_pos), 
+                                                std::get<1>(selected_pos));
         for (const auto& position: piece_instances_positions) {
             if (position != selected_pos){// no se resalta a la pieza seleccionada
                 vector_board.push_back('h'); //(h)ighlight
@@ -74,22 +76,30 @@ void Protocol::send_board_status(Socket& socket,
                 vector_board.push_back('i'); // (i)nstancia de la misma pieza seleccionada
             }
         }
-        vector<tuple<int, int>> selected_piece_possible_movements = 
-            board.get_piece_possible_movements(std::get<0>(selected_pos),std::get<1>(selected_pos));       
-        for (const auto& position: selected_piece_possible_movements) {
-            vector<tuple<int, int>> selected_piece_possible_movements = 
-                board.get_piece_possible_movements(std::get<0>(selected_pos),std::get<1>(selected_pos));       
-            for (const auto& position: selected_piece_possible_movements) {
-                vector_board.push_back('h'); //(h)ighlight
-                vector_board.push_back(std::get<0>(position));
-                vector_board.push_back(std::get<1>(position));
-                // Si en el casillero hay una pieza, es un enemigo para comer
-                if(!board.square_is_empty(std::get<0>(position),std::get<1>(position))){
-                    vector_board.push_back('e'); //(e)nemigo a comer
-                }else{
-                    vector_board.push_back('m'); //(m)ovimiento posible
-                }
+        // Envio de posibles movimientos:
+        vector<tuple<int, int>> possible_movements = 
+            board.get_piece_possible_movements(std::get<0>(selected_pos),
+                                               std::get<1>(selected_pos));
+        for (const auto& position: possible_movements) {
+            vector_board.push_back('h'); //(h)ighlight
+            vector_board.push_back(std::get<0>(position));
+            vector_board.push_back(std::get<1>(position));
+            // Si en el casillero hay una pieza, es un enemigo para comer
+            if(!board.square_is_empty(std::get<0>(position),std::get<1>(position))){
+                vector_board.push_back('e'); //(e)nemigo a comer
+            }else{
+                vector_board.push_back('m'); //(m)ovimiento posible
             }
+        }
+    } 
+    // Si se está haciendo un merge, se muestran los posibles lugares en el se puede hacer.
+    else if(board.selected_pieces_for_merge.size() >= 2){ 
+        vector<tuple<int, int>> possible_movements = board.get_possible_merge_positions();
+        for (const auto& position: possible_movements) {
+            vector_board.push_back('h'); //(h)ighlight
+            vector_board.push_back(std::get<0>(position));
+            vector_board.push_back(std::get<1>(position));
+            vector_board.push_back('m'); //(m)ovimiento posible
         }
     }
     // Se recorren todas las piezas del tablero

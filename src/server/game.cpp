@@ -11,25 +11,18 @@ Game::Game(BlockingQueue& blocking_queue, std::list<Client *>& clients) : whites
                                                                             is_running(true){}
 
 void Game::process_position(int row, int col, char type) {
-    /*
-        Hay una pieza seleccionada
-    */
+    // MERGE
     if ((this->board.selected_pieces_for_merge.size() >= 2) and type == 'c') {
         std::cout << "Attemp to merge"<< std::endl;
-        std::tuple<int, int> first_piece_to_merge = this->board.selected_pieces_for_merge.at(0);
-        std::tuple<int, int> second_piece_to_merge = this->board.selected_pieces_for_merge.at(1);
-        if (this->board.merge_pieces(get<0>(first_piece_to_merge),
-                                 get<1>(first_piece_to_merge),
-                                 get<0>(second_piece_to_merge),
-                                 get<1>(second_piece_to_merge),
-                                 row,
-                                 col)) {
-
+        if (this->board.merge_pieces(row, col)) {
             change_turn();
         }
         this->board.selected_pieces_for_merge.clear();
     }
 
+    /*
+        Hay una pieza seleccionada
+    */
     else if (board.is_any_piece_selected() and type == 'c') {
                 
         std::cout << "HAY PIEZA SELECCIONADA" << std::endl;
