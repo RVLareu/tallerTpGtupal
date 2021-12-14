@@ -15,7 +15,7 @@ extern std::string ASSETS_PATH;
 
 Menu::Menu(SDL2pp::Renderer& renderer, SDL2pp::Window& window) : renderer(renderer), window(window) {
     SDL2pp::SDLTTF ttf;
-    SDL2pp::Font font(ASSETS_PATH + "assets/SIXTY.TTF", 50);
+    SDL2pp::Font font(ASSETS_PATH + "assets/Roboto-Regular.ttf", 50);
 
     textures.emplace_back(renderer,
                      font.RenderText_Solid("MAIN MENU", SDL_Color{255, 255, 255, 255})
@@ -122,7 +122,7 @@ std::string Menu::show_menu() {
                     break;
                 case SDL_TEXTINPUT: 
                     SDL2pp::SDLTTF ttf;
-                    SDL2pp::Font font(ASSETS_PATH + "assets/SIXTY.TTF", 20);
+                    SDL2pp::Font font(ASSETS_PATH + "assets/Roboto-Regular.ttf", 20);
                     
                     nickname_text_box.emplace_back(renderer,
                         font.RenderText_Solid(event.text.text, SDL_Color{255, 255, 255, 255})

@@ -16,7 +16,7 @@ extern std::string ASSETS_PATH;
 
 EndScreen::EndScreen(SDL2pp::Renderer& renderer, SDL2pp::Window& window, char winner, std::string nickname) : renderer(renderer), window(window), nickname(nickname) {
     SDL2pp::SDLTTF ttf;
-    SDL2pp::Font font(ASSETS_PATH + "assets/SIXTY.TTF", 50);
+    SDL2pp::Font font(ASSETS_PATH + "assets/Roboto-Regular.ttf", 50);
 
     textures.emplace_back(renderer,
                      font.RenderText_Solid("END OF GAME", SDL_Color{255, 255, 255, 255})

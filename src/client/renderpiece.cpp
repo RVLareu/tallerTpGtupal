@@ -16,13 +16,20 @@ void RenderPiece::copy() {
     this->renderer.Copy(sprite, SDL2pp::NullOpt, SDL2pp::Rect(x_top, y_top, width, height));
     if (this->probability_fraction_den != 0) {
         SDL2pp::SDLTTF ttf;
-        SDL2pp::Font font(ASSETS_PATH + "assets/SIXTY.TTF", 50);  
+        SDL2pp::Font font(ASSETS_PATH + "assets/Roboto-Regular.ttf", 80);  
         SDL2pp::Texture num_text(renderer, font.RenderText_Solid(std::to_string(this->probability_fraction_num), SDL_Color{255, 0, 0, 0}));
         SDL2pp::Texture dash(renderer, font.RenderText_Solid("-", SDL_Color{255, 0, 0, 0}));
         SDL2pp::Texture denom_text(renderer, font.RenderText_Solid(std::to_string(this->probability_fraction_den), SDL_Color{255, 0, 0, 0}));
-        this->renderer.Copy(num_text, SDL2pp::NullOpt, SDL2pp::Rect(x_top + 5, y_top, 3, 20));
+        int denom_width = 8;
+        //Dos digitos en el denom
+        if (this->probability_fraction_den > 9){ 
+            denom_width = 14;
+        }else if(this->probability_fraction_den > 99){
+            denom_width = 22;
+        }
+        this->renderer.Copy(num_text, SDL2pp::NullOpt, SDL2pp::Rect(x_top + 4, y_top, 8, 20));
         this->renderer.Copy(dash, SDL2pp::NullOpt, SDL2pp::Rect(x_top , y_top + 10, 15, 20));
-        this->renderer.Copy(denom_text, SDL2pp::NullOpt, SDL2pp::Rect(x_top + 5, y_top + 18, 3, 20));
+        this->renderer.Copy(denom_text, SDL2pp::NullOpt, SDL2pp::Rect(x_top + 4, y_top + 20, denom_width, 20));
     }
 }
 
