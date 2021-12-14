@@ -3,6 +3,8 @@
 #include "spot.h"
 #include <stdexcept>
 extern std::string ASSETS_PATH;
+extern int RES_HEIGHT;
+extern int RES_WIDTH;
 
 ChessBoard::ChessBoard(SDL2pp::Renderer& renderer) : renderer(renderer) {
     map_pieces['e'] = ASSETS_PATH + "assets/Empty.png";
@@ -28,15 +30,16 @@ ChessBoard::ChessBoard(SDL2pp::Renderer& renderer) : renderer(renderer) {
 /*
     Returns 0-63 spot
 */
-
+ 
 std::tuple<int, int> ChessBoard::mouse_position_to_square(SDL2pp::Point mousePos) {
-    int size_spot = 100;
+    int width = RES_WIDTH / 8;
+    int height = RES_HEIGHT / 8;
     int mouse_x = mousePos.GetX();
     int mouse_y = mousePos.GetY();
     for (int row = 0; row < 8; row++) {
         for (int col = 0; col < 8; col++) {
-            if (mouse_x >= (col * size_spot) and mouse_x <= ((col + 1)  * size_spot)) {
-                if ( mouse_y >= (row * size_spot) and mouse_y <= ((row + 1)  * size_spot)) {
+            if (mouse_x >= (col * width) and mouse_x <= ((col + 1)  * width)) {
+                if ( mouse_y >= (row * height) and mouse_y <= ((row + 1)  * height)) {
                     return std::tuple<int, int>{row, col}; 
                 }
             }
@@ -53,6 +56,9 @@ std::tuple<int, int> ChessBoard::mouse_position_to_square(SDL2pp::Point mousePos
 void ChessBoard::create_spots() {
     std::list<Spot> spots;
     SDL2pp::Color color;
+    int width = RES_WIDTH / 8;
+    int height = RES_HEIGHT / 8;
+
     for (int fila = 0; fila < 8; fila++) {
         for (int col = 0; col < 8; col++) {
             if ((fila + col) % 2 == 0) {
@@ -64,7 +70,7 @@ void ChessBoard::create_spots() {
                 color.SetBlue(255);
                 color.SetGreen(255);
             }
-            Spot spot(renderer, SDL2pp::Rect(col * 100, fila * 100, 100 , 100), std::move(color));
+            Spot spot(renderer, SDL2pp::Rect(col * width, fila * height, width , height), std::move(color));
             spots.push_back(std::move(spot));
         }
     }
@@ -78,15 +84,16 @@ void ChessBoard::create_spots() {
 void ChessBoard::render_from_vector(std::vector<char> board) {
     pieces.clear();
     spots_painted.clear();
-    int size_spot = 100;
+    int width = RES_WIDTH / 8;
+    int height = RES_HEIGHT / 8;
     int ptr = 0;
     while (ptr < board.size())
     {        
         char type = board[ptr];
         // Piezas
         if (type == 'p'){
-            int x = (board[ptr+1]) * size_spot;
-            int y = (board[ptr+2]) * size_spot;
+            int x = (board[ptr+1]) * height;
+            int y = (board[ptr+2]) * width;
             char name = board[ptr+3];
             int probability_fraction_den = board[ptr+4];
             int probability_fraction_num = board[ptr+5];
@@ -97,8 +104,8 @@ void ChessBoard::render_from_vector(std::vector<char> board) {
         }
         // Resaltados
         else if (type == 'h'){
-            int x = (board[ptr+1]) * size_spot;
-            int y = (board[ptr+2]) * size_spot;
+            int x = (board[ptr+2]) * width;
+            int y = (board[ptr+1]) * height;
             char highlight_type = board[ptr+3];
             SDL2pp::Color color;
             std::cout << "type: " << type << std::endl;
@@ -115,26 +122,14 @@ void ChessBoard::render_from_vector(std::vector<char> board) {
             } else if (highlight_type == 'g') {// Highlight por ser pieza marcada para hacer mer(g)e
                 color = SDL2pp::Color(153, 0, 255);
             }
-            
+            std::cout << "x: " << x + width / 4 << std::endl;
+            std::cout << "y: " << y + height / 4 << std::endl;
             spots_painted.emplace_back(renderer,
-                                        SDL2pp::Rect(y + size_spot / 4, x + size_spot / 4, size_spot/2 , size_spot/2), 
+                                        SDL2pp::Rect(x + width / 4, y + height / 4,  width/2 , height/2), 
                                         color);
             ptr += 4;
         }
     }
-    
-    // for (int i = 0; i < board.size(); i += 5) {
-    //     if (board[i] != 0) {
-    //         int x = (board[i+2]) * size_spot;
-    //         int y = (board[i+3]) * size_spot;
-    //         int probability_fraction = board[i+1];
-    //         pieces.emplace_back(renderer, x, y, map_pieces.at(board[i]), probability_fraction);
-    //     }
-    //     if (board[i+4] == 1) {
-    //         spots_painted.emplace_back(renderer,SDL2pp::Rect(((board[i+3]) * size_spot) + size_spot / 4, (board[i+2] * size_spot) + size_spot / 4, size_spot/2 , size_spot/2), SDL2pp::Color(30,80,100));
-    //     }
-        
-    // }
     render();
 }
 

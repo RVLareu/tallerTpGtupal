@@ -5,6 +5,8 @@
 // Carga archivo de config
 YAML::Node config = YAML::LoadFile("/etc/quantum-chess/config.yaml");
 std::string ASSETS_PATH = config["ASSETS_PATH"].as<std::string>();
+int RES_HEIGHT = config["RES_HEIGHT"].as<int>();
+int RES_WIDTH = config["RES_WIDTH"].as<int>();
 
 int main(int argc, char** argv){
 

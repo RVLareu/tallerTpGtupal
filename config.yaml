@@ -1,1 +1,3 @@
 ASSETS_PATH: /var/quantum-chess/
+RES_HEIGHT: 800
+RES_WIDTH: 800

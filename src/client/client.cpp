@@ -18,9 +18,11 @@
 #include "menu.h"
 #include "endScreen.h"
 extern std::string ASSETS_PATH;
+extern int RES_HEIGHT;
+extern int RES_WIDTH;
 
 Client::Client(char* host, char* port) : sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO),
-                    window("Chess", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 800, SDL_WINDOW_RESIZABLE),
+                    window("Chess", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, RES_WIDTH, RES_HEIGHT, false),
                     renderer(this->window, -1, SDL_RENDERER_ACCELERATED),
                     board(std::ref(this->renderer)),
                     winner('b'),
