@@ -136,10 +136,6 @@ bool Piece::exists() {
     std::mt19937 rng(dev());
     std::uniform_int_distribution<std::mt19937::result_type> dist(1,100);
     int random = dist(rng);
-    // std::cout << "EL NUMERO RANDOM ES : " << random << std::endl;
-    // std::cout << "LA PROB DE LA PIEZA ES : " << ((float)this->probability_fraction_num / (float)this->probability_fraction_den) * 100 << std::endl;
-    // std::cout << "NUMERADOR : " << this->probability_fraction_num << std::endl;
-    // std::cout << "DENOMINADOR : " << this->probability_fraction_den << std::endl;
     if (random <= ((float)this->probability_fraction_num / (float)this->probability_fraction_den) * 100){
         return true;
     }

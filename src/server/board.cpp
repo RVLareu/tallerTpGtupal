@@ -31,7 +31,8 @@ int Board::sign(int n) {
 Board::Board(): selected_piece_position(-1,-1), 
                 marked_for_split_position(-1,-1), 
                 first_split_position(-1,-1), 
-                second_split_position(-1,-1){
+                second_split_position(-1,-1),
+                dead_king(false){
     create_board();
 }
 
@@ -94,18 +95,7 @@ void Board::create_board() {
 
     board[7][3] = new King(0, float(1), float(1));
 
-    this->split_piece(1, 1, 2, 2, 2, 3);
-    this->split_piece(2, 2, 3, 2, 3, 3);
-    this->split_piece(3, 2, 4, 4, 5, 5);
-    this->split_piece(4, 4, 4, 5, 4, 6);
-    this->split_piece(7, 4, 3, 1, 4, 1);
-
 }
-
-// bool Board::in_bounds(int col, int row) {
-//     if (row > 7 || col > 7 || row < 0 || col < 0) return false;
-//     return true;
-// }
 
 bool Board::is_piece_white(int row, int col) {
     return board[row][col]->is_white();
@@ -178,12 +168,58 @@ int Board::merge_pieces(int dst_row, int dst_col) {
 
 int Board::move_piece(int start_row, int start_col, int end_row, int end_col) {    
     std::vector<std::tuple<int, int>> piece_poss_moves = get_piece_possible_movements(start_row, start_col);
-       
+    
+    // Se busca que el casillero destino esté entre los casilleros de movimiento posibles
     for (auto move : piece_poss_moves) {        
         if (std::get<0>(move) == end_row and std::get<1>(move) == end_col) {
             Piece * piece = board.at(start_row).at(start_col);
+            // CASO EN EL QUE HAY UNA PIEZA EN EL DESTINO
+            if (!this->square_is_empty(end_row,end_col)){
+                Piece * destination_piece = this->board.at(end_row).at(end_col);
+                // PIEZA PROPIA (MISMO COLOR):
+                if (destination_piece->is_white() == piece->is_white()){
+                    // LA PIEZA ESTA EN SUPERPOSICION
+                    if ((destination_piece->probability_fraction_den != 1)
+                        && 
+                        // Y NO ES UNA INSTANCIA DE LA PIEZA QUE SE MUEVE
+                        (destination_piece->get_piece_instances() != piece->get_piece_instances())
+                    ){
+                        // Si la pieza en el destino existe, no se puede realizar el movimiento.
+                        if (destination_piece->exists()){
+                            destination_piece->parent_im_here();
+                            return 0;
+                        } else {                            
+                            destination_piece->parent_kill_me();
+                        }
+                    } else {
+                        return 0;
+                    }
+                } 
+                // Es una pieza enemiga
+                else {
+                    // Enemiga en superposicion
+                    if (destination_piece->probability_fraction_den != 1){
+                        if (destination_piece->exists()){
+                            std::vector<Piece*> dead_childs = destination_piece->parent_im_here();
+                            this->remove_pieces(dead_childs);
+                            // SE REVISA SI LA PIEZA QUE EXISTE Y VA A MORIR ES EL REY
+                            if (destination_piece->name == "K" || destination_piece->name == "k"){
+                               this->dead_king = true;
+                            }                    
+                        } else {
+                            destination_piece->parent_kill_me();
+                        }
+                    }
+                    //TODO: VER SI HAY QUE HACER QUER SE MIDA TAMBIEN LA PIEZA PROPIA.
+                } 
+                // Se destruye la pieza que estaba en ese lugar
+                delete board[end_row][end_col];                
+            }
             board[start_row].erase(start_col);
             board[end_row][end_col] = piece;
+            this->unselect_piece();
+            this->unmark_for_split();
+            this->selected_pieces_for_merge.clear();
             return 1;
         }    
     }

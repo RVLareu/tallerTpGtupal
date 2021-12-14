@@ -97,6 +97,8 @@ class Board {
         // Devuelve los casilleros en los que con las piezas seleccionadas actualmente 
         // para hacer un merge se puede realizar el merge.
         std::vector<tuple<int, int>> get_possible_merge_positions();
+
+        bool dead_king;
 };
 
 #endif

@@ -12,7 +12,7 @@ Game::Game(BlockingQueue& blocking_queue, std::list<Client *>& clients) : whites
 
 void Game::process_position(int row, int col, char type) {
     // MERGE
-    if ((this->board.selected_pieces_for_merge.size() >= 2) and type == 'c') {
+    if ((this->board.selected_pieces_for_merge.size() == 2) and type == 'c') {
         std::cout << "Attemp to merge"<< std::endl;
         if (this->board.merge_pieces(row, col)) {
             change_turn();
@@ -30,7 +30,7 @@ void Game::process_position(int row, int col, char type) {
 
         // El lugar seleccionado está vacio
         if (this->board.square_is_empty(row, col)) {
-            // Había una pieza marcada para hacer split => se seleccionan los casilleros para hace el split.
+            // Había una pieza marcada para hacer split => se seleccionan los casilleros para hacer el split.
             std::tuple<int, int> marked_for_split_position = this->board.get_marked_for_split_position();
             std::tuple<int, int> null_tuple = std::make_tuple(-1, -1);
             if (marked_for_split_position != null_tuple){ 
@@ -61,7 +61,6 @@ void Game::process_position(int row, int col, char type) {
             } else {
                 // Muevo y deselecciono
                 if (this->board.move_piece(std::get<0>(position_of_selected_piece), std::get<1>(position_of_selected_piece), row, col)) {
-                    this->board.unselect_piece();
                     this->change_turn();            
                 } 
             }
@@ -69,36 +68,35 @@ void Game::process_position(int row, int col, char type) {
             // El lugar seleccionado no está vacio
 
             // hay una pieza del mismo color que el del turno
-            if ((this->board.is_piece_white(row, col) and is_whites_turn()) || (!this->board.is_piece_white(row, col) and !is_whites_turn())) {
+            if ((this->board.is_piece_white(row, col) and is_whites_turn()) 
+                || 
+                (!this->board.is_piece_white(row, col) and !is_whites_turn())) {
                 // Es la misma pieza -> se quiere hacer un split
                 if ( row == std::get<0>(position_of_selected_piece) && col == std::get<1>(position_of_selected_piece)){
                     std::cout << "MARK FOR SPLIT" << std::endl;
                     this->board.mark_for_split(row, col);
                     std::cout << std::get<0>(this->board.get_marked_for_split_position()) << " " << std::get<1>(this->board.get_marked_for_split_position()) << std::endl;
+                } else{
+                    // Es otra pieza propia
+                    // Intenta moverse (por si la pieza propia esta en superposicion)
+                    if (this->board.move_piece(std::get<0>(position_of_selected_piece), 
+                                            std::get<1>(position_of_selected_piece), 
+                                            row, 
+                                            col)){
+                        this->change_turn();
+                        
+                    } else{ // Si no, se cambia la pieza seleccionada
+                        this->board.select_piece(row, col);
+                    }
+                    
                 }
-                // Es otra pieza propia
-                this->board.unselect_piece();
-                this->board.select_piece(row, col);                
                 return;
             //color opuesto al turno
-            } else if ((this->board.is_piece_white(row, col) and !is_whites_turn()) || (!this->board.is_piece_white(row, col) and is_whites_turn())) {
-                Piece * enemy_piece = this->board.board[row][col];
-                std::string enemy_type = enemy_piece->name;
-                if (enemy_piece->exists()){
-                    std::vector<Piece*> dead_childs = enemy_piece->parent_im_here();
-                    this->board.remove_pieces(dead_childs);
-                    std::cout << "EXISTE LA PIEZA" << std::endl;
-                    //Muere el rey
-                    if (enemy_type == "K" || enemy_type == "k"){
-                        this->is_running = false;
-                    }
-                } else{
-                    enemy_piece->parent_kill_me();
-                    delete enemy_piece;
-                }
+            } else if ((this->board.is_piece_white(row, col) and !is_whites_turn()) 
+                        || 
+                       (!this->board.is_piece_white(row, col) and is_whites_turn())) {
                 if (this->board.move_piece(std::get<0>(position_of_selected_piece), std::get<1>(position_of_selected_piece), row, col)) {
-                    this->board.unselect_piece();   
-                    if (this->is_running){
+                    if (!this->board.dead_king){
                         change_turn();
                     }             
                 }
@@ -107,12 +105,15 @@ void Game::process_position(int row, int col, char type) {
     /*
         No hay pieza seleccionada
     */
-    } else {        
+    } else {   
         if (this->board.square_is_empty(row, col)) {
-            // nada
+            this->board.unmark_for_split();
+            this->board.unselect_piece();
+            this->board.selected_pieces_for_merge.clear();
         } else {
             //selecciono la pieza
-            if ((this->board.is_piece_white(row, col) and is_whites_turn()) || (!this->board.is_piece_white(row, col) and !is_whites_turn())) {
+            if ((this->board.is_piece_white(row, col) and is_whites_turn()) 
+                || (!this->board.is_piece_white(row, col) and !is_whites_turn())) {
                 if (type == 'm') {
                     this->board.unselect_piece();
                     this->board.select_piece_for_merge(row, col);
@@ -150,7 +151,7 @@ void Game::process_events(BlockingQueue& blocking_queue) {
         // Se envia el estado actualizado a los clientes
         for (auto &client : this->clients){
             // Ya finalizó el juego
-            if (!this->is_running){
+            if (this->board.dead_king){
                 client->send_finished_game(this->is_whites_turn());
                 running = false;
             } else{
