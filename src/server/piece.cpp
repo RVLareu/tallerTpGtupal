@@ -104,13 +104,14 @@ void Piece::receive_probability(int probability_den, int probability_num) {
 }
 
 std::vector<Piece*>  Piece::get_piece_instances() {
+    this->leafs.clear();
     this->get_piece_leafs(this->get_piece_root());
     return this->leafs;
 }
 
 void Piece::get_piece_leafs(Piece* piece) {
     if(!piece->has_childs()) {
-        leafs.push_back(piece);
+        this->leafs.push_back(piece);
     } if (piece->right_child != NULL) {
         get_piece_leafs(piece->right_child);
     } if (piece->left_child != NULL) {

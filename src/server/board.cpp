@@ -210,7 +210,7 @@ vector<tuple<int, int>> Board::filter_possible_movements(std::vector<std::tuple<
                 //El casillero contiene una pieza enemiga 
                 if ((this->board[dest_row][dest_col]->is_white() != piece->is_white())
                     // o una pieza propia en superposición 
-                    // que no es la pieza actualmente seleccionada
+                    // que no es una instancia de la pieza actualmente seleccionada
                     || ((this->board[dest_row][dest_col]->probability_fraction_den != 1)
                     && (piece->get_piece_instances() != this->board[dest_row][dest_col]->get_piece_instances()))
                 ){
