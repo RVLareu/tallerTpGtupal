@@ -500,9 +500,13 @@ std::vector<char> Board::get_vector_board() {
 }
 
 void Board::mark_for_split(int row, int col){
-    this->marked_for_split_position = std::make_tuple(row, col);
-    this->first_split_position = std::make_tuple(-1, -1);
-    this->first_split_position = std::make_tuple(-1, -1);
+    // LOS PEONES NO PUEDEN HACER SPLIT
+    if (!(this->board.at(row).at(col)->name == "p")
+        && !(this->board.at(row).at(col)->name == "P")){
+        this->marked_for_split_position = std::make_tuple(row, col);
+        this->first_split_position = std::make_tuple(-1, -1);
+        this->first_split_position = std::make_tuple(-1, -1);
+    }
 }
 
 void Board::unmark_for_split(){
