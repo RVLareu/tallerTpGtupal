@@ -1,6 +1,10 @@
 
 #include "client.h"
+#include "yaml-cpp/yaml.h"
 
+// Carga archivo de config
+YAML::Node config = YAML::LoadFile("/etc/quantum-chess/config.yaml");
+std::string ASSETS_PATH = config["ASSETS_PATH"].as<std::string>();
 
 int main(int argc, char** argv){
 

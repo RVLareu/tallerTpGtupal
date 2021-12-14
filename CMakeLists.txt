@@ -15,11 +15,14 @@ SET(SDL2PP_WITH_IMAGE YES)
 SET(SDL2PP_WITH_TTF YES)
 add_subdirectory(libs/libSDL2pp)
 
+add_subdirectory(libs/yamlcpp)
+
 # Agrego la carpeta con los headers autogenerados a los includes
 message("Agregando '${PROJECT_SOURCE_DIR}/libs' como directorio de includes")
 include_directories(${PROJECT_SOURCE_DIR}/libs)
 include_directories(${SDL2PP_INCLUDE_DIRS})
 
+include_directories(${YAML_CPP_INCLUDE_DIR})
 
 add_executable (client
   src/client/client.cpp
@@ -69,6 +72,7 @@ add_executable (server
 )
 
 target_link_libraries(client ${SDL2PP_LIBRARIES})
+target_link_libraries(client yaml-cpp)
 
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})

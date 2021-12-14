@@ -2,27 +2,26 @@
 #include "renderpiece.h"
 #include "spot.h"
 #include <stdexcept>
-
-
+extern std::string ASSETS_PATH;
 
 ChessBoard::ChessBoard(SDL2pp::Renderer& renderer) : renderer(renderer) {
-    map_pieces['e'] = "assets/Empty.png";
+    map_pieces['e'] = ASSETS_PATH + "assets/Empty.png";
 
     // Black pieces
-    map_pieces['p'] = "assets/PawnB.png";
-    map_pieces['r'] = "assets/RookB.png";
-    map_pieces['b'] = "assets/BishopB.png";
-    map_pieces['k'] = "assets/KingB.png";
-    map_pieces['q'] = "assets/QueenB.png";
-    map_pieces['n'] = "assets/KnightB.png";
+    map_pieces['p'] = ASSETS_PATH + "assets/PawnB.png";
+    map_pieces['r'] = ASSETS_PATH + "assets/RookB.png";
+    map_pieces['b'] = ASSETS_PATH + "assets/BishopB.png";
+    map_pieces['k'] = ASSETS_PATH + "assets/KingB.png";
+    map_pieces['q'] = ASSETS_PATH + "assets/QueenB.png";
+    map_pieces['n'] = ASSETS_PATH + "assets/KnightB.png";
 
     // white pieces
-    map_pieces['P'] = "assets/PawnW.png";
-    map_pieces['R'] = "assets/RookW.png";
-    map_pieces['B'] = "assets/BishopW.png";
-    map_pieces['K'] = "assets/KingW.png";
-    map_pieces['Q'] = "assets/QueenW.png";
-    map_pieces['N'] = "assets/KnightW.png";
+    map_pieces['P'] = ASSETS_PATH + "assets/PawnW.png";
+    map_pieces['R'] = ASSETS_PATH + "assets/RookW.png";
+    map_pieces['B'] = ASSETS_PATH + "assets/BishopW.png";
+    map_pieces['K'] = ASSETS_PATH + "assets/KingW.png";
+    map_pieces['Q'] = ASSETS_PATH + "assets/QueenW.png";
+    map_pieces['N'] = ASSETS_PATH + "assets/KnightW.png";
 
 }
 

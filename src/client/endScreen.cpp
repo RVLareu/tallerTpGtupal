@@ -12,10 +12,11 @@
 
 #include "endScreen.h"
 
+extern std::string ASSETS_PATH;
 
 EndScreen::EndScreen(SDL2pp::Renderer& renderer, SDL2pp::Window& window, char winner, std::string nickname) : renderer(renderer), window(window), nickname(nickname) {
     SDL2pp::SDLTTF ttf;
-    SDL2pp::Font font("assets/SIXTY.TTF", 50);
+    SDL2pp::Font font(ASSETS_PATH + "assets/SIXTY.TTF", 50);
 
     textures.emplace_back(renderer,
                      font.RenderText_Solid("END OF GAME", SDL_Color{255, 255, 255, 255})
@@ -52,7 +53,7 @@ void EndScreen::render() {
 
 
 void EndScreen::play_background_music() {
-    SDL2pp::Wav wav("assets/menu_song.wav");
+    SDL2pp::Wav wav(ASSETS_PATH + "assets/menu_song.wav");
     uint8_t* wav_pos = wav.GetBuffer();
     SDL2pp::AudioDevice dev(SDL2pp::NullOpt, 0, wav.GetSpec(), [&wav, &wav_pos](Uint8* stream, int len) {
                     // Fill provided buffer with wave contents
@@ -91,7 +92,7 @@ int EndScreen::show_end_screen() {
     
     */
    //////////////////
-    SDL2pp::Wav wav("assets/end_game.wav");
+    SDL2pp::Wav wav(ASSETS_PATH + "assets/end_game.wav");
         uint8_t* wav_pos = wav.GetBuffer();
         SDL2pp::AudioDevice dev(SDL2pp::NullOpt, 0, wav.GetSpec(), [&wav, &wav_pos](Uint8* stream, int len) {
                     // Fill provided buffer with wave contents
@@ -118,7 +119,7 @@ int EndScreen::show_end_screen() {
 
 
     /////////////////////
-    SDL2pp::Wav w("assets/play_game_sound.wav");
+    SDL2pp::Wav w(ASSETS_PATH + "assets/play_game_sound.wav");
     /////////////////////
 
     while (running) {

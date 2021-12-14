@@ -17,7 +17,7 @@
 #include "renderpiece.h"
 #include "menu.h"
 #include "endScreen.h"
-
+extern std::string ASSETS_PATH;
 
 Client::Client(char* host, char* port) : sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO),
                     window("Chess", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 800, SDL_WINDOW_RESIZABLE),
@@ -93,7 +93,7 @@ void Client::in_game_loop() {
         In Game Music
     */
     
-    SDL2pp::Wav wav("assets/in_game_music.wav");
+    SDL2pp::Wav wav(ASSETS_PATH + "assets/in_game_music.wav");
         uint8_t* wav_pos = wav.GetBuffer();
         SDL2pp::AudioDevice dev(SDL2pp::NullOpt, 0, wav.GetSpec(), [&wav, &wav_pos](Uint8* stream, int len) {
                     // Fill provided buffer with wave contents
