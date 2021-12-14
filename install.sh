@@ -1,6 +1,6 @@
 # Bin
-sudo cp client /usr/bin/quantum-chess-client
-sudo cp server /usr/bin/quantum-chess-server
+sudo cp ./build/client /usr/bin/quantum-chess-client
+sudo cp ./build/server /usr/bin/quantum-chess-server
 
 # Config
 sudo mkdir /etc/quantum-chess
