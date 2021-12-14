@@ -23,21 +23,19 @@ class ChessBoard {
         
         SDL2pp::Point clickOffset;
         
-        void drawCircle(SDL2pp::Renderer& renderer, int radius, int centreX, int centreY);
         
     public:
         ChessBoard(SDL2pp::Renderer& renderer);
         
+        // crea los casillers
         void create_spots();
-        
-        bool move_piece_if_selected(int pos_x, int pos_y);
-        
-        void select_piece(SDL2pp::Point mousePos);
         
         void render();
         
+        // renderiza a partir de un vector con estado del tablero
         void render_from_vector(std::vector<char> board);
         
+        // traduce una posicion del mouse a una posicion en el tablero
         std::tuple<int, int> mouse_position_to_square(SDL2pp::Point mousePos);
 };
 

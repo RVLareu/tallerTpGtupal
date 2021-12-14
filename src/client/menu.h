@@ -9,12 +9,15 @@
 class Menu {
     private:
         SDL2pp::Renderer& renderer;
+        
         std::vector<SDL2pp::Texture> textures;
+        
         SDL2pp::Window& window;
+        
         void render();
-        std::vector<SDL2pp::Texture> code_text_box;
+        
         std::vector<SDL2pp::Texture> nickname_text_box;
-        std::string code;
+        
         std::string nickname;
 
     public:

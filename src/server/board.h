@@ -69,6 +69,7 @@ class Board {
 
         std::vector<char> get_vector_board();
         
+        // splitea una pieza
         int split_piece(int piece_row,
                 int piece_col,
                 int first_splited_piece_row,
@@ -83,7 +84,7 @@ class Board {
 
         std::vector<std::tuple<int, int>> get_piece_instances_positions(int row, int col);  
         
-
+        // remueve del tablero las piezas pasados por parámetro
         void remove_pieces(std::vector<Piece*>  pieces);
 
         // Intenta realizar un merge en la posicion indicada con las piezas marcadas para mergear
@@ -95,7 +96,8 @@ class Board {
         // Devuelve los casilleros en los que con las piezas seleccionadas actualmente 
         // para hacer un merge se puede realizar el merge.
         std::vector<tuple<int, int>> get_possible_merge_positions();
-
+        
+        // indica si algun rey con probabilidad 1 fue capturado
         bool dead_king;
 };
 

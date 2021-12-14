@@ -26,12 +26,15 @@ class Game {
 
         Game(BlockingQueue& blocking_queue, std::list<Client *>& clients);
 
+        // recibe posicion en tablero del click del cliente y
+        // el tipo de click hecho, actualiza estado de ser necesario
         void process_position(int row, int col, char type);
 
         bool is_whites_turn();
 
         void change_turn();
-
+        
+        // popea eventos de la cola y los procesa
         void process_events(BlockingQueue& blocking_queue);
 
         std::vector<char> get_board();

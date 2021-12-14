@@ -15,13 +15,19 @@
 class Server {
     private:
         Socket socket;
+        
         Protocol protocol;        
+        
         std::list<Client*> clients;
+        
         Game game;
+        
         BlockingQueue blocking_queue;
 
     public:
         Server(char* host, char* port);
+        
+        // corre el hilo aceptador
         void main_loop();
 };
 
