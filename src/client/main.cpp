@@ -11,7 +11,7 @@ int RES_WIDTH = config["RES_WIDTH"].as<int>();
 int main(int argc, char** argv){
 
     if (argc != 3) {
-        std::cout << "Invalid arguments, must be host port";
+        std::cout << "Invalid arguments, must be host port" << std::endl;
         return 0;
     }
     

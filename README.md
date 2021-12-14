@@ -65,10 +65,14 @@ quantum-chess-server <HOST> <SERVICE>
 quantum-chess-client <HOST> <SERVICE>
 ```  
 
-donde `<HOST>` y `<SERVICE>` son el host y servicio del servidor a ejecutar / conectarse.
+donde `<HOST>` y `<SERVICE>` son el host y servicio del servidor a ejecutar / conectarse.  
 
+### Configuración
+El archivo de configuración es instalado por defecto en /etc/quantum-chess/config.yaml  
+Allí es posible cambiar la resolución del juego, modificando los parámetros `RES_HEIGHT` y `RES_WIDTH`.  
+También es posible cambiar la ruta en al que se buscan los *assets* del juego, si se quiere hacer una instalación personalizada, modificando El parámetro `ASSETS_PATH`.  
 ## Instrucciones del juego:
-Seleccionar piezas con click izquierdo. Al hacer esto, se mostrarán los movimientos posibles en el tablero.   
-Para mover una pieza seleccionada, hacer click izquierdo en el casillero a moverse.
-Si se hace doble click sobre la misma pieza, se marca la pieza para hacer un split, y las próximas dos selecciones serán los casilleros en los que se hará el split.
-Si se hace click derecho en una pieza en superposición, se marcará para hacer un merge, para lo cual se tendrá que hacer otro click derecho con otra pieza que sea instancia de esta misma, y luego seleccionar con click izquierdo un casillero de los posibles para hacer el merge.
+- Seleccionar piezas con click izquierdo. Al hacer esto, se mostrarán los movimientos posibles en el tablero.   
+- Para mover una pieza seleccionada, hacer click izquierdo en el casillero a moverse.
+- Si se hace doble click sobre la misma pieza, se marca la pieza para hacer un split, y las próximas dos selecciones serán los casilleros en los que se hará el split.
+- Si se hace click derecho en una pieza en superposición, se marcará para hacer un merge, para lo cual se tendrá que hacer otro click derecho con otra pieza que sea instancia de esta misma, y luego seleccionar con click izquierdo un casillero de los posibles para hacer el merge.
